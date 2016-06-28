@@ -1,0 +1,87 @@
+﻿<UserControl x:Class="Program.ProgramView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Program"
+             mc:Ignorable="d"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}">
+        <DataGrid Name="ProgramgDataGrid" ItemsSource="{Binding programStringList}" BorderThickness="1,1,0.5,1" BorderBrush="{Binding modeColors.ModeColor_LightGray_Gray}" SelectedIndex="{Binding SelectedIndex}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" 
+            Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" HorizontalScrollBarVisibility="Disabled" CanUserAddRows="True" CanUserDeleteRows="True" AutoGenerateColumns="False" GridLinesVisibility="Horizontal" 
+            HorizontalGridLinesBrush="{Binding DataContext.modeColors.ModeColor_LightGray_Gray, RelativeSource={RelativeSource AncestorType=UserControl}}" HorizontalAlignment="Stretch" CanUserResizeColumns="False" RowHeaderWidth="0" >
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Setter Property="Background" Value="{Binding DataContext.modeColors.ModeColor_WhiteSmoke_MedianDark, RelativeSource={RelativeSource AncestorType=UserControl}}"></Setter>
+                </Style>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Height" Value="24" />
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                    <Setter Property="BorderBrush" Value="{Binding DataContext.modeColors.ModeColor_LightGray_Gray, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                    <Setter Property="Background" Value="{Binding DataContext.modeColors.ModeColor_WhiteSmoke_MedianDark, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Program" Binding="{Binding Content, Mode=OneWay}" Width="*">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}">
+                            <Setter Property="BorderThickness" Value="0,0,0.5,0"/>
+                            <Setter Property="BorderBrush" Value="{Binding DataContext.modeColors.ModeColor_LightGray_Gray, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                            <Setter Property="Height" Value="24" />
+                            <Setter Property="Background" Value="{Binding DataContext.modeColors.ModeColor_White_MedianDark, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Background" Value="{Binding DataContext.modeColors.ModeColor_White_MedianDark, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                            <Setter Property="Foreground" Value="{Binding DataContext.modeColors.ModeColor_Black_WhiteSmoke, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                            <Setter Property="Margin" Value="4" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn Width="60">
+                    <DataGridTemplateColumn.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                            <Setter Property="BorderThickness" Value="0,0,0.5,0" />
+                            <Setter Property="BorderBrush" Value="{Binding DataContext.modeColors.ModeColor_LightGray_Gray, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                        </Style>
+                    </DataGridTemplateColumn.CellStyle>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Background="{Binding DataContext.modeColors.ModeColor_WhiteSmoke_MedianDark, RelativeSource={RelativeSource AncestorType=UserControl}}" Foreground="{Binding DataContext.modeColors.ModeColor_Black_WhiteSmoke, RelativeSource={RelativeSource AncestorType=UserControl}}" BorderThickness="0" Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">Edit</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="60">
+                    <DataGridTemplateColumn.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                            <Setter Property="BorderThickness" Value="0,0,0.5,0" />
+                            <Setter Property="BorderBrush" Value="{Binding DataContext.modeColors.ModeColor_LightGray_Gray, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                        </Style>
+                    </DataGridTemplateColumn.CellStyle>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Background="{Binding DataContext.modeColors.ModeColor_WhiteSmoke_MedianDark, RelativeSource={RelativeSource AncestorType=UserControl}}" Foreground="{Binding DataContext.modeColors.ModeColor_Black_WhiteSmoke, RelativeSource={RelativeSource AncestorType=UserControl}}" BorderThickness="0" Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}} }">Delete</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="60">
+                    <DataGridTemplateColumn.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                            <Setter Property="BorderThickness" Value="0,0,0.5,0" />
+                            <Setter Property="BorderBrush" Value="{Binding DataContext.modeColors.ModeColor_LightGray_Gray, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                        </Style>
+                    </DataGridTemplateColumn.CellStyle>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Background="{Binding DataContext.modeColors.ModeColor_WhiteSmoke_MedianDark, RelativeSource={RelativeSource AncestorType=UserControl}}" Foreground="{Binding DataContext.modeColors.ModeColor_Black_WhiteSmoke, RelativeSource={RelativeSource AncestorType=UserControl}}" BorderThickness="0" Command="{Binding DataContext.ApplyCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}} }">Run</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,232 @@
+﻿<Window x:Class="Util.EditProgramForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Util"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:theme="clr-namespace:Xceed.Wpf.Toolkit.Themes;assembly=Xceed.Wpf.Toolkit"
+             xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             Width="400" Height="300"
+             Title="Program Editor">
+
+    <Window.Resources>
+
+        <Color x:Key="ControlLightColor">Gray</Color>
+        <Color x:Key="ControlMediumColor">#FF7381F9</Color>
+
+        <!--Control-specific resources.-->
+        <Color x:Key="HeaderTopColor">#FFC5CBF9</Color>
+        <Color x:Key="DatagridCurrentCellBorderColor">Black</Color>
+        <Color x:Key="SliderTrackDarkColor">#FFC5CBF9</Color>
+
+        <ControlTemplate x:Key="ComboBoxToggleButton"
+                 TargetType="{x:Type ToggleButton}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="20" />
+                </Grid.ColumnDefinitions>
+                <Border x:Name="Border" Grid.ColumnSpan="2" CornerRadius="0" BorderThickness="0,0,1,0" BorderBrush="{Binding DataContext.modeColors.ModeColor_LightGray_Gray, RelativeSource={RelativeSource AncestorType=Window}}" Background="{Binding DataContext.modeColors.ModeColor_White_MedianDark, RelativeSource={RelativeSource AncestorType=Window}}" />
+                <Border Grid.Column="0" CornerRadius="0" Margin="0" BorderThickness="0" BorderBrush="{Binding DataContext.modeColors.ModeColor_LightGray_Gray, RelativeSource={RelativeSource AncestorType=Window}}" Background="{Binding DataContext.modeColors.ModeColor_White_MedianDark, RelativeSource={RelativeSource AncestorType=Window}}" />
+                <Path x:Name="Arrow" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z" Fill="{Binding DataContext.modeColors.ModeColor_Black_WhiteSmoke, RelativeSource={RelativeSource AncestorType=Window}}">
+                    
+                </Path>
+            </Grid>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="ComboBoxTextBox"
+                 TargetType="{x:Type TextBox}">
+            <Border x:Name="PART_ContentHost" Focusable="False" Background="{TemplateBinding Background}" />
+        </ControlTemplate>
+        
+        <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+            <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
+            <Setter Property="MinWidth" Value="60" />
+            <Setter Property="MinHeight" Value="24" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBox}">
+                        <Grid>
+                            <ToggleButton x:Name="ToggleButton" Template="{StaticResource ComboBoxToggleButton}" Grid.Column="2" Focusable="False" ClickMode="Press" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <ContentPresenter x:Name="ContentSite" IsHitTestVisible="False" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Margin="3,3,3,3" VerticalAlignment="Stretch" HorizontalAlignment="Center">
+                            </ContentPresenter>
+                            <Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="False" Focusable="False" PopupAnimation="Slide">
+                                <Grid x:Name="DropDown" Background="{Binding DataContext.modeColors.ModeColor_Gray_LightGray, RelativeSource={RelativeSource AncestorType=Window}}" 
+                                    SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border x:Name="DropDownBorder"/>
+                                    <ScrollViewer Margin="1" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" HorizontalAlignment="Stretch"/>
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="false">
+                                <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95" />
+                            </Trigger>
+                            <Trigger Property="IsGrouping" Value="true">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
+                            </Trigger>
+                            <Trigger SourceName="Popup" Property="AllowsTransparency" Value="False">
+                                <Setter TargetName="DropDownBorder" Property="CornerRadius" Value="0" />
+                                <Setter TargetName="DropDownBorder" Property="Margin" Value="0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="{x:Type ComboBoxItem}" TargetType="{x:Type ComboBoxItem}">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                        <Border x:Name="Border" Padding="0" SnapsToDevicePixels="true" Background="Transparent" >
+                            <ContentPresenter/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <DataTemplate x:Key="CommandComboBoxTemplate">
+            <ComboBox ItemsSource="{Binding CommandList}" SelectedItem="{Binding Command, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Stretch" BorderBrush="{x:Null}" BorderThickness="0"
+             Background="{Binding DataContext.modeColors.ModeColor_White_MedianDark, RelativeSource={RelativeSource AncestorType=Window}}" 
+             Foreground="{Binding DataContext.modeColors.ModeColor_Black_WhiteSmoke, RelativeSource={RelativeSource AncestorType=Window}}">
+                <ComboBox.ItemContainerStyle>
+                    <Style TargetType="ComboBoxItem">
+                        <Setter Property="Background" Value="{Binding DataContext.modeColors.ModeColor_White_MedianDark, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                        <Setter Property="BorderBrush" Value="{Binding DataContext.modeColors.ModeColor_LightGray_Gray, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                        <Setter Property="BorderThickness" Value="0,1,0,0"/>
+                        <Setter Property="Height" Value="24"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </ComboBox.ItemContainerStyle>
+            </ComboBox>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="DefaultComboTemplate">
+            <Grid Background="{Binding DataContext.modeColors.ModeColor_White_MedianDark, RelativeSource={RelativeSource AncestorType=Window}}"/>
+        </DataTemplate>
+        <DataTemplate x:Key="CamComboTemplate">
+            <ComboBox ItemsSource="{Binding CamList}" SelectedItem="{Binding SelectedOutputCamera, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Stretch" BorderBrush="{x:Null}" BorderThickness="0"
+            Background="{Binding DataContext.modeColors.ModeColor_White_MedianDark, RelativeSource={RelativeSource AncestorType=Window}}" 
+            Foreground="{Binding DataContext.modeColors.ModeColor_Black_WhiteSmoke, RelativeSource={RelativeSource AncestorType=Window}}">
+                <ComboBox.ItemContainerStyle>
+                    <Style TargetType="ComboBoxItem">
+                        <Setter Property="Background" Value="{Binding DataContext.modeColors.ModeColor_White_MedianDark, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                        <Setter Property="BorderBrush" Value="{Binding DataContext.modeColors.ModeColor_LightGray_Gray, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                        <Setter Property="BorderThickness" Value="0,1,0,0"/>
+                        <Setter Property="Height" Value="24"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </ComboBox.ItemContainerStyle>
+            </ComboBox>
+        </DataTemplate>
+        <DataTemplate x:Key="PresetComboTemplate">
+            <ComboBox ItemsSource="{Binding PresetList}" SelectedItem="{Binding SelectedPreset, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Stretch" BorderBrush="{x:Null}" BorderThickness="0"
+             Background="{Binding DataContext.modeColors.ModeColor_White_MedianDark, RelativeSource={RelativeSource AncestorType=Window}}" 
+             Foreground="{Binding DataContext.modeColors.ModeColor_Black_WhiteSmoke, RelativeSource={RelativeSource AncestorType=Window}}">
+                <ComboBox.ItemContainerStyle>
+                    <Style TargetType="ComboBoxItem">
+                        <Setter Property="Background" Value="{Binding DataContext.modeColors.ModeColor_White_MedianDark, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                        <Setter Property="BorderBrush" Value="{Binding DataContext.modeColors.ModeColor_LightGray_Gray, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                        <Setter Property="BorderThickness" Value="0,1,0,0"/>
+                        <Setter Property="Height" Value="24"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </ComboBox.ItemContainerStyle>
+            </ComboBox>
+        </DataTemplate>
+        <DataTemplate x:Key="SpinnerTemplate">
+            <xctk:IntegerUpDown Name="myUpDownControl" Value="{Binding WaitTime, UpdateSourceTrigger=PropertyChanged}" Minimum="0" Maximum="1440" BorderThickness="0"
+                    Background="{Binding DataContext.modeColors.ModeColor_White_MedianDark, RelativeSource={RelativeSource AncestorType=Window}}" 
+                    Foreground="{Binding DataContext.modeColors.ModeColor_Black_WhiteSmoke, RelativeSource={RelativeSource AncestorType=Window}}">
+                <xctk:IntegerUpDown.Style>
+                    <Style TargetType="{x:Type xctk:IntegerUpDown}">
+                        <Style.Resources>
+                            <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.GlyphNormalForegroundKey}"  Color="#FFA0A0A0"/>
+                            <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.ButtonNormalBackgroundKey}"  Color="#7FA0A0A0"/>
+                            <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.ButtonNormalOuterBorderKey}"  Color="Transparent"/>
+                            <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.ControlDisabledBackgroundKey}"  Color="Transparent"/>
+                            <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.ButtonDisabledOuterBorderKey}"  Color="Transparent"/>
+                        </Style.Resources>
+                    </Style>
+                </xctk:IntegerUpDown.Style>
+            </xctk:IntegerUpDown>
+
+        </DataTemplate>
+
+        <DataTemplate x:Key="ComboTemplate">
+            <ContentControl Content="{Binding}">
+                <ContentControl.Style>
+                    <Style TargetType="{x:Type ContentControl}">
+                        <Setter Property="ContentTemplate" Value="{StaticResource DefaultComboTemplate}" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Command}" Value="{x:Static local:Cmd.OUTPUT}">
+                                <Setter Property="ContentTemplate" Value="{StaticResource CamComboTemplate}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Command}" Value="{x:Static local:Cmd.WAIT}">
+                                <Setter Property="ContentTemplate" Value="{StaticResource SpinnerTemplate}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Command}" Value="{x:Static local:Cmd.PRESET}">
+                                <Setter Property="ContentTemplate" Value="{StaticResource PresetComboTemplate}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
+            </ContentControl>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}">
+        <DataGrid x:Name="ProgramDataGrid" ItemsSource="{Binding CommandWrapperList, Mode=TwoWay}" SelectedIndex="{Binding SelectedIndex}" CanUserResizeColumns="False" BorderThickness="1,1,1,1"
+            CanUserAddRows="True" AutoGenerateColumns="False" RowHeight="24" HorizontalAlignment="Stretch" Margin="20,20,20,60" VerticalAlignment="Stretch" RowHeaderWidth="0"
+            Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" BorderBrush="{Binding modeColors.ModeColor_LightGray_Gray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}"
+            HorizontalGridLinesBrush="{Binding modeColors.ModeColor_LightGray_Gray}" GridLinesVisibility="Horizontal">
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    <Setter Property="Height" Value="24" />
+                    <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                    <Setter Property="BorderBrush" Value="{Binding DataContext.modeColors.ModeColor_LightGray_Gray, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                    <Setter Property="Background" Value="{Binding DataContext.modeColors.ModeColor_WhiteSmoke_MedianDark, RelativeSource={RelativeSource AncestorType=Window}}" />
+                </Style>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Setter Property="Background" Value="{Binding DataContext.modeColors.ModeColor_WhiteSmoke_MedianDark, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Command" Width="*" CellTemplate="{StaticResource CommandComboBoxTemplate}" CellEditingTemplate="{StaticResource CommandComboBoxTemplate}">
+                    <DataGridTemplateColumn.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}">
+                            <Setter Property="BorderThickness" Value="0" />
+                        </Style>
+                    </DataGridTemplateColumn.CellStyle>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Parameter" Width="*" CellTemplate="{StaticResource ComboTemplate}" CellEditingTemplate="{StaticResource ComboTemplate}">
+                    <DataGridTemplateColumn.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}">
+                            <Setter Property="BorderThickness" Value="0" />
+                        </Style>
+                    </DataGridTemplateColumn.CellStyle>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Save" Width="80" Command="{Binding SaveCommand}" CommandParameter="{Binding CommandWrapperList}" Background="{Binding modeColors.ModeColor_WhiteSmoke_Gray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Height="25" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="250,0,0,20"></Button>
+        <Button Content="Delete" Command="{Binding DeleteCommand}" CommandParameter="{Binding CommandWrapperList}" Background="{Binding modeColors.ModeColor_WhiteSmoke_Gray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Width="80" Height="25" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,20"></Button>
+        <Button Content="Add" Width="80" Command="{Binding AddCommand}" CommandParameter="{Binding CommandWrapperList}" Background="{Binding modeColors.ModeColor_WhiteSmoke_Gray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Height="25" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,250,20"/>
+    </Grid>
+</Window>

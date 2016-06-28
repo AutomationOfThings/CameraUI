@@ -1,0 +1,1 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Programs><Program><Step><Command>OUTPUT</Command><Parameter>111</Parameter></Step><Step><Command>WAIT</Command><Parameter>20</Parameter></Step><Step><Command>OUTPUT</Command><Parameter>222</Parameter></Step></Program><Program><Step><Command>WAIT</Command><Parameter>10</Parameter></Step></Program></Programs>
