@@ -7,6 +7,12 @@
              mc:Ignorable="d"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.InputBindings>
+        <KeyBinding Key="R" Modifiers="Ctrl" Command="{Binding DataContext.ApplyCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}} }" />
+        <KeyBinding Key="E" Modifiers="Ctrl" Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" />
+        <KeyBinding Key="D" Modifiers="Ctrl" Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}} }" />
+    </UserControl.InputBindings>
+    
     <Grid Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}">
         <DataGrid Name="ProgramgDataGrid" ItemsSource="{Binding programStringList}" BorderThickness="1,1,0.5,1" BorderBrush="{Binding modeColors.ModeColor_LightGray_Gray}" SelectedIndex="{Binding SelectedIndex}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" 
             Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" HorizontalScrollBarVisibility="Disabled" CanUserAddRows="True" CanUserDeleteRows="True" AutoGenerateColumns="False" GridLinesVisibility="Horizontal" 
@@ -14,6 +20,14 @@
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridCell}">
                     <Setter Property="Background" Value="{Binding DataContext.modeColors.ModeColor_WhiteSmoke_MedianDark, RelativeSource={RelativeSource AncestorType=UserControl}}"></Setter>
+                </Style>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Style.Triggers >
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="BorderBrush" Value="#FFF83C89" />
+                            <Setter Property="BorderThickness" Value="0.5" />
+                        </Trigger>
+                    </Style.Triggers>
                 </Style>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Height" Value="24" />

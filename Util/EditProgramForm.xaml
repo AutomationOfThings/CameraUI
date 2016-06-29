@@ -106,7 +106,7 @@
                     <Style TargetType="ComboBoxItem">
                         <Setter Property="Background" Value="{Binding DataContext.modeColors.ModeColor_White_MedianDark, RelativeSource={RelativeSource AncestorType=Window}}"/>
                         <Setter Property="BorderBrush" Value="{Binding DataContext.modeColors.ModeColor_LightGray_Gray, RelativeSource={RelativeSource AncestorType=Window}}"/>
-                        <Setter Property="BorderThickness" Value="0,1,0,0"/>
+                        <Setter Property="BorderThickness" Value="0"/>
                         <Setter Property="Height" Value="24"/>
                         <Setter Property="VerticalContentAlignment" Value="Center"/>
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -190,6 +190,12 @@
             </ContentControl>
         </DataTemplate>
     </Window.Resources>
+
+    <Window.InputBindings>
+        <KeyBinding Key="N" Modifiers="Ctrl" Command="{Binding AddCommand}" CommandParameter="{Binding CommandWrapperList}" />
+        <KeyBinding Key="D" Modifiers="Ctrl" Command="{Binding DeleteCommand}" CommandParameter="{Binding CommandWrapperList}" />
+        <KeyBinding Key="S" Modifiers="Ctrl" Command="{Binding SaveCommand}" CommandParameter="{Binding CommandWrapperList}" />
+    </Window.InputBindings>
 
     <Grid Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}">
         <DataGrid x:Name="ProgramDataGrid" ItemsSource="{Binding CommandWrapperList, Mode=TwoWay}" SelectedIndex="{Binding SelectedIndex}" CanUserResizeColumns="False" BorderThickness="1,1,1,1"
