@@ -633,7 +633,7 @@ namespace Util {
         public const string PRESET_FILE = "../../../Data/Presetting.xml";
         public const string PROGRAM_FILE = "../../../Data/Programs.xml";
         public const char DEF_REQ_SCAN = '1';
-        public const int CAMLIST_AREA_VISIBLE_HEIGHT = 200;
+        public const int CAMLIST_AREA_VISIBLE_HEIGHT = 180;
         public const int CAMLIST_AREA_HIDDEN_HEIGHT = 1;
     }
 
@@ -652,6 +652,8 @@ namespace Util {
     
     public class ChangeModeEvent : PubSubEvent<string> {}
     public class ChangeModeShortCutEvent : PubSubEvent<ModeColors> {}
-    public class CameraDiscoverShortCutEvent : PubSubEvent<string> { }
+    public class CameraDiscoverShortCutEvent : PubSubEvent<string> {}
+
+    public class StatusUpdateEvent: PubSubEvent<string> {}
 
 }

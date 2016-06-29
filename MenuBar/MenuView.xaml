@@ -74,7 +74,7 @@
         <!-- SubmenuItem -->
 
         <ControlTemplate x:Key="{x:Static MenuItem.SubmenuItemTemplateKey}" TargetType="MenuItem">
-            <Border Name="Border" Height="25" Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" >
+            <Border Name="Border" Height="25" Background="{Binding modeColors.ModeColor_WhiteSmoke_Gray}" >
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="40" SharedSizeGroup="Icon"/>
@@ -82,8 +82,8 @@
                         <ColumnDefinition Width="Auto" SharedSizeGroup="Shortcut"/>
                         <ColumnDefinition Width="25"/>
                     </Grid.ColumnDefinitions>
-                    <Border BorderBrush="{Binding modeColors.ModeColor_LightGray_Gray}" BorderThickness="0,0,1,0" Margin="6,0,6,0">
-                        <ContentPresenter Name="Icon"  VerticalAlignment="Center" ContentSource="Icon" Margin="2,2,6,2"/>
+                    <Border BorderBrush="{Binding modeColors.ModeColor_LightGray_Gray}" BorderThickness="0,0,1,0" Margin="6,0,6,0" >
+                        <ContentPresenter Name="Icon"  VerticalAlignment="Center" ContentSource="Icon" Margin="2,2,6,2" />
                     </Border>
                     <Border Name="Check" Width="13" Height="13"  Visibility="Collapsed" Margin="6,0,6,0" Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" BorderThickness="1" BorderBrush="Gray">
                         <Path Name="CheckMark" Width="7" Height="7"  Visibility="Hidden"  SnapsToDevicePixels="False"  Stroke="{StaticResource GlyphBrush}" StrokeThickness="2" Data="M 0 0 L 7 7 M 0 7 L 7 0" />
@@ -104,8 +104,7 @@
                     <Setter TargetName="Icon" Property="Visibility" Value="Hidden"/>
                 </Trigger>
                 <Trigger Property="IsHighlighted" Value="true">
-                    <Setter TargetName="Border" Property="Background"
-              Value="{StaticResource SelectedBackgroundBrush}"/>
+                    <Setter TargetName="Border" Property="Background" Value="{StaticResource SelectedBackgroundBrush}"/>
                 </Trigger>
                 <Trigger Property="IsEnabled" Value="false">
                     <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}"/>

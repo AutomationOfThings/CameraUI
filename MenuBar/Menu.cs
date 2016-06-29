@@ -36,6 +36,7 @@ namespace MenuBar
         public void discover(string input) {
             Debug.WriteLine(input);
             _ea.GetEvent<CameraClearEvent>().Publish(input);
+            _ea.GetEvent<StatusUpdateEvent>().Publish("Discovering...");
         }
 
         public void changeMode(string mode) {

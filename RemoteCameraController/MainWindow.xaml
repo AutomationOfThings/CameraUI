@@ -6,7 +6,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         xmlns:local="clr-namespace:RemoteCameraController"
-        Title="Camera Controller" MinHeight="600" MinWidth="1100"
+        Title="Camera Controller" MinHeight="700" MinWidth="1150"
         Loaded="Window_Loaded" Closing="closeForm" WindowState="Maximized">
 
     <Window.Resources>
@@ -135,7 +135,7 @@
                     <ColumnDefinition Width="0.00001*"/>
                     <ColumnDefinition MaxWidth="10"/>
                 </Grid.ColumnDefinitions>
-                <Border Grid.ColumnSpan="3" CornerRadius="4" Background="#F0F0F0" />
+                <Border Grid.ColumnSpan="3" CornerRadius="4" Background="{Binding modeColors.ModeColor_Gray_Black}" />
                 <RepeatButton Grid.Column="0" Style="{StaticResource ScrollBarLineButton}" Width="10" Command="ScrollBar.LineLeftCommand" Content="M 4 0 L 4 8 L 0 4 Z" />
                 <Track Name="PART_Track" Grid.Column="1" IsDirectionReversed="False">
                     <Track.DecreaseRepeatButton>
@@ -222,7 +222,7 @@
             <GridSplitter Grid.Column="1" Width="5" Background="{Binding modeColors.ModeColor_White_Black}" ResizeDirection="Columns" ResizeBehavior="PreviousAndNext" VerticalAlignment="Stretch"/>
 
             <Grid Grid.Column="2">
-                <Grid Grid.Row="2" >
+                <Grid >
                     <Grid.LayoutTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -255,7 +255,7 @@
                                 </Setter>
                             </Style>
                         </TabControl.Resources>
-                        <TabItem Width="110" >
+                        <TabItem Width="90" >
                             <TabItem.Header>
                                 <AccessText Text="Program (_P)"/>
                             </TabItem.Header>
@@ -273,7 +273,7 @@
                                 </Border>
                             </Grid>
                         </TabItem>
-                        <TabItem Width="110">
+                        <TabItem Width="90">
                             <TabItem.Header>
                                 <AccessText Text="Preset (_S)"/>
                             </TabItem.Header>
@@ -291,7 +291,7 @@
                                 </Border>
                             </Grid>
                         </TabItem>
-                        <TabItem Width="110">
+                        <TabItem Width="90">
                             <TabItem.Header>
                                 <AccessText Text="Output (_O)"/>
                             </TabItem.Header>
@@ -311,9 +311,9 @@
                                 </Border>
                             </Grid>
                         </TabItem>
-                        <TabItem Width="110">
+                        <TabItem Width="90">
                             <TabItem.Header>
-                                <AccessText Text="Configuration (_C)"/>
+                                <AccessText Text="Config (_C)"/>
                             </TabItem.Header>
                             <Grid Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" >
                                 <Grid.LayoutTransform>
@@ -337,7 +337,7 @@
             </Grid>
 
         </Grid>
-        <Grid Name="CamAreaList" Height="195" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="0,0,0,25" Background="{Binding modeColors.ModeColor_White_Black}">
+        <Grid Name="CamAreaList" Height="175" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="0,0,0,25" Background="{Binding modeColors.ModeColor_White_Black}">
             <Button Content="Camera List" Width="80" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" BorderThickness="0" Margin="1,-20,1,0"
                 Click="changeCamListVisibility">
                 <Button.Template>

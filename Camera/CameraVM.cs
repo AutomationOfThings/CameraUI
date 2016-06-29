@@ -31,12 +31,12 @@ namespace Camera {
         protected readonly EventAggregator _ea;
         public MjpegDecoder mjpegDecoder = new MjpegDecoder();
 
-        public CameraVM(CameraInfo cam, ModeColors modeColors ,EventAggregator ea) {
-            this.CamInfo = cam;
-            this._ea = ea;
-            this._ea.GetEvent<CameraSelectEvent>().Subscribe(beSelected);
-            this._ea.GetEvent<CameraOutPutEvent>().Subscribe(beOutput);
-            this.modeColors = modeColors;
+        public CameraVM(CameraInfo cam, ModeColors mode ,EventAggregator ea) {
+            CamInfo = cam;
+            _ea = ea;
+            _ea.GetEvent<CameraSelectEvent>().Subscribe(beSelected);
+            _ea.GetEvent<CameraOutPutEvent>().Subscribe(beOutput);
+            modeColors = mode;
 
             mjpegDecoder = new MjpegDecoder();
             mjpegDecoder.FrameReady += FrameReady;
@@ -97,6 +97,7 @@ namespace Camera {
             //showLogginWindow();
             //if (this.CamInfo.isLoggedIn) {
                 _ea.GetEvent<CameraSelectEvent>().Publish(cam);
+                _ea.GetEvent<StatusUpdateEvent>().Publish("Camera selected as preview");
             //}
         }
 
@@ -105,6 +106,7 @@ namespace Camera {
             //showLogginWindow();
             //if (this.CamInfo.isLoggedIn) {
                 _ea.GetEvent<CameraOutPutEvent>().Publish(cam);
+                _ea.GetEvent<StatusUpdateEvent>().Publish("Camera selected as output");
             //}
         }
 

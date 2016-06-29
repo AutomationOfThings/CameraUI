@@ -281,8 +281,8 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Add New" Command="{Binding AddCommand}" Background="{Binding modeColors.ModeColor_WhiteSmoke_Gray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Height="25" Width="70" Margin="0,0,210,7.5" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
-        <Button Content="Save All" Command="{Binding SaveAllCommand}" Background="{Binding modeColors.ModeColor_WhiteSmoke_Gray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Height="25" Width="70" Margin="0,0,50,7.5" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
-        <Button Content="Delete" Command="{Binding DeleteCommand}" Background="{Binding modeColors.ModeColor_WhiteSmoke_Gray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Height="25" Width="70" Margin="0,0,130,7.5" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
+        <Button Content="Save All" Command="{Binding SaveAllCommand}" Background="{Binding modeColors.ModeColor_WhiteSmoke_Gray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Height="25" Width="70" Margin="0,0,10,7.5" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
+        <Button Content="Delete" Command="{Binding DeleteCommand}" Background="{Binding modeColors.ModeColor_WhiteSmoke_Gray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Height="25" Width="70" Margin="0,0,90,7.5" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
+        <Button Content="Add New" Command="{Binding AddCommand}" Background="{Binding modeColors.ModeColor_WhiteSmoke_Gray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Height="25" Width="70" Margin="0,0,170,7.5" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
     </Grid>
 </UserControl>

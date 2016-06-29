@@ -40,8 +40,7 @@ namespace Output {
             Idle = Visibility.Visible;
             Active = Visibility.Hidden;
             _ea = eventAggregator;
-            _ea.GetEvent<CameraOutPutEvent>()
-                .Subscribe(outPutCamera);
+            _ea.GetEvent<CameraOutPutEvent>().Subscribe(outPutCamera);
         }
 
         public void outPutCamera(CameraInfo cam) {

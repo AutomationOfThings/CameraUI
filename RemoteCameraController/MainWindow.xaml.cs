@@ -120,6 +120,11 @@ namespace RemoteCameraController {
             MenuView view = new MenuView(mVM);
             Menu.Children.Add(view);
 
+            // set up status bar
+            StatusBarVM sVM = new StatusBarVM(modeColors, notificationCenter);
+            StatusBarView sV = new StatusBarView(sVM);
+            StatusBar.Children.Add(sV);
+
             MainArea.Margin = new Thickness(0, 30, 0, Constant.CAMLIST_AREA_VISIBLE_HEIGHT + 20);
             
         }
