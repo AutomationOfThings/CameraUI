@@ -8,10 +8,8 @@ namespace Presetting
     /// </summary>
     public partial class PresettingView : UserControl
     {
-        public PresettingView(PresettingVM model)
-        {
+        public PresettingView() {
             InitializeComponent();
-            this.DataContext = model;
         }
 
     }

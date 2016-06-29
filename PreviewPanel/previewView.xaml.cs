@@ -18,12 +18,11 @@ namespace PreviewPanel
     /// <summary>
     /// Interaction logic for previewView.xaml
     /// </summary>
-    public partial class previewView : UserControl
+    public partial class PreviewView : UserControl
     {
-        public previewView(PreviewPanel model)
-        {
+        public PreviewView() {
             InitializeComponent();
-            this.DataContext = model;
         }
+
     }
 }

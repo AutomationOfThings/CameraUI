@@ -18,9 +18,8 @@ namespace MenuBar {
     /// Interaction logic for MenuView.xaml
     /// </summary>
     public partial class MenuView : UserControl {
-        public MenuView(MenuVM model) {
+        public MenuView() {
             InitializeComponent();
-            this.DataContext = model;
         }
     }
 }

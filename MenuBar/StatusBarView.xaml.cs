@@ -18,9 +18,9 @@ namespace MenuBar {
     /// Interaction logic for StatusBarView.xaml
     /// </summary>
     public partial class StatusBarView : UserControl {
-        public StatusBarView(StatusBarVM model) {
+        public StatusBarView() {
             InitializeComponent();
-            DataContext = model;
         }
+
     }
 }

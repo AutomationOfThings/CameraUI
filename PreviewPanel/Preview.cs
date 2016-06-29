@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System;
 
 namespace PreviewPanel {
-    public class PreviewPanel: BindableBase {
+    public class PreviewVM: BindableBase {
 
         Visibility idle;
         public Visibility Idle {
@@ -77,7 +77,7 @@ namespace PreviewPanel {
         public PTZcmd? Increase { get; set; } = PTZcmd.Increase;
         public PTZcmd? Decrease { get; set; } = PTZcmd.Decrease;
 
-        public PreviewPanel(IEventAggregator eventAggregator) {
+        public PreviewVM(IEventAggregator eventAggregator) {
             this.currentSetting = null;
             this._ea = eventAggregator;
             this._ea.GetEvent<CameraSelectEvent>().Subscribe(acceptCamera);

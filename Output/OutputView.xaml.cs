@@ -18,9 +18,10 @@ namespace Output {
     /// Interaction logic for OutputView.xaml
     /// </summary>
     public partial class OutputView : UserControl {
-        public OutputView(OutputVM model) {
+
+        public OutputView() {
             InitializeComponent();
-            this.DataContext = model;
         }
+
     }
 }
