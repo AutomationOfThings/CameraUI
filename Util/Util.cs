@@ -215,17 +215,11 @@ namespace Util {
             sendRequest(uri);
         }
 
-        public void ChangeZoomHandler(PTZcmd? cmd) {
-            double z = 0;
-            if (cmd == PTZcmd.Increase) {
-                z = 1;
-            } else if (cmd == PTZcmd.Decrease) {
-                z = -1;
-            }
+        public void ChangeZoom(PTZ_MODE mode, double z) {
             ChangeZoom(z);
         }
         public void ChangeZoom(double z) {
-            string uri = prepareZoomUri(PTZ_MODE.Relative, z);
+            string uri = prepareZoomUri(PTZ_MODE.Absolute, z);
             sendRequest(uri);
         }
 
@@ -647,6 +641,8 @@ namespace Util {
         public const char DEF_REQ_SCAN = '1';
         public const int CAMLIST_AREA_VISIBLE_HEIGHT = 180;
         public const int CAMLIST_AREA_HIDDEN_HEIGHT = 1;
+
+        public const int UNDO_BUFFER_SIZE = 180 * 3 * 180 * 3 * 16 * 3;
     }
 
     // Events

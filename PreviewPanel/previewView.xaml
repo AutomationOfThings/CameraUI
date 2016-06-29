@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PreviewPanel"
              mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="500">
+             d:DesignHeight="600" d:DesignWidth="550">
     <UserControl.Resources>
         <!-- A customized slider -->
         <SolidColorBrush x:Key="HorizontalSliderTrackNormalBackground" Color="Gray"/>
@@ -79,16 +79,50 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style TargetType="Button" x:Key="MyButton">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Background" Value="{Binding DataContext.modeColors.ModeColor_WhiteSmoke_MedianDark, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+            <Setter Property="Foreground" Value="{Binding DataContext.modeColors.ModeColor_Black_WhiteSmoke, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="20" Background="{TemplateBinding Background}" BorderThickness="1" BorderBrush="Gray">
+                            <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="True">
+                    <Setter Property="Background" Value="{Binding DataContext.modeColors.ModeColor_SmallGray_LargeGray, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="Transparent"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FFBCE5FE"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
-    <Grid Width="500" Height="500">
+    <Grid Width="550" Height="600">
+        <Button Command="{Binding UndoCommand}" Visibility="{Binding Active}" IsEnabled="{Binding UndoRedoManager.CanUndo}" Width="30" Height="30" Style="{StaticResource MyButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="24,450,496,120">
+            <Image Source="Resources/undo.png" Margin="2,2,4,2"></Image>
+        </Button>
+
+        <Button Command="{Binding RedoCommand}" Visibility="{Binding Active}" IsEnabled="{Binding UndoRedoManager.CanRedo}" Width="30" Height="30" Style="{StaticResource MyButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="24,486,496,84">
+            <Image Source="Resources/redo.png" Margin="4,2,2,2"/>
+        </Button>
+
         <Label x:Name="Notice" Visibility="{Binding Idle}" Content="Select Camera to Preview" HorizontalAlignment="Center" VerticalAlignment="Center" Width="359" FontFamily="Segoe UI Semibold" FontWeight="Bold" FontSize="30" Foreground="#FFCFCCCC" Background="{x:Null}" />
         <Grid Background='Black' Opacity="1" Visibility="{Binding Active}" Width="400" Height="300" Margin="30,0,0,50" HorizontalAlignment="Center" VerticalAlignment="Center"></Grid>
         <Image Source="{Binding CurrentCamera.VideoSource}" Margin="65,74,35,126" />
-        <Button x:Name="zoomOut" Command="{Binding ZoomCommand}" CommandParameter="{Binding Decrease}" Visibility="{Binding Active}" HorizontalAlignment="Left" Opacity="0.7" Margin="425,337,0,0" VerticalAlignment="Top" Width="26" Height="24" Background="White">
+        <Button x:Name="zoomOut" Command="{Binding ZoomCommand}" CommandParameter="{Binding Decrease}" Visibility="{Binding Active}" HorizontalAlignment="Left" Opacity="0.7" Margin="449,387,0,0" VerticalAlignment="Top" Width="26" Height="24" Background="White">
             <Image Source="Resources/minus.png" />
         </Button>
 
-        <Button x:Name="zoomIn" Command="{Binding ZoomCommand}" CommandParameter="{Binding Increase}" Visibility="{Binding Active}" HorizontalAlignment="Left" Opacity="0.7" Margin="425,313,0,0" VerticalAlignment="Top" Width="26" Height="24" Background="White">
+        <Button x:Name="zoomIn" Command="{Binding ZoomCommand}" CommandParameter="{Binding Increase}" Visibility="{Binding Active}" HorizontalAlignment="Left" Opacity="0.7" Margin="449,363,0,0" VerticalAlignment="Top" Width="26" Height="24" Background="White">
             <Image Source="Resources/plus.png" />
         </Button>
         <!--
@@ -106,13 +140,13 @@
         </Button>
         -->
         <Label Content="{Binding CurrentCamera.Zoom}" Visibility="{Binding Active}" Width="20" Height="30" VerticalAlignment="Center" Background="Transparent" Opacity="0.6" Foreground="WhiteSmoke" HorizontalAlignment="Center" Margin="400,287,80,113"></Label>
-        <Label x:Name="pan_min" Content="-180" Foreground="{Binding modeColors.ModeColor_Black_LightGray}" Visibility="{Binding Active}" HorizontalAlignment="Left" Margin="47,372,0,106" VerticalAlignment="Center" FontSize="10" Height="22"/>
-        <Label x:Name="pan_max" Content="180" Foreground="{Binding modeColors.ModeColor_Black_LightGray}" Visibility="{Binding Active}" HorizontalAlignment="Left" Margin="452,372,0,106" VerticalAlignment="Center" FontSize="10" Height="22"/>
-        <Label x:Name="tilt_max" Content="185" Foreground="{Binding modeColors.ModeColor_Black_LightGray}" Visibility="{Binding Active}" HorizontalAlignment="Left" Margin="37,62,0,416" VerticalAlignment="Center" FontSize="10" Height="22"/>
-        <Label x:Name="tilt_min" Content="-5" Foreground="{Binding modeColors.ModeColor_Black_LightGray}" Visibility="{Binding Active}" HorizontalAlignment="Left" Margin="40,362,0,0" VerticalAlignment="Top" FontSize="10" Height="22"/>
-        <Label x:Name="current_pan" Content="0" Foreground="{Binding modeColors.ModeColor_Black_LightGray}" Visibility="{Binding Active}" HorizontalAlignment="Left" Margin="257,372,0,0" VerticalAlignment="Top" FontSize="10" Height="22"/>
-        <Label x:Name="current_tilt" Content="90" Foreground="{Binding modeColors.ModeColor_Black_LightGray}" Visibility="{Binding Active}" HorizontalAlignment="Left" Margin="41,212,0,0" VerticalAlignment="Top" FontSize="10" Height="22"/>
-        <Image Source="Resources/scale.png" Visibility="{Binding Active}" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="57,332,29,83" Height="15" Width="413" />
+        <Label x:Name="pan_min" Content="-180" Foreground="{Binding modeColors.ModeColor_Black_LightGray}" Visibility="{Binding Active}" HorizontalAlignment="Left" Margin="72,425,0,153" VerticalAlignment="Center" FontSize="10" Height="22"/>
+        <Label x:Name="pan_max" Content="180" Foreground="{Binding modeColors.ModeColor_Black_LightGray}" Visibility="{Binding Active}" HorizontalAlignment="Left" Margin="476,426,0,152" VerticalAlignment="Center" FontSize="10" Height="22"/>
+        <Label x:Name="tilt_max" Content="185" Foreground="{Binding modeColors.ModeColor_Black_LightGray}" Visibility="{Binding Active}" HorizontalAlignment="Left" Margin="60,114,0,464" VerticalAlignment="Center" FontSize="10" Height="22"/>
+        <Label x:Name="tilt_min" Content="-5" Foreground="{Binding modeColors.ModeColor_Black_LightGray}" Visibility="{Binding Active}" HorizontalAlignment="Left" Margin="64,413,0,0" VerticalAlignment="Top" FontSize="10" Height="22"/>
+        <Label x:Name="current_pan" Content="0" Foreground="{Binding modeColors.ModeColor_Black_LightGray}" Visibility="{Binding Active}" HorizontalAlignment="Left" Margin="282,425,0,0" VerticalAlignment="Top" FontSize="10" Height="22"/>
+        <Label x:Name="current_tilt" Content="90" Foreground="{Binding modeColors.ModeColor_Black_LightGray}" Visibility="{Binding Active}" HorizontalAlignment="Left" Margin="65,263,0,0" VerticalAlignment="Top" FontSize="10" Height="22"/>
+        <Image Source="Resources/scale.png" Visibility="{Binding Active}" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="58,418,30,167" Height="15" Width="412" />
         <Image Source="Resources/scale.png" Visibility="{Binding Active}" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-90,216,282,266" Height="18" Width="308" RenderTransformOrigin="0.5,0.5" >
             <Image.RenderTransform>
                 <TransformGroup>
@@ -124,9 +158,9 @@
             </Image.RenderTransform>
         </Image>
         <Grid HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="62,0,0,66" Height="12" Width="407">
-            <local:ScaleSlider Position="{Binding CurrentCamera.Pan}" Max="360" Min="0" Visibility="{Binding Active}" HorizontalAlignment="Stretch" Margin="0,-33,0,33"/>
+            <local:ScaleSlider Position="{Binding CurrentCamera.Pan}" Max="360" Min="0" Visibility="{Binding Active}" HorizontalAlignment="Stretch" Margin="24,-79,-24,79"/>
         </Grid>
-        <Grid HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="-115,0,0,270" Height="12" Width="308" RenderTransformOrigin="0.5,0.5">
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="-91,0,0,319" Height="12" Width="308" RenderTransformOrigin="0.5,0.5">
             <Grid.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -135,7 +169,7 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </Grid.RenderTransform>
-            <local:ScaleSlider Position="{Binding CurrentCamera.Tilt, Mode=OneWay}" Max="185" Min="-5" Visibility="{Binding Active}" HorizontalAlignment="Right" RenderTransformOrigin="0.5,0.5" Width="308">
+            <local:ScaleSlider Position="{Binding CurrentCamera.Tilt, Mode=OneWay}" Max="185" Min="-5" Visibility="{Binding Active}" HorizontalAlignment="Right" RenderTransformOrigin="0.5,0.5" Width="308" >
                 <local:ScaleSlider.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleY="-1"/>
@@ -145,10 +179,9 @@
                     </TransformGroup>
                 </local:ScaleSlider.RenderTransform>
             </local:ScaleSlider>
-            <!--<Image Source="Resources/indicator.png" Height="10" Margin="{Binding TiltPosition}" Visibility="{Binding Active}" Stretch="Uniform" HorizontalAlignment="Left" VerticalAlignment="Bottom" /> -->
         </Grid>
-        <Slider Name="PanSlider" Value="{Binding SliderPan, UpdateSourceTrigger=Default}" Style="{StaticResource MyCustomStyleForSlider}" Visibility="{Binding Active}" Height="18" VerticalAlignment="Top" Margin="58,409,35,0" LargeChange="30" IsSnapToTickEnabled="True" Minimum="0" Maximum="355" />
-        <Slider Name="TiltSlider" Value="{Binding SliderTilt, UpdateSourceTrigger=LostFocus}" Style="{StaticResource MyCustomStyleForSlider}" Visibility="{Binding Active}" Height="18" VerticalAlignment="Top" Margin="-143,215,329,0" LargeChange="30" IsSnapToTickEnabled="True" Minimum="-5" Maximum="185" RenderTransformOrigin="0.5,0.5" >
+        <Slider Name="PanSlider" Value="{Binding SliderPan, UpdateSourceTrigger=Default}" Style="{StaticResource MyCustomStyleForSlider}" Visibility="{Binding Active}" Height="18" VerticalAlignment="Top" Margin="86,474,57,0" LargeChange="30" IsSnapToTickEnabled="True" Minimum="0" Maximum="355" />
+        <Slider Name="TiltSlider" Value="{Binding SliderTilt, UpdateSourceTrigger=LostFocus}" Style="{StaticResource MyCustomStyleForSlider}" Visibility="{Binding Active}" Height="18" VerticalAlignment="Top" Margin="-118,267,354,0" LargeChange="30" IsSnapToTickEnabled="True" Minimum="-5" Maximum="185" RenderTransformOrigin="0.5,0.5" >
             <Slider.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -158,9 +191,9 @@
                 </TransformGroup>
             </Slider.RenderTransform>
         </Slider>
-        <Border Width="430" Height="44" Visibility="{Binding Active}" VerticalAlignment="Center" HorizontalAlignment="Center" BorderThickness="0,1,0,0" BorderBrush="LightGray" Margin="39,456,31,0" />
+        <Border Width="455" Height="44" Visibility="{Binding Active}" VerticalAlignment="Center" HorizontalAlignment="Center" BorderThickness="0,1,0,0" BorderBrush="LightGray" Margin="10,531,35,25" />
         <!-- <Button Content="Save as New" Command="{Binding SaveSettingCommand}" CommandParameter="{Binding CurrentCamera}" Visibility="{Binding Active}" HorizontalAlignment="Left" Margin="340,315,0,0" VerticalAlignment="Top" Width="80" Background="WhiteSmoke" Height="26"/> -->
-        <Button Content="Save" Command="{Binding SaveSettingCommand}" CommandParameter="{Binding CurrentCamera}" Background="{Binding modeColors.ModeColor_WhiteSmoke_Gray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Visibility="{Binding Active}" HorizontalAlignment="Center" Margin="385,470,35,4" VerticalAlignment="Center" Width="80" Height="26"/>
+        <Button Content="Save" Command="{Binding SaveSettingCommand}" CommandParameter="{Binding CurrentCamera}" Background="{Binding modeColors.ModeColor_WhiteSmoke_Gray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Visibility="{Binding Active}" HorizontalAlignment="Center" Margin="375,541,45,33" VerticalAlignment="Center" Width="80" Height="26"/>
 
 
 

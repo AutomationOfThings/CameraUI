@@ -25,7 +25,7 @@
                     <Style.Triggers >
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="BorderBrush" Value="#FFF83C89" />
-                            <Setter Property="BorderThickness" Value="0.5,0.5,1,0.5" />
+                            <Setter Property="BorderThickness" Value="0.5" />
                         </Trigger>
                     </Style.Triggers>
                 </Style>
