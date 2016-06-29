@@ -35,7 +35,8 @@ namespace RemoteCameraController {
         public StatusBarVM StatusBarVM { get; set; }
 
         public MainWindowVM () {
-            modeColors = new ModeColors(notificationCenter);
+            //modeColors = new ModeColors(notificationCenter);
+            modeColors = ModeColors.Singleton(notificationCenter);
             loadXML(Constant.PRESET_FILE, Constant.PROGRAM_FILE);
             setupViewModels();
         }
@@ -62,35 +63,28 @@ namespace RemoteCameraController {
             }
 
             // initialize camera list view
-            CamListVM = new CameraListVM(camInfoList, modeColors, notificationCenter);
-            CamListVM.modeColors = modeColors;
+            CamListVM = new CameraListVM(camInfoList);
 
             // initialize preview View
-            PreviewVM = new PreviewVM(notificationCenter);
-            PreviewVM.modeColors = modeColors;
+            PreviewVM = new PreviewVM();
 
             // initialize output view
 
-            OutputVM = new OutputVM(notificationCenter);
-            OutputVM.modeColors = modeColors;
+            OutputVM = new OutputVM();
 
             // set up bottom right area: presetting
-            PresetVM = new PresettingVM(presetList, camInfoList, notificationCenter);
-            PresetVM.modeColors = modeColors;
+            PresetVM = new PresettingVM(presetList, camInfoList);
 
             // set up bottom right area: program
-            ProgramVM = new ProgramVM(programList, camInfoList, presetList, notificationCenter);
-            ProgramVM.modeColors = modeColors;
+            ProgramVM = new ProgramVM(programList, camInfoList, presetList);
 
             // set up menu bar
-            MenuBarVM = new MenuVM(camInfoList, notificationCenter);
-            MenuBarVM.modeColors = modeColors;
+            MenuBarVM = new MenuVM(camInfoList);
 
             // set up status bar
-            StatusBarVM = new StatusBarVM(modeColors, notificationCenter);
+            StatusBarVM = new StatusBarVM();
 
         }
-
 
 
         private void changeModeShortCut(ModeColors modeColors) {

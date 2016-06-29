@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 using Microsoft.Practices.Prism.Mvvm;
+using NotificationCenter;
 
 namespace Output {
     public class OutputVM: BindableBase {
@@ -27,7 +28,7 @@ namespace Output {
             set { SetProperty(ref active, value); }
         }
 
-        protected readonly IEventAggregator _ea;
+        protected readonly EventAggregator _ea;
 
         private CameraInfo outputCamera;
         public CameraInfo OutputCamera {
@@ -35,12 +36,13 @@ namespace Output {
             set { SetProperty(ref outputCamera, value); }
         }
 
-        public OutputVM(IEventAggregator eventAggregator) {
-            this.outputCamera = null;
+        public OutputVM() {
+            outputCamera = null;
             Idle = Visibility.Visible;
             Active = Visibility.Hidden;
-            _ea = eventAggregator;
+            _ea = Notification.Instance;
             _ea.GetEvent<CameraOutPutEvent>().Subscribe(outPutCamera);
+            modeColors = ModeColors.Singleton(_ea);
         }
 
         public void outPutCamera(CameraInfo cam) {

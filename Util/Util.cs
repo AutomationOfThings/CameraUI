@@ -440,6 +440,24 @@ namespace Util {
 
         private EventAggregator _ea;
 
+        public ModeColors() {
+            init();
+        }
+
+        public ModeColors(EventAggregator ea) {
+            init();
+            _ea = ea;
+            _ea.GetEvent<ChangeModeEvent>().Subscribe(changeMode);
+        }
+
+        private static readonly ModeColors _instance = new ModeColors();
+
+        public static ModeColors Singleton(EventAggregator ea) {
+            _instance._ea = ea;
+            _instance._ea.GetEvent<ChangeModeEvent>().Subscribe(_instance.changeMode);
+            return _instance;
+        }
+
         // Color Properties. FirstColor refers to light mode, second refers to dark mode
         // Background colors:
         SolidColorBrush modeColor_WhiteSmoke_MedianDark;
@@ -574,12 +592,6 @@ namespace Util {
 
         }
 
-        public ModeColors( EventAggregator ea) {
-            init();
-            this._ea = ea;
-            this._ea.GetEvent<ChangeModeEvent>().Subscribe(changeMode);
-        }
-
         private void changeMode(string mode) {
             if (mode == "Dark Mode") {
                 ModeColor_WhiteSmoke_MedianDark = new SolidColorBrush(Color.FromRgb(55,55,55));
@@ -638,7 +650,7 @@ namespace Util {
     }
 
     // Events
-    public class CameraClearEvent : PubSubEvent<string> {};
+    public class CameraDiscoverEvent : PubSubEvent<string> {};
     public class CameraSelectEvent : PubSubEvent<CameraInfo> {}
     public class CameraOutPutEvent : PubSubEvent<CameraInfo> {}
 

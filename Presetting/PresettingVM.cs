@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Media;
+using NotificationCenter;
 
 namespace Presetting {
     /*
@@ -43,9 +44,10 @@ namespace Presetting {
 
         public Color color { get; set; } = Color.FromRgb(60,0,0);
 
-        public PresettingVM(List<PresetParams> presetList, List<CameraInfo> camList, EventAggregator ea) {
-            this._ea = ea;
-            this.camListForDisk = presetList;
+        public PresettingVM(List<PresetParams> presetList, List<CameraInfo> camList) {
+            _ea = Notification.Instance;
+            modeColors = ModeColors.Singleton(_ea);
+            camListForDisk = presetList;
             this.camList = new ObservableCollection<PresetParamsExtend>();
             camIdList = new List<string>();
             foreach (CameraInfo item in camList) { camIdList.Add(item.CameraID); }

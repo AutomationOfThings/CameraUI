@@ -6,6 +6,7 @@ using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using System.Diagnostics;
 using System;
+using NotificationCenter;
 
 namespace PreviewPanel {
     public class PreviewVM: BindableBase {
@@ -22,7 +23,7 @@ namespace PreviewPanel {
             set { SetProperty(ref active, value); }
         }
 
-        protected readonly IEventAggregator _ea;
+        protected readonly EventAggregator _ea;
 
         public ModeColors modeColors { get; set; }
 
@@ -37,20 +38,6 @@ namespace PreviewPanel {
             get { return currentSetting; }
             set { SetProperty(ref currentSetting, value); }
         }
-
-        /*
-        Thickness panPosition;
-        public Thickness PanPosition {
-            get { return panPosition; }
-            set { SetProperty(ref panPosition, value); }
-        }
-
-        Thickness tiltPosition;
-        public Thickness TiltPosition {
-            get { return tiltPosition; }
-            set { SetProperty(ref tiltPosition, value); }
-        }
-        */
 
         int sliderPan;
         public int SliderPan {
@@ -77,17 +64,17 @@ namespace PreviewPanel {
         public PTZcmd? Increase { get; set; } = PTZcmd.Increase;
         public PTZcmd? Decrease { get; set; } = PTZcmd.Decrease;
 
-        public PreviewVM(IEventAggregator eventAggregator) {
-            this.currentSetting = null;
-            this._ea = eventAggregator;
-            this._ea.GetEvent<CameraSelectEvent>().Subscribe(acceptCamera);
-            this._ea.GetEvent<SetPresetEvent>().Subscribe(acceptPreset);
-            this.Idle = Visibility.Visible;
-            this.Active = Visibility.Hidden;
+        public PreviewVM() {
+            currentSetting = null;
+            _ea = Notification.Instance;
+            modeColors = ModeColors.Singleton(_ea);
+            _ea.GetEvent<CameraSelectEvent>().Subscribe(acceptCamera);
+            _ea.GetEvent<SetPresetEvent>().Subscribe(acceptPreset);
+            Idle = Visibility.Visible;
+            Active = Visibility.Hidden;
             SliderPan = 0;
             SliderTilt = 0;
-            //this.PanPosition = new Thickness(0,0,0,0);
-            //this.TiltPosition = new Thickness(0,0,0,0);
+
         }
 
         public void acceptCamera(CameraInfo cam) {

@@ -104,6 +104,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NotificationCenter\NotificationCenter.csproj">
+      <Project>{f0680c62-98ec-4adc-9cbf-952efa99cb12}</Project>
+      <Name>NotificationCenter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Util\Util.csproj">
       <Project>{6106d973-5a80-4cb6-a338-73edbc3ce696}</Project>
       <Name>Util</Name>

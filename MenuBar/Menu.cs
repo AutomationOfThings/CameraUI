@@ -6,6 +6,7 @@ using Util;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Practices.Prism.Mvvm;
+using NotificationCenter;
 
 namespace MenuBar
 {
@@ -24,18 +25,17 @@ namespace MenuBar
         protected readonly EventAggregator _ea;
         List<CameraInfo> camList;
 
-        public MenuVM(List<CameraInfo> camList, EventAggregator ea) {
-            this._ea = ea;
+        public MenuVM(List<CameraInfo> camList) {
+            _ea = Notification.Instance;
             this.camList = camList;
-            this.Mode = "Dark Mode";
-            this._ea.GetEvent<ChangeModeShortCutEvent>().Subscribe(changeMode);
-            this._ea.GetEvent<CameraDiscoverShortCutEvent>().Subscribe(discover);
+            modeColors = ModeColors.Singleton(_ea);
+            Mode = "Dark Mode";
+            _ea.GetEvent<ChangeModeShortCutEvent>().Subscribe(changeMode);
         }
 
 
         public void discover(string input) {
-            Debug.WriteLine(input);
-            _ea.GetEvent<CameraClearEvent>().Publish(input);
+            _ea.GetEvent<CameraDiscoverEvent>().Publish(input);
             _ea.GetEvent<StatusUpdateEvent>().Publish("Discovering...");
         }
 

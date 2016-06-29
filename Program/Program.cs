@@ -7,6 +7,7 @@ using Microsoft.Practices.Prism.Mvvm;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using System.Collections.ObjectModel;
+using NotificationCenter;
 
 namespace Program {
     public class ProgramVM {
@@ -28,11 +29,12 @@ namespace Program {
             set { _selectedIndex = value; }
         }
 
-        public ProgramVM(List<List<CameraCommand>> programList, List<CameraInfo> camInfoList, List<PresetParams> presettingList, EventAggregator ea) {
-            this._ea = ea;
+        public ProgramVM(List<List<CameraCommand>> programList, List<CameraInfo> camInfoList, List<PresetParams> presettingList) {
+            this._ea = Notification.Instance;
             this.programList = programList;
             this.camList = camInfoList;
             this.presetList = presettingList;
+            modeColors = ModeColors.Singleton(_ea);
 
             List<CameraCommand> list = new List<CameraCommand>();
             save(-1);

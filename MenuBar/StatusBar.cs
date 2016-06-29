@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.PubSubEvents;
+using NotificationCenter;
 using System.Threading.Tasks;
 using Util;
 
@@ -23,10 +24,10 @@ namespace MenuBar {
             });
         }
 
-        public StatusBarVM(ModeColors mode, EventAggregator ea) {
-            _ea = ea;
+        public StatusBarVM() {
+            _ea = Notification.Instance;
             Status = "Ready";
-            modeColors = mode;
+            modeColors = ModeColors.Singleton(_ea);
             _ea.GetEvent<StatusUpdateEvent>().Subscribe(updateStatus);
         }
     }
