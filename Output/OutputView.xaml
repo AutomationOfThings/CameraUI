@@ -5,10 +5,43 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Output"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="600">
-    <Grid Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" VerticalAlignment="Center" HorizontalAlignment="Center">
+             d:DesignHeight="600" d:DesignWidth="720">
+
+    <UserControl.Resources>
+        <Style TargetType="Button" x:Key="MyButton">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Background" Value="{Binding DataContext.modeColors.ModeColor_WhiteSmoke_MedianDark, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+            <Setter Property="Foreground" Value="{Binding DataContext.modeColors.ModeColor_Black_WhiteSmoke, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="15" Background="{TemplateBinding Background}" BorderThickness="1" BorderBrush="Gray">
+                            <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="True">
+                    <Setter Property="Background" Value="{Binding DataContext.modeColors.ModeColor_SmallGray_LargeGray, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="Transparent"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FFBCE5FE"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" VerticalAlignment="Center" HorizontalAlignment="Center" Height="600" Width="720">
+        <Label Content="Live" FontSize="20" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Visibility="{Binding Active}" VerticalAlignment="Top" Width="60" Margin="604,30,56,0"></Label>
+        <Label Content="Menul Overwrite" FontSize="18" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Visibility="{Binding Active}" VerticalAlignment="Top" Margin="66,32,430,0"/>
         <Label x:Name="Notice" Content="Select a Camera as Output" Visibility="{Binding Idle}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI Semibold" FontSize="36" Foreground="#FFCFCCCC"/>
-        <Grid Visibility="{Binding Active}" Background="Black" Height="450" Width="600" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <Image Source="{Binding OutputCamera.VideoSource}" Height="450" Width="600" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Grid Visibility="{Binding Active}" Background="Black" Height="405" Width="720" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <Image Source="{Binding OutputCamera.VideoSource}" Height="405" Width="720" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,98,0,0"/>
+        <Button Background="Green" Style="{StaticResource MyButton}" Visibility="{Binding Active}" Width="30" Height="30" Margin="650,30,30,530"></Button>
+        <Button Background="Red" Style="{StaticResource MyButton}" Visibility="{Binding Active}" Width="30" Height="30" Margin="30,30,650,530"></Button>
     </Grid>
 </UserControl>

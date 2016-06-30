@@ -84,6 +84,9 @@ namespace RemoteCameraController {
             // set up status bar
             StatusBarVM = new StatusBarVM();
 
+            // change to dark mode when program starts up
+            changeModeShortCut(modeColors);
+
         }
 
 

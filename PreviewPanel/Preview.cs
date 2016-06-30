@@ -142,7 +142,7 @@ namespace PreviewPanel {
         public void onTilt(PTZcmd? cmd) {
             CurrentCamera.ChangeTiltHandler(cmd);
         }
-        */
+
         public void onZoom(PTZcmd? cmd) {
             if (cmd == PTZcmd.Increase) {
                 SliderZoom += 1;
@@ -151,7 +151,7 @@ namespace PreviewPanel {
             }
             
         }
-        
+        */
 
         private void saveSetting(CameraInfo camInfo) {
             if (CurrentSetting != null) {
@@ -223,6 +223,7 @@ namespace PreviewPanel {
             }
         }
 
+        /*
         ICommand zoomCommand;
         public ICommand ZoomCommand {
             get {
@@ -232,6 +233,7 @@ namespace PreviewPanel {
                 return zoomCommand;
             }
         }
+        */
 
         ICommand saveSettingCommand;
         public ICommand SaveSettingCommand {

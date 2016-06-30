@@ -8,15 +8,17 @@
              d:DesignHeight="200" d:DesignWidth="300">
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type local:CameraVM}" x:Key="CameraTemplate" >
-            <Grid Width="200" Height="160" VerticalAlignment="Center" Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}">
-                <Border BorderBrush="Green" BorderThickness="3" Visibility="{Binding Selected}" HorizontalAlignment="Left" Height="160" VerticalAlignment="Top" Width="200"/>
-                <Grid Margin="11.5, 13.5" Background="Black"></Grid>
+            <Grid Width="270" Height="160" VerticalAlignment="Center" Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}">
+                <Border BorderBrush="Green" BorderThickness="3" Visibility="{Binding Selected}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <Grid Width="234" Height="132" Background="Black"></Grid>
+                <!--
                 <Image Source="Resources/video_background.png" Margin="11.5, 13.5" ></Image>
-                <Image Source="{Binding CamInfo.VideoSource}" Name="MediaPlayer" Width="177" Height="132" Margin="12,14,12,0" VerticalAlignment="Top" />
+                -->
+                <Image Source="{Binding CamInfo.VideoSource}" Name="MediaPlayer" Width="234" Height="132" VerticalAlignment="Top" Margin="26,14,25,0" />
                 <Button Command="{Binding SelectedCommand}" CommandParameter="{Binding CamInfo}" Background="{x:Null}" BorderBrush="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}"/>
-                <Button Content="Output" Opacity="0.7" Command="{Binding OutputCommand}" CommandParameter="{Binding CamInfo}" Background="{Binding OutputBackgroundColor}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Width="50" Height="20" BorderBrush="White" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,16,18"/>
-                <Button Content=" Camera" Command="{Binding LogginCommand}" CommandParameter="{Binding CamInfo}" Opacity="0.7" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="auto" Margin="14,16,0,0" Background="Gray" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" BorderThickness="1,1,0,1" BorderBrush="White"/>
-                <Label Name="CamName" Opacity="0.7" Content="{Binding CamInfo.CameraID}" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="auto" Margin="60.5,16,0,0" VerticalContentAlignment="Center" Background="Gray" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" BorderBrush="White" BorderThickness="0,1,1,1"/>
+                <Button Content="Output" Opacity="0.7" Command="{Binding OutputCommand}" CommandParameter="{Binding CamInfo}" Background="{Binding OutputBackgroundColor}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Width="50" Height="20" BorderBrush="White" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,22,18"/>
+                <Button Content=" Camera" Command="{Binding LogginCommand}" CommandParameter="{Binding CamInfo}" Opacity="0.7" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="auto" Margin="20,16,0,0" Background="Gray" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" BorderThickness="1,1,0,1" BorderBrush="White"/>
+                <Label Name="CamName" Opacity="0.7" Content="{Binding CamInfo.CameraID}" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="auto" Margin="66.5,16,0,0" VerticalContentAlignment="Center" Background="Gray" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" BorderBrush="White" BorderThickness="0,1,1,1"/>
             </Grid>
         </DataTemplate>
 
@@ -101,7 +103,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
-                        <Border Name="Border" Padding="5" SnapsToDevicePixels="true">
+                        <Border Name="Border" Padding="2" SnapsToDevicePixels="true">
                             <ContentPresenter />
                         </Border>
                     </ControlTemplate>
