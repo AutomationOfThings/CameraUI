@@ -38,6 +38,25 @@
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding ProgramName, Mode=OneWay}" Width="Auto">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}">
+                            <Setter Property="BorderThickness" Value="0,0,0.5,0"/>
+                            <Setter Property="BorderBrush" Value="{Binding DataContext.modeColors.ModeColor_LightGray_Gray, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                            <Setter Property="Height" Value="24" />
+                            <Setter Property="Background" Value="{Binding DataContext.modeColors.ModeColor_White_MedianDark, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Background" Value="{Binding DataContext.modeColors.ModeColor_White_MedianDark, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                            <Setter Property="Foreground" Value="{Binding DataContext.modeColors.ModeColor_Black_WhiteSmoke, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                            <Setter Property="Margin" Value="4" />
+                            <Setter Property="TextAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
                 <DataGridTextColumn Header="Program" Binding="{Binding Content, Mode=OneWay}" Width="*">
                     <DataGridTextColumn.CellStyle>
                         <Style TargetType="{x:Type DataGridCell}">
@@ -56,6 +75,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
+                
                 <DataGridTemplateColumn Width="60">
                     <DataGridTemplateColumn.CellStyle>
                         <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">

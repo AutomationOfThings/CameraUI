@@ -15,45 +15,46 @@ namespace Program {
         public ModeColors modeColors { get; set; }
 
         protected readonly EventAggregator _ea;
-        List<List<CameraCommand>> programList;
-        public List<List<CameraCommand>> ProgramList { get; set; }
+        ObservableCollection<ProgramInfo> programList;
 
         List<CameraInfo> camList;
         List<PresetParams> presetList;
 
         public ObservableCollection<BindingWapper> programStringList { get; set; }
 
-        Int16 _selectedIndex = -1;
-        public Int16 SelectedIndex {
+        short _selectedIndex = -1;
+        public short SelectedIndex {
             get { return _selectedIndex; }
             set { _selectedIndex = value; }
         }
 
-        public ProgramVM(List<List<CameraCommand>> programList, List<CameraInfo> camInfoList, List<PresetParams> presettingList) {
-            this._ea = Notification.Instance;
+        public ProgramVM(ObservableCollection<ProgramInfo> programList, List<CameraInfo> camInfoList, List<PresetParams> presettingList) {
+            _ea = Notification.Instance;
             this.programList = programList;
-            this.camList = camInfoList;
-            this.presetList = presettingList;
+            camList = camInfoList;
+            presetList = presettingList;
             modeColors = ModeColors.Singleton(_ea);
 
             List<CameraCommand> list = new List<CameraCommand>();
             save(-1);
-            this._ea.GetEvent<ProgramSaveEvent>()
-                .Subscribe(save);
-            this._ea.GetEvent<ProgramCancelEvent>()
-                .Subscribe(cancelEdit);
+            _ea.GetEvent<ProgramSaveEvent>().Subscribe(save);
         }
 
         public void edit(Object input) {
             int index = _selectedIndex;
             EditProgramVM vm;
+            /*
             if (index >= 0 && index < programList.Count) {
-                vm = new EditProgramVM(index, programList, camList, presetList, _ea);
+                vm = new EditProgramVM(index, programNameList, programList, camList, presetList, _ea);
             } else {
                 List<CameraCommand> list = new List<CameraCommand>();
                 programList.Add(list);
-                vm = new EditProgramVM(index, programList, camList, presetList, _ea);
+                string newProgramName = "";
+                programNameList.Add(newProgramName);
+                vm = new EditProgramVM(index, programNameList, programList, camList, presetList, _ea);
             }
+            */
+            vm = new EditProgramVM(index, programList, camList, presetList, _ea);
             vm.modeColors = modeColors;
             EditProgramForm form = new EditProgramForm(vm);
             form.ShowDialog();
@@ -61,20 +62,21 @@ namespace Program {
 
         public void save(int index) {
             if (index == -1) {
-                this.programStringList = new ObservableCollection<BindingWapper>();
-                foreach (List<CameraCommand> item in programList) {
+                programStringList = new ObservableCollection<BindingWapper>();
+                foreach (ProgramInfo item in programList) {
+                    string name = item.ProgramName;
                     string itemString = "";
-                    foreach (CameraCommand cam in item) {
+                    foreach (CameraCommand cam in item.commandList) {
                         itemString += (cam.toString() + "; ");
                     }
                     if (itemString.Length >= 2)
                         itemString = itemString.Substring(0, itemString.Length - 2);
-                    BindingWapper ele = new BindingWapper {Content = itemString};
+                    BindingWapper ele = new BindingWapper { ProgramName=name, Content = itemString};
                     programStringList.Add(ele);
                 }
             } else {
                 string itemString = "";
-                foreach (CameraCommand cmd in programList[index]) {
+                foreach (CameraCommand cmd in programList[index].commandList) {
                     itemString += (cmd.toString() + "; ");
                 }
                 if (itemString.Length >= 2)
@@ -83,17 +85,12 @@ namespace Program {
                     BindingWapper item = new BindingWapper();
                     programStringList.Add(item);
                 }
-                this.programStringList[index].Content = itemString;
+                programStringList[index].Content = itemString;
+                programStringList[index].ProgramName = programList[index].ProgramName;
                 saveProgramListToDisk();
                 return;
             }
 
-        }
-
-        public void cancelEdit(int index) {
-            this.programStringList.RemoveAt(index);
-            this.programList.RemoveAt(index);
-            saveProgramListToDisk();
         }
 
         public void delete(Object input) {
@@ -105,9 +102,10 @@ namespace Program {
             saveProgramListToDisk();
         }
 
-        public void apply(Object input) {
+        public void run(Object input) {
             int index = _selectedIndex;
             if (index < programStringList.Count && index >= 0) {
+                _ea.GetEvent<ProgramRunEvent>().Publish(index);
             } 
         }
 
@@ -117,10 +115,10 @@ namespace Program {
                 writer.WriteStartDocument();
                 writer.WriteStartElement("Programs");
 
-                foreach (List<CameraCommand> item in programList) {
+                foreach (ProgramInfo item in programList) {
                     writer.WriteStartElement("Program");
-
-                    foreach (CameraCommand cmd in item) {
+                    writer.WriteAttributeString("Name", item.ProgramName);
+                    foreach (CameraCommand cmd in item.commandList) {
                         writer.WriteStartElement("Step");
 
                         writer.WriteElementString("Command", cmd.Command.ToString());
@@ -153,8 +151,7 @@ namespace Program {
         public ICommand ApplyCommand {
             get {
                 if (applyCommand == null) {
-                    applyCommand = new DelegateCommand<Object>(
-                        apply);
+                    applyCommand = new DelegateCommand<Object>(run);
                 }
                 return applyCommand;
             }
@@ -175,6 +172,12 @@ namespace Program {
     }
 
     public class BindingWapper: BindableBase {
+
+        string programName;
+        public string ProgramName {
+            get { return programName; }
+            set { SetProperty(ref programName, value); }
+        }
 
         string _content;
         public string Content {

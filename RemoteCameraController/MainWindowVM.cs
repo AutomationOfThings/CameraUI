@@ -10,6 +10,7 @@ using Presetting;
 using PreviewPanel;
 using Program;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Util;
 using XMLParser;
@@ -24,7 +25,8 @@ namespace RemoteCameraController {
         List<CameraInfo> camInfoList = new List<CameraInfo>();
         // ObservableCollection<CameraVM> camList = new ObservableCollection<CameraVM>();
         List<PresetParams> presetList;
-        List<List<CameraCommand>> programList;
+        ObservableCollection<ProgramInfo> programList;
+        List<string> programNameList;
 
         public ProgramVM ProgramVM { get; set; }
         public CameraListVM CamListVM { get; set; }
@@ -33,6 +35,7 @@ namespace RemoteCameraController {
         public PresettingVM PresetVM { get; set; }
         public MenuVM MenuBarVM { get; set; }
         public StatusBarVM StatusBarVM { get; set; }
+        public ProgramRunBarVM ProgramRunBarVM { get; set; }
 
         public MainWindowVM () {
             //modeColors = new ModeColors(notificationCenter);
@@ -77,6 +80,7 @@ namespace RemoteCameraController {
 
             // set up bottom right area: program
             ProgramVM = new ProgramVM(programList, camInfoList, presetList);
+            ProgramRunBarVM = new ProgramRunBarVM(programList);
 
             // set up menu bar
             MenuBarVM = new MenuVM(camInfoList);

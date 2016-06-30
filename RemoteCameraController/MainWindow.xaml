@@ -215,7 +215,7 @@
         <Grid Name="MainArea" Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" Margin="0,30,0,20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="655" MinWidth="550" />
-                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="2" />
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0" MinHeight="200">
@@ -227,10 +227,13 @@
                     </Border>
                 </Border>
             </Grid>
-            <GridSplitter Grid.Column="1" Width="5" Background="{Binding modeColors.ModeColor_White_Black}" ResizeDirection="Columns" ResizeBehavior="PreviousAndNext" VerticalAlignment="Stretch"/>
-
+            <GridSplitter Grid.Column="1" Width="2" Background="{Binding modeColors.ModeColor_White_Black}" ResizeDirection="Columns" ResizeBehavior="PreviousAndNext" VerticalAlignment="Stretch"/>
             <Grid Grid.Column="2">
-                <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
                     <Grid.LayoutTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -345,10 +348,12 @@
 
                     </TabControl>
                 </Grid>
+                <Grid Grid.Row="1">
+                    <program:ProgramRunBarView DataContext="{Binding ProgramRunBarVM}"/>
+                </Grid>
             </Grid>
-
         </Grid>
-        <Grid Name="CamAreaList" Height="175" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="0,0,0,25" Background="{Binding modeColors.ModeColor_White_Black}">
+        <Grid Name="CamAreaList" Height="150" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="0,0,0,25" Background="{Binding modeColors.ModeColor_White_Black}">
             <Button Content="Camera List" Width="80" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" BorderThickness="0" Margin="1,-20,1,0"
                 Click="changeCamListVisibility">
                 <Button.Template>

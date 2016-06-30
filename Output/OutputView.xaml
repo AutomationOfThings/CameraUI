@@ -36,12 +36,12 @@
     </UserControl.Resources>
 
     <Grid Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" VerticalAlignment="Center" HorizontalAlignment="Center" Height="600" Width="720">
-        <Label Content="Live" FontSize="20" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Visibility="{Binding Active}" VerticalAlignment="Top" Width="60" Margin="604,30,56,0"></Label>
-        <Label Content="Menul Overwrite" FontSize="18" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Visibility="{Binding Active}" VerticalAlignment="Top" Margin="66,32,430,0"/>
+        <Label Content="Live" FontSize="15" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Visibility="{Binding Active}" VerticalAlignment="Top" Width="40" Margin="666,33,14,0"></Label>
+        <Label Content="Menul Overwrite" FontSize="13" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Visibility="{Binding Active}" VerticalAlignment="Top" Margin="21,36,591,0"/>
         <Label x:Name="Notice" Content="Select a Camera as Output" Visibility="{Binding Idle}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI Semibold" FontSize="36" Foreground="#FFCFCCCC"/>
         <Grid Visibility="{Binding Active}" Background="Black" Height="405" Width="720" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <Image Source="{Binding OutputCamera.VideoSource}" Height="405" Width="720" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,98,0,0"/>
-        <Button Background="Green" Style="{StaticResource MyButton}" Visibility="{Binding Active}" Width="30" Height="30" Margin="650,30,30,530"></Button>
-        <Button Background="Red" Style="{StaticResource MyButton}" Visibility="{Binding Active}" Width="30" Height="30" Margin="30,30,650,530"></Button>
+        <Button Background="Red" Style="{StaticResource MyButton}" Visibility="{Binding Active}" Width="20" Height="20" Margin="699,40,1,540"></Button>
+        <Button Background="Green" Style="{StaticResource MyButton}" Visibility="{Binding Active}" Width="20" Height="20" Margin="1,40,699,540"></Button>
     </Grid>
 </UserControl>

@@ -50,9 +50,7 @@
                 </Grid.ColumnDefinitions>
                 <Border x:Name="Border" Grid.ColumnSpan="2" CornerRadius="0" BorderThickness="0,0,1,0" BorderBrush="{Binding DataContext.modeColors.ModeColor_LightGray_Gray, RelativeSource={RelativeSource AncestorType=Window}}" Background="{Binding DataContext.modeColors.ModeColor_White_MedianDark, RelativeSource={RelativeSource AncestorType=Window}}" />
                 <Border Grid.Column="0" CornerRadius="0" Margin="0" BorderThickness="0" BorderBrush="{Binding DataContext.modeColors.ModeColor_LightGray_Gray, RelativeSource={RelativeSource AncestorType=Window}}" Background="{Binding DataContext.modeColors.ModeColor_White_MedianDark, RelativeSource={RelativeSource AncestorType=Window}}" />
-                <Path x:Name="Arrow" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z" Fill="{Binding DataContext.modeColors.ModeColor_Black_WhiteSmoke, RelativeSource={RelativeSource AncestorType=Window}}">
-
-                </Path>
+                <Path x:Name="Arrow" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z" Fill="{Binding DataContext.modeColors.ModeColor_Black_WhiteSmoke, RelativeSource={RelativeSource AncestorType=Window}}"/>
             </Grid>
         </ControlTemplate>
 

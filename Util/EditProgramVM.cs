@@ -12,9 +12,15 @@ namespace Util {
         public int Index { get; set; }
         protected readonly EventAggregator _ea;
         public ObservableCollection<CameraCommandEditWrapper> CommandWrapperList { get; set; }
-        private List<List<CameraCommand>> programList;
+        private ObservableCollection<ProgramInfo> programList;
         List<string> camStringList;
         List<string> presetStringList;
+
+        public string programName;
+        public string ProgramName {
+            get { return programName; }
+            set { SetProperty(ref programName, value); }
+        }
 
         public ModeColors modeColors { get; set; }
 
@@ -24,27 +30,38 @@ namespace Util {
             set { SetProperty(ref selectedIndex, value); }
         }
 
-        public EditProgramVM(int index, List<List<CameraCommand>> programList, List<CameraInfo> camList, List<PresetParams> presetList, EventAggregator ea) {
-            this._ea = ea;
-            this.Index = index;
+        public EditProgramVM(int index, ObservableCollection<ProgramInfo> programList, List<CameraInfo> camList, List<PresetParams> presetList, EventAggregator ea) {
+            _ea = ea;
+            Index = index;
             this.programList = programList;
-            this.CommandWrapperList = new ObservableCollection<CameraCommandEditWrapper>();
-            this.camStringList = new List<string>();
-            this.presetStringList = new List<string>();
+            
+            CommandWrapperList = new ObservableCollection<CameraCommandEditWrapper>();
+            camStringList = new List<string>();
+            presetStringList = new List<string>();
             foreach (CameraInfo item in camList) {
                 camStringList.Add(item.CameraID);
             }
             foreach (PresetParams item in presetList) {
                 presetStringList.Add(item.presettingId);
             }
-            foreach (CameraCommand cmd in programList[index]) {
-                CameraCommandEditWrapper item = new CameraCommandEditWrapper(cmd, camStringList, presetStringList);
-                CommandWrapperList.Add(item);
+            if (Index < programList.Count) {
+                ProgramName = programList[Index].ProgramName;
+                foreach (CameraCommand cmd in programList[Index].commandList) {
+                    CameraCommandEditWrapper item = new CameraCommandEditWrapper(cmd, camStringList, presetStringList);
+                    CommandWrapperList.Add(item);
+                }
+            } else {
+                ProgramName = "";
             }
+            
         }
 
         public void saveProgram(ObservableCollection<CameraCommandEditWrapper> list)
         {
+            if (ProgramName == "") {
+                MessageBox.Show("Invalid Program Name!");
+                return;
+            }
             if (list.Count <= 0) {
                 MessageBox.Show("Invalid Program!");
                 return;
@@ -55,20 +72,27 @@ namespace Util {
                         return;
                     }
                 }
+                foreach (ProgramInfo item in programList) {
+                    if (item.ProgramName == ProgramName) {
+                        MessageBox.Show("Duplicate Program Name!");
+                        return;
+                    }
+                }
             }
             
-
             if (Index >= programList.Count) {
-                List<CameraCommand> newList = new List<CameraCommand>();
-                programList.Add(newList);
+                List<CameraCommand> newCmdList = new List<CameraCommand>();
+                ProgramInfo newProgramInfo = new ProgramInfo() { ProgramName = ProgramName, commandList = newCmdList };
+                programList.Add(newProgramInfo);
             }
-            List<CameraCommand> plist = programList[Index];
-            plist.Clear();
+            ProgramInfo plist = programList[Index];
+            plist.commandList.Clear();
             foreach (CameraCommandEditWrapper item in list)
             {
                 CameraCommand newItem = new CameraCommand(item);
-                plist.Add(newItem);
+                plist.commandList.Add(newItem);
             }
+            plist.ProgramName = ProgramName;
             _ea.GetEvent<ProgramSaveEvent>().Publish(Index);
         }
 

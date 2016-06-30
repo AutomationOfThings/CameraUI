@@ -115,6 +115,17 @@ namespace Util {
 
     }
 
+    public class ProgramInfo: BindableBase {
+
+        string programName;
+        public string ProgramName {
+            get { return programName; }
+            set { SetProperty(ref programName, value); }
+            }
+        public List<CameraCommand> commandList;
+
+    }
+
     public class CameraInfo: BindableBase {
 
         public bool isLoggedIn;
@@ -639,7 +650,7 @@ namespace Util {
         public const string PRESET_FILE = "../../../Data/Presetting.xml";
         public const string PROGRAM_FILE = "../../../Data/Programs.xml";
         public const char DEF_REQ_SCAN = '1';
-        public const int CAMLIST_AREA_VISIBLE_HEIGHT = 180;
+        public const int CAMLIST_AREA_VISIBLE_HEIGHT = 155;
         public const int CAMLIST_AREA_HIDDEN_HEIGHT = 1;
 
         public const int UNDO_BUFFER_SIZE = 180 * 3 * 180 * 3 * 16 * 3;
@@ -653,8 +664,9 @@ namespace Util {
     public class ProgramSaveEvent : PubSubEvent<int> {}
     public class ProgramCancelEvent : PubSubEvent<int> {}
     public class ProgramDeleteEvent : PubSubEvent<int> {}
-    public class PresettingDeleteEvent : PubSubEvent<int> {}
+    public class ProgramRunEvent : PubSubEvent<int> { }
 
+    public class PresettingDeleteEvent : PubSubEvent<int> {}
     public class SetPresetEvent : PubSubEvent<PresetParams> {}
     public class SaveSettingEvent : PubSubEvent<PresetParams> {}
     

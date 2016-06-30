@@ -198,8 +198,10 @@
     </Window.InputBindings>
 
     <Grid Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}">
+        <Label Content="Program Name:" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Width="100" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,7,20,5"/>
+        <TextBox Text="{Binding ProgramName}" Background="{Binding modeColors.ModeColor_LightGray_Gray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Width="150" VerticalAlignment="Top" HorizontalAlignment="Left" Height="20" Margin="115,10,0,5"/>
         <DataGrid x:Name="ProgramDataGrid" ItemsSource="{Binding CommandWrapperList, Mode=TwoWay}" SelectedIndex="{Binding SelectedIndex}" CanUserResizeColumns="False" BorderThickness="1,1,1,1"
-            CanUserAddRows="True" AutoGenerateColumns="False" RowHeight="24" HorizontalAlignment="Stretch" Margin="20,20,20,60" VerticalAlignment="Stretch" RowHeaderWidth="0"
+            CanUserAddRows="True" AutoGenerateColumns="False" RowHeight="24" HorizontalAlignment="Stretch" Margin="20,45,20,60" VerticalAlignment="Stretch" RowHeaderWidth="0"
             Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" BorderBrush="{Binding modeColors.ModeColor_LightGray_Gray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}"
             HorizontalGridLinesBrush="{Binding modeColors.ModeColor_LightGray_Gray}" GridLinesVisibility="Horizontal">
             <DataGrid.Resources>
