@@ -35,6 +35,7 @@ namespace RemoteCameraController {
         public MenuVM MenuBarVM { get; set; }
         public StatusBarVM StatusBarVM { get; set; }
         public ProgramRunBarVM ProgramRunBarVM { get; set; }
+        private CameraExplorer cameraExplorer;
 
         public MainWindowVM () {
             //modeColors = new ModeColors(notificationCenter);
@@ -66,7 +67,7 @@ namespace RemoteCameraController {
 
             // initialize camera list view
             CamListVM = new CameraListVM(camInfoList);
-
+            cameraExplorer = new CameraExplorer(camInfoList);
             // initialize preview View
             PreviewVM = new PreviewVM();
 

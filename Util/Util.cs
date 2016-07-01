@@ -689,11 +689,12 @@ namespace Util {
     public class CameraDiscoverEvent : PubSubEvent<string> {};
     public class CameraSelectEvent : PubSubEvent<CameraInfo> {}
     public class CameraOutPutEvent : PubSubEvent<CameraInfo> {}
-
+    public class CameraDiscoveredEvent : PubSubEvent<List<CameraInfo>> {}
+    
     public class ProgramSaveEvent : PubSubEvent<int> {}
     public class ProgramCancelEvent : PubSubEvent<int> {}
     public class ProgramDeleteEvent : PubSubEvent<int> {}
-    public class ProgramRunEvent : PubSubEvent<int> { }
+    public class ProgramRunEvent : PubSubEvent<int> {}
 
     public class PresettingDeleteEvent : PubSubEvent<int> {}
     public class SetPresetEvent : PubSubEvent<PresetParams> {}
@@ -707,5 +708,5 @@ namespace Util {
 
     public class DiscoveryResponseReceivedEvent : PubSubEvent<discovery_response_t> {}
     public class StreamUriResponseReceivedEvent : PubSubEvent<stream_uri_response_t> {}
-    public class PositionResponseReceivedEvent : PubSubEvent<position_response_t> { }
+    public class PositionResponseReceivedEvent : PubSubEvent<position_response_t> {}
 }

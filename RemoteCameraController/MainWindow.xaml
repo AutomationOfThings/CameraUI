@@ -12,7 +12,7 @@
         xmlns:output="clr-namespace:Output;assembly=Output"
         mc:Ignorable="d"
         xmlns:local="clr-namespace:RemoteCameraController"
-        Title="Camera Controller" MinHeight="700" MinWidth="1150"
+        Title="Camera Controller" MinHeight="700" MinWidth="1150" Width="1200"
         Closing="closeForm" WindowState="Maximized">
 
     <Window.Resources>
@@ -216,7 +216,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="655" MinWidth="550" />
                 <ColumnDefinition Width="2" />
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"  MinWidth="650"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0" MinHeight="200">
                 <Border BorderBrush="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" BorderThickness="2">

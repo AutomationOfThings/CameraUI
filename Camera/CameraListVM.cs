@@ -21,24 +21,19 @@ namespace Camera {
 
         public CameraListVM(List<CameraInfo> camInfoList) {
             _ea = Notification.Instance;
+            _ea.GetEvent<CameraDiscoveredEvent>().Subscribe(updateCamList);
+
             modeColors = ModeColors.Singleton(_ea);
             this.camInfoList = camInfoList;
             CamList = new ObservableCollection<CameraVM>();
 
-            for (int i = 0; i < camInfoList.Count; i++) {
-                CameraVM vm = new CameraVM(camInfoList[i], modeColors, _ea);
-                CamList.Add(vm);
-            }
-
-            _ea.GetEvent<CameraDiscoverEvent>().Subscribe(discoverCameras);
-            _ea.GetEvent<CameraDiscoverShortCutEvent>().Subscribe(discoverCameras);
+            updateCamList(camInfoList);
         }
 
-        private void discoverCameras(string input) {
-            // send reqeust to discover cameras asynchronously
-        }
 
-        public void updateCamList() {
+
+        public void updateCamList(List<CameraInfo> list) {
+            CamList.Clear();
             for (int i = 0; i < camInfoList.Count; i++) {
                 CameraVM vm = new CameraVM(camInfoList[i], modeColors, _ea);
                 CamList.Add(vm);

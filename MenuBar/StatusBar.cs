@@ -19,7 +19,7 @@ namespace MenuBar {
 
         protected void updateStatus(string sts) {
             Status = sts;
-            Task.Delay(5000).ContinueWith(_ => {
+            Task.Delay(3000).ContinueWith(_ => {
                 Status = "Ready";
             });
         }

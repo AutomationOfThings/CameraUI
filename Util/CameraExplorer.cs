@@ -3,35 +3,43 @@ using LCM.LCM;
 using Microsoft.Practices.Prism.PubSubEvents;
 using NotificationCenter;
 using ptz_camera;
-using System;
-using System.Collections.ObjectModel;
+
+using System.Collections.Generic;
 
 
 namespace Util {
-    class CameraExplorer {
+    public class CameraExplorer {
 
         private readonly LCM.LCM.LCM _lcm;
         private EventAggregator _ea;
 
-        ObservableCollection<CameraInfo> camList;
+        List<CameraInfo> camList;
 
-        public CameraExplorer(ObservableCollection<CameraInfo> camList) {
+        public CameraExplorer(List<CameraInfo> camList) {
             this.camList = camList;
             _lcm = LCM.LCM.LCM.Singleton;
             _ea = Notification.Instance;
+            _ea.GetEvent<CameraDiscoverEvent>().Subscribe(discover);
+            _ea.GetEvent<CameraDiscoverShortCutEvent>().Subscribe(discover);
             _ea.GetEvent<DiscoveryResponseReceivedEvent>().Subscribe(OnGetDiscoveryResponse);
+            
         }
 
-        public void discover() {
+        public void discover(string input) {
+            _ea.GetEvent<StatusUpdateEvent>().Publish("Discovering...");
             discovery_request_t discoveryRequest = new discovery_request_t();
             _lcm.Publish(Channels.DiscoveryReqChannel, discoveryRequest);
             _lcm.Subscribe(Channels.DiscoveryReqChannel, new DiscoveryResponseHandler());
         }
 
         private void OnGetDiscoveryResponse(discovery_response_t res) {
-            foreach (string cam in res.camera_names) {
-                // add cam into camlist
+            camList.Clear();
+            foreach (string ip in res.camera_names) {
+                CameraInfo cam = new CameraInfo(ip, ip, 0 , 0, 0);
+                camList.Add(cam);
             }
+            _ea.GetEvent<CameraDiscoveredEvent>().Publish(camList);
+            _ea.GetEvent<StatusUpdateEvent>().Publish("Camera discovery finished");
         }
 
     }

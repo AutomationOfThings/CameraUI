@@ -30,13 +30,13 @@ namespace MenuBar
             this.camList = camList;
             modeColors = ModeColors.Singleton(_ea);
             Mode = "Dark Mode";
+
             _ea.GetEvent<ChangeModeShortCutEvent>().Subscribe(changeMode);
         }
 
 
         public void discover(string input) {
             _ea.GetEvent<CameraDiscoverEvent>().Publish(input);
-            _ea.GetEvent<StatusUpdateEvent>().Publish("Discovering...");
         }
 
         public void changeMode(string mode) {
