@@ -50,7 +50,7 @@ namespace PreviewPanel {
             get { return sliderPan; }
             set {
                 if (CurrentCamera != null && sliderPan != value) {
-                    CurrentCamera.ChangePan(PTZ_MODE.Absolute, value);
+                    CurrentCamera.changePan(PTZ_MODE.Absolute, value);
                     SetProperty(ref sliderPan, value);
                 }
                 if (!isRedoMode && !isUndoMode) {
@@ -65,7 +65,7 @@ namespace PreviewPanel {
             get { return sliderTilt; }
             set {
                 if (CurrentCamera != null && sliderTilt != value) {
-                    CurrentCamera.ChangeTilt(PTZ_MODE.Absolute, value);
+                    CurrentCamera.changeTilt(PTZ_MODE.Absolute, value);
                     SetProperty(ref sliderTilt, value);
                 }
                 if (!isRedoMode && !isUndoMode) {
@@ -80,7 +80,7 @@ namespace PreviewPanel {
             get { return sliderZoom; }
             set {
                 if (CurrentCamera != null && sliderZoom != value) {
-                    CurrentCamera.ChangeZoom(PTZ_MODE.Absolute, value);
+                    CurrentCamera.changeZoom(PTZ_MODE.Absolute, value);
                     SetProperty(ref sliderZoom, value);
                 }
                 if (!isRedoMode && !isUndoMode) {
@@ -125,8 +125,8 @@ namespace PreviewPanel {
             if (CurrentCamera == null || preset.CamId != CurrentCamera.CameraID) {
                 MessageBox.Show("Preset cannot be applied to this camera.");
             } else {
-                this.CurrentSetting = preset;
-                currentCamera.setPTZ(preset.pan, preset.tilt, preset.zoom);
+                CurrentSetting = preset;
+                CurrentCamera.changePTZ(PTZ_MODE.Absolute, preset.pan, preset.tilt, preset.zoom);
                 sliderPan = Convert.ToInt32(preset.pan);
                 sliderTilt = Convert.ToInt32(preset.tilt);
                 UndoRedoManager.clear();

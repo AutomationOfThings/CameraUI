@@ -26,7 +26,6 @@ namespace RemoteCameraController {
         // ObservableCollection<CameraVM> camList = new ObservableCollection<CameraVM>();
         List<PresetParams> presetList;
         ObservableCollection<ProgramInfo> programList;
-        List<string> programNameList;
 
         public ProgramVM ProgramVM { get; set; }
         public CameraListVM CamListVM { get; set; }
@@ -52,9 +51,9 @@ namespace RemoteCameraController {
         private void setupViewModels() {
             // initialize Cameras
             string ip1 = "192.168.0.148";
-            string ip2 = "192.168.0.119";
+            // string ip2 = "192.168.0.119";
             string URL1 = "http://192.168.0.148/stw-cgi/video.cgi?msubmenu=stream&action=view&Profile=1&CodecType=MJPEG&Resolution=800x600&FrameRate=30&CompressionLevel=10";
-            string URL2 = "http://192.168.0.119/stw-cgi/video.cgi?msubmenu=stream&action=view&Profile=4&CodecType=MJPEG&Resolution=800x600&FrameRate=30&CompressionLevel=10";
+            // string URL2 = "http://192.168.0.119/stw-cgi/video.cgi?msubmenu=stream&action=view&Profile=4&CodecType=MJPEG&Resolution=800x600&FrameRate=30&CompressionLevel=10";
 
             camInfoList = new List<CameraInfo>();
 

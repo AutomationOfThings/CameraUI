@@ -4,15 +4,9 @@ using System.Collections.Generic;
 using System.Windows.Media;
 using Microsoft.Practices.Prism.PubSubEvents;
 using Microsoft.Practices.Prism.Mvvm;
-using System.Windows;
-using System.Net;
-using System.Net.Cache;
-using System.Diagnostics;
 using System.Windows.Threading;
-using System.IO;
-using RestSharp;
-using RestSharp.Authenticators;
-using static Util.HttpConnnector;
+using ptz_camera;
+using NotificationCenter;
 
 namespace Util {
     public class PresetParams {
@@ -25,22 +19,20 @@ namespace Util {
         public PresetParams() {}
 
         public PresetParams(string presetId, string id, double p, double t, double z) {
-            this.presettingId = presetId;
-            this.CamId = id;
-            this.pan = p;
-            this.tilt = t;
-            this.zoom = z;
+            presettingId = presetId;
+            CamId = id;
+            pan = p;
+            tilt = t;
+            zoom = z;
         }
 
         public void update(string presetId, string ID, double p, double t, double z) {
-            this.presettingId = presetId;
-            this.CamId = ID;
-            this.pan = p;
-            this.tilt = t;
-            this.zoom = z;
+            presettingId = presetId;
+            CamId = ID;
+            pan = p;
+            tilt = t;
+            zoom = z;
         }
-
-
     }
 
     public class PresetParamsExtend : BindableBase
@@ -95,18 +87,18 @@ namespace Util {
         }
 
         public PresetParamsExtend(List<string> camList) {
-            this.CanSave = false;
-            this.CamList = camList;
+            CanSave = false;
+            CamList = camList;
         }
 
         public PresetParamsExtend(string presetId, string id, List<string> camList, double p, double t, double z) {
-            this.CamList = camList;
-            this.presettingId = presetId;
-            this.cameraId = id;
-            this.pan = p;
-            this.tilt = t;
-            this.zoom = z;
-            this.CanSave = false;
+            CamList = camList;
+            presettingId = presetId;
+            cameraId = id;
+            pan = p;
+            tilt = t;
+            zoom = z;
+            CanSave = false;
         }
 
         public string toString() {
@@ -127,6 +119,8 @@ namespace Util {
     }
 
     public class CameraInfo: BindableBase {
+
+        private EventAggregator _ea;
 
         public bool isLoggedIn;
 
@@ -166,11 +160,8 @@ namespace Util {
         public double Pan {
             get { return pan; }
             set {
-                if (value < 0) {
-                    value += 360;
-                } else if (value > 360) {
-                    value %= 360;
-                }
+                if (value < 0) { value += 360; } 
+                else if (value > 360) { value %= 360; }
                 SetProperty(ref pan, value);
             }
         }
@@ -179,9 +170,7 @@ namespace Util {
         public double Tilt {
             get { return tilt; }
             set {
-                if (value >= -5 && value <= 185) {
-                    SetProperty(ref tilt, value);
-                }
+                if (value >= -5 && value <= 185) { SetProperty(ref tilt, value); }
             }
         }
 
@@ -189,27 +178,66 @@ namespace Util {
         public double Zoom {
             get { return zoom; }
             set {
-                if (value > 0 && value <= 32) {
-                    SetProperty(ref zoom, value);
-                }
+                if (value > 0 && value <= 32) { SetProperty(ref zoom, value); }
             }
         }
 
         public DispatcherTimer dispatcherTimer;
 
         public CameraInfo(string ip, string id, double p, double t, double z) {
-            this.isLoggedIn = false;
-            this.IP = ip;
-            this.CameraID = id;
-            this.Pan = p;
-            this.Tilt = t;
-            this.Zoom = z;
+            isLoggedIn = false;
+            IP = ip;
+            CameraID = id;
+            Pan = p;
+            Tilt = t;
+            Zoom = z;
+
+            _ea = Notification.Instance;
+            _ea.GetEvent<StreamUriResponseReceivedEvent>().Subscribe(setStreamUri);
+            _ea.GetEvent<PositionResponseReceivedEvent>().Subscribe(setPosition);
 
             dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(updatePTZ);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
         }
 
+        private void setStreamUri(stream_uri_response_t res) {
+            if (IP == res.ip_address) {
+                VideoURL = res.uri;
+            }
+        }
+
+        private void setPosition(position_response_t res) {
+            if (IP == res.ip_address) {
+                Pan = double.Parse(res.pan_value);
+                Tilt = double.Parse(res.tilt_value);
+                Zoom = double.Parse(res.zoom_value);
+            }
+        }
+
+        private void updatePTZ(object sender, EventArgs e) {
+            Connnector.requestCameraPosition(IP);
+        }
+
+        public void changePan(PTZ_MODE mode, double p) {
+            changePTZ(mode, p, Tilt, Zoom);
+        }
+
+        public void changeTilt(PTZ_MODE mode, double t) {
+            changePTZ(mode, Pan, t, Zoom);
+        }
+
+        public void changeZoom(PTZ_MODE mode, double z) {
+            changePTZ(mode, Pan, Tilt, z);
+        }
+
+        public void changePTZ(PTZ_MODE mode, double p, double t, double z) {
+            Connnector.requestPtzControl(IP, mode, (int)p, (int)t, (int)z);
+        }
+
+        /* these set of functions use .NET HttpWebRequest to connect with SumSung Camera
+           however it hard-codes the ip address of the camera
+         
         private void updatePTZ(object sender, EventArgs e) {
             ptzQueryRequest();
         }
@@ -241,9 +269,9 @@ namespace Util {
 
         public void ptzQueryRequest() {
             string uri = preparePtzQueryUri();
-            HttpConnector.username = UserName;
-            HttpConnector.password = Password;
-            HttpConnector.requestUseHTTP(uri, RespCallBack);
+            //HttpConnector.username = UserName;
+            //HttpConnector.password = Password;
+            //HttpConnector.requestUseHTTP(uri, RespCallBack);
         }
 
         private string preparePTZUri(double p, double t, double z) {
@@ -326,6 +354,7 @@ namespace Util {
             }
             return result;
         }
+        */
 
     }
 
@@ -676,4 +705,7 @@ namespace Util {
 
     public class StatusUpdateEvent: PubSubEvent<string> {}
 
+    public class DiscoveryResponseReceivedEvent : PubSubEvent<discovery_response_t> {}
+    public class StreamUriResponseReceivedEvent : PubSubEvent<stream_uri_response_t> {}
+    public class PositionResponseReceivedEvent : PubSubEvent<position_response_t> { }
 }
