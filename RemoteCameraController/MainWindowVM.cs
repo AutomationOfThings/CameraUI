@@ -39,9 +39,11 @@ namespace RemoteCameraController {
 
         public MainWindowVM () {
             //modeColors = new ModeColors(notificationCenter);
-            modeColors = ModeColors.Singleton(notificationCenter);
-            loadXML(Constant.PRESET_FILE, Constant.PROGRAM_FILE);
-            setupViewModels();
+            if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable()) {
+                modeColors = ModeColors.Singleton(notificationCenter);
+                loadXML(Constant.PRESET_FILE, Constant.PROGRAM_FILE);
+                setupViewModels();
+            }
         }
 
         public void loadXML(string presettingFile, string programFile) {

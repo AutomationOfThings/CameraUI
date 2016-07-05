@@ -12,7 +12,7 @@
                 <Border BorderBrush="Green" BorderThickness="2" Visibility="{Binding Selected}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                 <Grid Width="234" Height="132" Background="Black"></Grid>
                 <Image Source="{Binding CamInfo.VideoSource}" Name="MediaPlayer" Width="234" Margin="0,0,5,5" HorizontalAlignment="Right" Height="132" VerticalAlignment="Bottom" />
-                <Button Command="{Binding SelectedCommand}" CommandParameter="{Binding CamInfo}" Background="{x:Null}" BorderBrush="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}"/>
+                <Button Command="{Binding SelectedCommand}" CommandParameter="{Binding CamInfo}" Background="{x:Null}" BorderBrush="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" Margin="4"/>
                 <Button Content="Output" Opacity="0.7" Command="{Binding OutputCommand}" CommandParameter="{Binding CamInfo}" Background="{Binding OutputBackgroundColor}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Width="50" Height="20" BorderBrush="White" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,10,10"/>
                 <Button Content=" Camera" Command="{Binding LogginCommand}" CommandParameter="{Binding CamInfo}" Opacity="0.7" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="auto" Margin="8,8,0,0" Background="Gray" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" BorderThickness="1,1,0,1" BorderBrush="White"/>
                 <Label Name="CamName" Opacity="0.7" Content="{Binding CamInfo.CameraID}" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="auto" Margin="54.5,8,0,0" VerticalContentAlignment="Center" Background="Gray" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" BorderBrush="White" BorderThickness="0,1,1,1"/>
@@ -87,7 +87,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Thumb}">
-                        <Border CornerRadius="4" Background="{TemplateBinding Background}" 
+                        <Border CornerRadius="3" Background="{TemplateBinding Background}" 
                                 BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Margin="30,0"/>
                     </ControlTemplate>
                 </Setter.Value>
@@ -145,13 +145,13 @@
                                                             </Track.IncreaseRepeatButton>
                                                             <Track.Thumb>
                                                                 <Thumb Style="{StaticResource ScrollBarThumb}" 
-                                                                         Background="Gray" Opacity="0.2" Margin="0,-1" Height="8" VerticalAlignment="Bottom"/>
+                                                                         Background="Gray" Opacity="0.4" Margin="0,-1" Height="7" VerticalAlignment="Bottom"/>
                                                             </Track.Thumb>
                                                         </Track>
                                                     </ControlTemplate>
                                                 </ScrollBar.Template>
                                             </ScrollBar>
-                                            <ScrollContentPresenter Margin="30,3,30,3" Height="Auto" VerticalAlignment="Center"/>
+                                            <ScrollContentPresenter Margin="30,1,30,5" Height="Auto" VerticalAlignment="Center"/>
                                         </Grid>
                                     </ControlTemplate>
                                 </ScrollViewer.Template>
