@@ -11,6 +11,7 @@ using PreviewPanel;
 using Program;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Util;
 using XMLParser;
@@ -55,17 +56,19 @@ namespace RemoteCameraController {
             // initialize Cameras
             string ip1 = "192.168.0.148";
             // string ip2 = "192.168.0.119";
-            string URL1 = "http://192.168.0.148/stw-cgi/video.cgi?msubmenu=stream&action=view&Profile=1&CodecType=MJPEG&Resolution=800x600&FrameRate=30&CompressionLevel=10";
+            string URL1 = "http://192.168.1.211/stw-cgi/video.cgi?msubmenu=stream&action=view&Profile=1&CodecType=MJPEG";
             // string URL2 = "http://192.168.0.119/stw-cgi/video.cgi?msubmenu=stream&action=view&Profile=4&CodecType=MJPEG&Resolution=800x600&FrameRate=30&CompressionLevel=10";
 
             camInfoList = new List<CameraInfo>();
 
-            for (int i = 111; i < 999; i += 111) {
+            /*
+            for (int i = 111; i < 333; i += 111) {
                 CameraInfo cam = new CameraInfo("ip1", i.ToString(), 0, 0, 1);
                 cam.VideoURL = URL1;
-                cam.IP = ip1;
+                cam.IP = "192.168.1.211";
                 camInfoList.Add(cam);
             }
+            */
 
             // initialize camera list view
             CamListVM = new CameraListVM(camInfoList);
@@ -95,6 +98,20 @@ namespace RemoteCameraController {
 
         }
 
+        public void endCameraSessions() {
+            bool canExit = true;
+            while (true){
+                foreach (CameraInfo cam in camInfoList) {
+                    if (cam.UserName != null) {
+                        cam.endSession();
+                        canExit = false;
+                    } 
+                }
+                if (canExit)
+                    return;
+                Task.Delay(500);                    
+            }
+        }
 
         private void changeModeShortCut(ModeColors modeColors) {
             notificationCenter.GetEvent<ChangeModeShortCutEvent>().Publish(modeColors);

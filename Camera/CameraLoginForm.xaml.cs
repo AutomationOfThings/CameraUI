@@ -20,7 +20,7 @@ namespace Camera {
             model.CamInfo.Password = PasswordBox.Password;
             ConnectionStatus.Visibility = Visibility.Visible;
             SignIn.Visibility = Visibility.Hidden;
-            this.model.connect();
+            model.connect();
         }
 
         public void activate() {

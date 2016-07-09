@@ -193,18 +193,16 @@ namespace Util {
             Zoom = z;
 
             _ea = Notification.Instance;
-            _ea.GetEvent<StreamUriResponseReceivedEvent>().Subscribe(setStreamUri);
             _ea.GetEvent<PositionResponseReceivedEvent>().Subscribe(setPosition);
+            _ea.GetEvent<EndSessionResponseReceivedEvent>().Subscribe(OnGetEndSessionResponse);
 
             dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(updatePTZ);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
         }
 
-        private void setStreamUri(stream_uri_response_t res) {
-            if (IP == res.ip_address) {
-                VideoURL = res.uri;
-            }
+        public void getStreamUri() {
+            CameraConnnector.getStreamUri(IP);
         }
 
         private void setPosition(position_response_t res) {
@@ -215,8 +213,27 @@ namespace Util {
             }
         }
 
+        public void initSession() {
+            CameraConnnector.initializeSession(IP, UserName, Password);
+        }
+
+        public void endSession() {
+            CameraConnnector.endSession(IP);
+        }
+
+        private void OnGetEndSessionResponse(end_session_response_t res){
+            if (res.ip_address == IP) {
+                if (res.response == "") {
+                    UserName = null;
+                    Password = null;
+                } else {
+                    endSession();
+                }
+            }
+        }
+
         private void updatePTZ(object sender, EventArgs e) {
-            Connnector.requestCameraPosition(IP);
+            CameraConnnector.requestCameraPosition(IP);
         }
 
         public void changePan(PTZ_MODE mode, double p) {
@@ -232,7 +249,7 @@ namespace Util {
         }
 
         public void changePTZ(PTZ_MODE mode, double p, double t, double z) {
-            Connnector.requestPtzControl(IP, mode, (int)p, (int)t, (int)z);
+            CameraConnnector.requestPtzControl(IP, mode, (int)p, (int)t, (int)z);
         }
 
         /* these set of functions use .NET HttpWebRequest to connect with SumSung Camera
@@ -709,4 +726,6 @@ namespace Util {
     public class DiscoveryResponseReceivedEvent : PubSubEvent<discovery_response_t> {}
     public class StreamUriResponseReceivedEvent : PubSubEvent<stream_uri_response_t> {}
     public class PositionResponseReceivedEvent : PubSubEvent<position_response_t> {}
+    public class InitSessionResponseReceivedEvent: PubSubEvent<init_session_response_t> {}
+    public class EndSessionResponseReceivedEvent : PubSubEvent<end_session_response_t> {}
 }

@@ -28,25 +28,26 @@ namespace Util {
         public void discover(string input) {
             _ea.GetEvent<StatusUpdateEvent>().Publish("Discovering...");
             discovery_request_t discoveryRequest = new discovery_request_t();
-            _lcm.Publish(Channels.DiscoveryReqChannel, discoveryRequest);
-            _lcm.Subscribe(Channels.DiscoveryReqChannel, new DiscoveryResponseHandler());
+            _lcm.Publish(Channels.discovery_req_channel, discoveryRequest);
+            _lcm.Subscribe(Channels.discovery_res_channel, new DiscoveryResponseHandler());
         }
 
         private void OnGetDiscoveryResponse(discovery_response_t res) {
             camList.Clear();
             foreach (string ip in res.camera_names) {
-                CameraInfo cam = new CameraInfo(ip, ip, 0 , 0, 0);
+                CameraInfo cam = new CameraInfo(ip, ip, 0 , 0, 1);
                 camList.Add(cam);
             }
-            _ea.GetEvent<CameraDiscoveredEvent>().Publish(camList);
+            
             _ea.GetEvent<StatusUpdateEvent>().Publish("Camera discovery finished");
+            _ea.GetEvent<CameraDiscoveredEvent>().Publish(camList);
         }
 
     }
 
     public class DiscoveryResponseHandler: LCMSubscriber {
         public void MessageReceived(LCM.LCM.LCM lcm, string channel, LCMDataInputStream data_stream) {
-            if (channel == Channels.DiscoveryResChannel) {
+            if (channel == Channels.discovery_res_channel) {
                 discovery_response_t response = new discovery_response_t(data_stream);
                 Notification.Instance.GetEvent<DiscoveryResponseReceivedEvent>().Publish(response);
             }

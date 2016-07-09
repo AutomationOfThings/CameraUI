@@ -1,4 +1,5 @@
-﻿using Microsoft.Practices.Prism.PubSubEvents;
+﻿using Microsoft.Practices.Prism.Mvvm;
+using Microsoft.Practices.Prism.PubSubEvents;
 using NotificationCenter;
 using System;
 using System.Collections.Generic;
@@ -9,28 +10,29 @@ using System.Threading.Tasks;
 using Util;
 
 namespace Camera {
-    public class CameraListVM {
+    public class CameraListVM: BindableBase {
 
         EventAggregator _ea;
 
         List<CameraInfo> camInfoList;
 
-        public ObservableCollection<CameraVM> CamList { get; set; }
+        ObservableCollection<CameraVM> camList;
+        public ObservableCollection<CameraVM> CamList {
+            get { return camList; }
+            set { SetProperty(ref camList,value); }
+        }
 
         public ModeColors modeColors { get; set; }
 
         public CameraListVM(List<CameraInfo> camInfoList) {
             _ea = Notification.Instance;
-            _ea.GetEvent<CameraDiscoveredEvent>().Subscribe(updateCamList);
+            _ea.GetEvent<CameraDiscoveredEvent>().Subscribe(updateCamList, ThreadOption.UIThread);
 
             modeColors = ModeColors.Singleton(_ea);
             this.camInfoList = camInfoList;
             CamList = new ObservableCollection<CameraVM>();
-
             updateCamList(camInfoList);
         }
-
-
 
         public void updateCamList(List<CameraInfo> list) {
             CamList.Clear();

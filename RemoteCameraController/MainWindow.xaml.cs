@@ -80,15 +80,16 @@ namespace RemoteCameraController {
         }
 
 
-        private void closeForm(object sender, System.ComponentModel.CancelEventArgs e)
-        {
+        private void closeForm(object sender, System.ComponentModel.CancelEventArgs e) {
             if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable()) {
                 return;
             }
             System.Windows.Forms.DialogResult dialog = System.Windows.Forms.MessageBox.Show("Are you sure you want to exit the application?", "Exit", System.Windows.Forms.MessageBoxButtons.YesNo);
             if (dialog == System.Windows.Forms.DialogResult.No) {
                 e.Cancel = true;
+                return;
             }
+            ( (MainWindowVM) DataContext).endCameraSessions();
         }
 
         private void changeCamListVisibility(object sender, RoutedEventArgs e) {
