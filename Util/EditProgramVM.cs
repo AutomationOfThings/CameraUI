@@ -16,7 +16,7 @@ namespace Util {
         List<string> camStringList;
         List<string> presetStringList;
 
-        public string programName;
+        string programName;
         public string ProgramName {
             get { return programName; }
             set { SetProperty(ref programName, value); }
@@ -73,7 +73,7 @@ namespace Util {
                     }
                 }
                 foreach (ProgramInfo item in programList) {
-                    if (item.ProgramName == ProgramName) {
+                    if (item.ProgramName == ProgramName && programList.IndexOf(item)!= Index) {
                         MessageBox.Show("Duplicate Program Name!");
                         return;
                     }

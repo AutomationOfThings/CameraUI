@@ -12,6 +12,7 @@ namespace Camera {
             InitializeComponent();
             this.model = model;
             DataContext = model;
+            StatusIndicator.Visibility = Visibility.Hidden;
             ConnectionStatus.Visibility = Visibility.Hidden;
         }
 
@@ -20,11 +21,13 @@ namespace Camera {
             model.CamInfo.Password = PasswordBox.Password;
             ConnectionStatus.Visibility = Visibility.Visible;
             SignIn.Visibility = Visibility.Hidden;
+            StatusIndicator.Visibility = Visibility.Hidden;
             model.connect();
         }
 
         public void activate() {
             ConnectionStatus.Visibility = Visibility.Hidden;
+            StatusIndicator.Visibility = Visibility.Visible;
             SignIn.Visibility = Visibility.Visible;
         }
     }

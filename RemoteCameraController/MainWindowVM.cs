@@ -117,10 +117,7 @@ namespace RemoteCameraController {
         ICommand modeCommand;
         public ICommand ModeCommand {
             get {
-                if (modeCommand == null) {
-                    modeCommand = new DelegateCommand<ModeColors>(
-                        changeModeShortCut);
-                }
+                if (modeCommand == null) { modeCommand = new DelegateCommand<ModeColors>(changeModeShortCut); }
                 return modeCommand;
             }
         }
@@ -128,10 +125,7 @@ namespace RemoteCameraController {
         ICommand discoverCommand;
         public ICommand DiscoverCommand {
             get {
-                if (discoverCommand == null) {
-                    discoverCommand = new DelegateCommand<string>(
-                        discoverShortCut);
-                }
+                if (discoverCommand == null) { discoverCommand = new DelegateCommand<string>(discoverShortCut); }
                 return discoverCommand;
             }
         }

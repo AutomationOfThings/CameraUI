@@ -5,7 +5,6 @@ using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Util;
 using Microsoft.Practices.Prism.PubSubEvents;
-using System.Diagnostics;
 using Microsoft.Practices.Prism.Mvvm;
 using MjpegProcessor;
 using System.Windows;
@@ -46,7 +45,6 @@ namespace Camera {
             mjpegDecoder = new MjpegDecoder();
             mjpegDecoder.FrameReady += FrameReady;
             mjpegDecoder.Error += MjpegDecoderError;
-            // connect();
         }
 
         private void connectionErrorHandler() {
@@ -74,14 +72,9 @@ namespace Camera {
         private void OnGetInitSessionResponse(init_session_response_t res) {
             if ( res.ip_address == CamInfo.IP ) {
                 if (res.response_message == "OK") {
-                    if (CamInfo.VideoURL != null) {
-                        mjpegDecoder.ParseStream(new Uri(this.CamInfo.VideoURL, UriKind.Absolute), CamInfo.UserName, CamInfo.Password);
-                    } else {
-                        CamInfo.getStreamUri();
-                    }
-                } else {
-                    connectionErrorHandler();
-                }
+                    if (CamInfo.VideoURL != null || CamInfo.VideoURL != "") { mjpegDecoder.ParseStream(new Uri(this.CamInfo.VideoURL, UriKind.Absolute), CamInfo.UserName, CamInfo.Password); } 
+                    else { CamInfo.getStreamUri(); }
+                } else { connectionErrorHandler(); }
             } 
         }
 
@@ -90,17 +83,12 @@ namespace Camera {
                 if (res.response_message == "OK") {
                     CamInfo.VideoURL = res.uri;
                     mjpegDecoder.ParseStream(new Uri(CamInfo.VideoURL, UriKind.Absolute), CamInfo.UserName, CamInfo.Password);
-                } else {
-                    connectionErrorHandler();
-                }
+                } else { CamInfo.getStreamUri(); }
             }
         }
 
 
         public void connect() {
-            // start the session
-            // mjpegDecoder.ParseStream(new Uri("http://192.168.1.211/stw-cgi/video.cgi?msubmenu=stream&action=view&Profile=1&CodecType=MJPEG", UriKind.Absolute), "admin", "aotcamera02");
-
             CamInfo.initSession();
             Task.Delay(2000).ContinueWith(_ => {
                 CamInfo.getStreamUri();
@@ -114,20 +102,15 @@ namespace Camera {
             }
         }
         public void beOutput(CameraInfo cam) {
-            if (this.CamInfo.CameraID == cam.CameraID) {                
-                this.OutputBackgroundColor = Brushes.LightGreen;
-            } else {
-                this.OutputBackgroundColor = Brushes.Gray;
-            }
+            if (CamInfo.CameraID == cam.CameraID) { OutputBackgroundColor = Brushes.LightGreen; } 
+            else { OutputBackgroundColor = Brushes.Gray; }
         }
 
         public void beSelected(CameraInfo param) {
-            if (this.CamInfo.CameraID == param.CameraID) {
-                this.Selected = Visibility.Visible;
+            if (CamInfo.CameraID == param.CameraID) {
+                Selected = Visibility.Visible;
             }
-            else {
-                this.Selected = Visibility.Hidden;
-            }
+            else { Selected = Visibility.Hidden; }
         }
 
         void onLoggin(CameraInfo cam) {
@@ -137,7 +120,7 @@ namespace Camera {
         void onSelected(CameraInfo cam) {
             // Uncomment it to get the feature of camera log in
             showLogginWindow();
-            if (this.CamInfo.isLoggedIn) {
+            if (CamInfo.isLoggedIn) {
                 _ea.GetEvent<CameraSelectEvent>().Publish(cam);
                 _ea.GetEvent<StatusUpdateEvent>().Publish("Camera selected as preview");
             }
@@ -146,7 +129,7 @@ namespace Camera {
         void onOutput(CameraInfo cam) {
             // Uncomment it to get the feature of camera log in
             showLogginWindow();
-            if (this.CamInfo.isLoggedIn) {
+            if (CamInfo.isLoggedIn) {
                 _ea.GetEvent<CameraOutPutEvent>().Publish(cam);
                 _ea.GetEvent<StatusUpdateEvent>().Publish("Camera selected as output");
             }
@@ -155,9 +138,7 @@ namespace Camera {
         ICommand selectedCommand;
         public ICommand SelectedCommand {
             get {
-                if (selectedCommand == null) {
-                    selectedCommand = new DelegateCommand<CameraInfo>(onSelected);
-                }
+                if (selectedCommand == null) { selectedCommand = new DelegateCommand<CameraInfo>(onSelected); }
                 return selectedCommand;
             }
         }
@@ -165,9 +146,7 @@ namespace Camera {
         ICommand outputCommand;
         public ICommand OutputCommand {
             get {
-                if (outputCommand == null) {
-                    outputCommand = new DelegateCommand<CameraInfo>(onOutput);
-                }
+                if (outputCommand == null) { outputCommand = new DelegateCommand<CameraInfo>(onOutput); }
                 return outputCommand;
             }
         }
@@ -175,9 +154,7 @@ namespace Camera {
         ICommand logginCommand;
         public ICommand LogginCommand {
             get {
-                if (logginCommand == null) {
-                    logginCommand = new DelegateCommand<CameraInfo>(onLoggin);
-                }
+                if (logginCommand == null) { logginCommand = new DelegateCommand<CameraInfo>(onLoggin); }
                 return logginCommand;
             }
         }

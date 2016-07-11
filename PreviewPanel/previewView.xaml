@@ -210,7 +210,7 @@
             </local:ScaleSlider>
         </Grid>
         <Slider Name="PanSlider" Value="{Binding SliderPan, UpdateSourceTrigger=Default}" Style="{StaticResource MyCustomStyleForSlider}" Visibility="{Binding Active}" Height="18" VerticalAlignment="Top" Margin="72,464,71,0" LargeChange="30" IsSnapToTickEnabled="True" Minimum="0" Maximum="355" />
-        <Slider Name="TiltSlider" Value="{Binding SliderTilt, UpdateSourceTrigger=Default}" Style="{StaticResource MyCustomStyleForSlider}" Visibility="{Binding Active}" Height="18" VerticalAlignment="Top" Margin="-113,267,479,0" LargeChange="30" IsSnapToTickEnabled="True" Minimum="-15" Maximum="195" RenderTransformOrigin="0.5,0.5" >
+        <Slider Name="TiltSlider" Value="{Binding SliderTilt, UpdateSourceTrigger=Default}" Style="{StaticResource MyCustomStyleForSlider}" Visibility="{Binding Active}" Height="18" VerticalAlignment="Top" Margin="-116,267,482,0" LargeChange="30" IsSnapToTickEnabled="True" Minimum="-15" Maximum="195" RenderTransformOrigin="0.5,0.5" >
             <Slider.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -234,13 +234,6 @@
         <!-- <Border Width="455" Height="44" Visibility="{Binding Active}" VerticalAlignment="Center" HorizontalAlignment="Center" BorderThickness="0,1,0,0" BorderBrush="LightGray" Margin="10,531,35,25" />  -->
         <!-- <Button Content="Save as New" Command="{Binding SaveSettingCommand}" CommandParameter="{Binding CurrentCamera}" Visibility="{Binding Active}" HorizontalAlignment="Left" Margin="340,315,0,0" VerticalAlignment="Top" Width="80" Background="WhiteSmoke" Height="26"/> -->
         <Button Content="Save" Command="{Binding SaveSettingCommand}" CommandParameter="{Binding CurrentCamera}" Background="{Binding modeColors.ModeColor_WhiteSmoke_Gray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Visibility="{Binding Active}" HorizontalAlignment="Center" Margin="485,516,85,58" VerticalAlignment="Center" Width="80" Height="26"/>
-
-
-
-
-
-
-
 
     </Grid>
 </UserControl>

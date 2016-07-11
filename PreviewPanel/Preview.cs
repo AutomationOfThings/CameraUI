@@ -122,7 +122,7 @@ namespace PreviewPanel {
         }
 
         public void acceptPreset(PresetParams preset) {
-            if (CurrentCamera == null || preset.CamId != CurrentCamera.CameraID) {
+            if (CurrentCamera == null || preset.CamId != CurrentCamera.CameraID || preset.presettingId == null) {
                 MessageBox.Show("Preset cannot be applied to this camera.");
             } else {
                 CurrentSetting = preset;
@@ -133,25 +133,6 @@ namespace PreviewPanel {
                 SliderZoom = Convert.ToInt32(preset.zoom);
             }
         }
-
-        /*
-        public void onPan(PTZcmd? cmd) {
-            CurrentCamera.ChangePanHandler(cmd);
-        }
-
-        public void onTilt(PTZcmd? cmd) {
-            CurrentCamera.ChangeTiltHandler(cmd);
-        }
-
-        public void onZoom(PTZcmd? cmd) {
-            if (cmd == PTZcmd.Increase) {
-                SliderZoom += 1;
-            } else {
-                SliderZoom -= 1;
-            }
-            
-        }
-        */
 
         private void saveSetting(CameraInfo camInfo) {
             if (CurrentSetting != null) {
@@ -182,28 +163,6 @@ namespace PreviewPanel {
             isRedoMode = false;
         }
 
-        // ICommand:
-        /*
-        ICommand panCommand;
-        public ICommand PanCommand {
-            get {
-                if (panCommand == null) {
-                    panCommand = new DelegateCommand<PTZcmd?>(onPan);
-                }
-                return panCommand;
-            }
-        }
-
-        ICommand tiltCommand;
-        public ICommand TiltCommand {
-            get {
-                if (tiltCommand == null) {
-                    tiltCommand = new DelegateCommand<PTZcmd?>(onTilt);
-                }
-                return tiltCommand;
-            }
-        }
-        */
 
         ICommand undoCommand;
         public ICommand UndoCommand {
@@ -224,18 +183,6 @@ namespace PreviewPanel {
                 return redoCommand;
             }
         }
-
-        /*
-        ICommand zoomCommand;
-        public ICommand ZoomCommand {
-            get {
-                if (zoomCommand == null) {
-                    zoomCommand = new DelegateCommand<PTZcmd?>(onZoom);
-                }
-                return zoomCommand;
-            }
-        }
-        */
 
         ICommand saveSettingCommand;
         public ICommand SaveSettingCommand {
@@ -283,12 +230,8 @@ namespace PreviewPanel {
         }
 
         public void clear() {
-            if (UndoDeque.Count > 0) {
-                UndoDeque.RemoveRange(0, UndoDeque.Count);
-            }
-            if (RedoDeque.Count > 0) {
-                RedoDeque.RemoveRange(0, RedoDeque.Count);
-            }
+            if (UndoDeque.Count > 0) { UndoDeque.RemoveRange(0, UndoDeque.Count); }
+            if (RedoDeque.Count > 0) { RedoDeque.RemoveRange(0, RedoDeque.Count); }
             CanUndo = false;
             CanRedo = false;
             
@@ -298,26 +241,18 @@ namespace PreviewPanel {
             if (UndoDeque.Count > 1) {
                 T item = UndoDeque.RemoveBack();
                 RedoDeque.AddBack(item);
-                if (UndoDeque.Count == 1) {
-                    CanUndo = false;
-                }
+                if (UndoDeque.Count == 1) { CanUndo = false; }
                 CanRedo = true;
                 return UndoDeque.Get(UndoDeque.Count-1);
             }
-            if (UndoDeque.Count == 1) {
-                CanUndo = false;
-            }
+            if (UndoDeque.Count == 1) { CanUndo = false; }
             return default(T);
         }
 
         public void add(T item) {
-            if (UndoDeque.Count > BufferSize) {
-                UndoDeque.RemoveFront();
-            }
+            if (UndoDeque.Count > BufferSize) { UndoDeque.RemoveFront(); }
             UndoDeque.AddBack(item);
-            if (UndoDeque.Count > 1) {
-                CanUndo = true;
-            }
+            if (UndoDeque.Count > 1) { CanUndo = true; }
             if (RedoDeque.Count > 0) {
                 RedoDeque.RemoveRange(0, RedoDeque.Count);
                 CanRedo = false;
@@ -328,15 +263,11 @@ namespace PreviewPanel {
             if (RedoDeque.Count > 0) {
                 T item = RedoDeque.RemoveBack();
                 UndoDeque.AddBack(item);
-                if (RedoDeque.Count == 0) {
-                    CanRedo = false;
-                }
+                if (RedoDeque.Count == 0) { CanRedo = false; }
                 CanUndo = true;
                 return item;
             }
-            if (RedoDeque.Count == 0) {
-                CanRedo = false;
-            }
+            if (RedoDeque.Count == 0) { CanRedo = false; }
             return default(T);
         }
     }
