@@ -23,6 +23,8 @@ namespace RemoteCameraController {
 
         public ModeColors modeColors { get; set; }
 
+        List<string> usedCamList = new List<string>();
+
         List<CameraInfo> camInfoList = new List<CameraInfo>();
         // ObservableCollection<CameraVM> camList = new ObservableCollection<CameraVM>();
         List<PresetParams> presetList;
@@ -48,7 +50,7 @@ namespace RemoteCameraController {
         }
 
         public void loadXML(string presettingFile, string programFile) {
-            presetList = new PresettingParser(presettingFile).parse();
+            presetList = new PresettingParser(presettingFile).parse(usedCamList);
             programList = new ProgramParser(programFile).parse();
         }
 
@@ -61,15 +63,6 @@ namespace RemoteCameraController {
 
             camInfoList = new List<CameraInfo>();
 
-            /*
-            for (int i = 111; i < 333; i += 111) {
-                CameraInfo cam = new CameraInfo("ip1", i.ToString(), 0, 0, 1);
-                cam.VideoURL = URL1;
-                cam.IP = "192.168.1.211";
-                camInfoList.Add(cam);
-            }
-            */
-
             // initialize camera list view
             CamListVM = new CameraListVM(camInfoList);
             cameraExplorer = new CameraExplorer(camInfoList);
@@ -81,7 +74,7 @@ namespace RemoteCameraController {
             OutputVM = new OutputVM();
 
             // set up bottom right area: presetting
-            PresetVM = new PresettingVM(presetList, camInfoList);
+            PresetVM = new PresettingVM(presetList, camInfoList, usedCamList);
 
             // set up bottom right area: program
             ProgramVM = new ProgramVM(programList, camInfoList, presetList);

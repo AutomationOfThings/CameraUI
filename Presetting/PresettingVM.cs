@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.Practices.Prism.PubSubEvents;
 using Util;
-using System.Diagnostics;
 using System.Xml;
 using Microsoft.Practices.Prism.Commands;
 using System.Windows.Input;
@@ -27,11 +26,12 @@ namespace Presetting {
 
         List<PresetParams> camListForDisk;
         List<string> camIdList;
+        List<string> usedCamIdList;
 
         ObservableCollection<PresetParamsExtend> camList;
         public ObservableCollection<PresetParamsExtend> CamList {
             get { return camList; }
-            set { this.camList = value; }
+            set { camList = value; }
         }
 
         Dictionary<PresetParamsExtend, PresetParams> camList2camListForDisk = new Dictionary<PresetParamsExtend, PresetParams>();
@@ -44,19 +44,21 @@ namespace Presetting {
 
         public Color color { get; set; } = Color.FromRgb(60,0,0);
 
-        public PresettingVM(List<PresetParams> presetList, List<CameraInfo> camList) {
+        public PresettingVM(List<PresetParams> presetList, List<CameraInfo> camList, List<string> usedCamList) {
             _ea = Notification.Instance;
             modeColors = ModeColors.Singleton(_ea);
             camListForDisk = presetList;
             this.camList = new ObservableCollection<PresetParamsExtend>();
             camIdList = new List<string>();
-            foreach (CameraInfo item in camList) { camIdList.Add(item.CameraID); }
+            usedCamIdList = usedCamList;
+            updateCamIdList(camList);
             foreach (PresetParams i in presetList) {
                 PresetParamsExtend newItem = new PresetParamsExtend(i.presettingId, i.CamId, camIdList, i.pan, i.tilt, i.zoom);
                 this.camList.Add(newItem);
-                this.camList2camListForDisk[newItem] = i;
+                camList2camListForDisk[newItem] = i;
             }
-            this._ea.GetEvent<SaveSettingEvent>().Subscribe(saveSetting);
+            _ea.GetEvent<SaveSettingEvent>().Subscribe(saveSetting);
+            _ea.GetEvent<CameraDiscoveredEvent>().Subscribe(updateCamIdList, ThreadOption.UIThread);
         }
 
         private void saveSetting(PresetParams setting) {
@@ -65,8 +67,18 @@ namespace Presetting {
                     item.Pan = setting.pan;
                     item.Tilt = setting.tilt;
                     item.Zoom = setting.zoom;
+                    return;
                 }
             }
+
+            PresetParamsExtend newItem = new PresetParamsExtend(camIdList);
+            newItem.CameraID = setting.CamId;
+            newItem.Pan = setting.pan;
+            newItem.Tilt = setting.tilt;
+            newItem.Zoom = setting.zoom;
+            newItem.CanSave = true;
+            camList.Add(newItem);
+
         }
 
         private void saveToDiskListAtIndex(int index) {
@@ -149,7 +161,7 @@ namespace Presetting {
 
         public void add(object obj) {
             PresetParamsExtend newItem = new PresetParamsExtend(camIdList);
-            this.camList.Add(newItem);
+            camList.Add(newItem);
         }
 
         public void set(object input) {
@@ -159,6 +171,14 @@ namespace Presetting {
                 PresetParamsExtend toSet = camList[index];
                 PresetParams preset = new PresetParams(toSet.PresettingId, toSet.CameraID, toSet.Pan, toSet.Tilt, toSet.Zoom);
                 _ea.GetEvent<SetPresetEvent>().Publish(preset);
+            }
+        }
+
+        public void updateCamIdList(List<CameraInfo> list) {
+            camIdList.Clear();
+            foreach (string item in usedCamIdList) { camIdList.Add(item); }
+            foreach (CameraInfo item in list) {
+                if (!camIdList.Contains(item.CameraID)) { camIdList.Add(item.CameraID); }
             }
         }
 

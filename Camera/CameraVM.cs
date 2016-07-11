@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Windows.Media;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
@@ -62,10 +63,12 @@ namespace Camera {
         public void FrameReady(object sender, FrameReadyEventArgs e) {
             if (form != null && form.IsActive == true) {
                 form.Close();
+                CamInfo.startUpdatePTZ();
             }
             CamInfo.isLoggedIn = true;
             CamInfo.dispatcherTimer.Start();
             CamInfo.VideoSource = e.BitmapImage;
+            
         }
 
         private void OnGetInitSessionResponse(init_session_response_t res) {
@@ -106,10 +109,8 @@ namespace Camera {
 
         private void showLogginWindow() {
             if (!CamInfo.isLoggedIn) {
-                if (form == null) {
-                    form = new CameraLoginForm(this);
-                }
-                form.ShowDialog();
+                form = new CameraLoginForm(this);
+                form.ShowDialog();                
             }
         }
         public void beOutput(CameraInfo cam) {

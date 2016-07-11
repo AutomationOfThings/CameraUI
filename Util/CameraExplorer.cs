@@ -34,9 +34,13 @@ namespace Util {
 
         private void OnGetDiscoveryResponse(discovery_response_t res) {
             camList.Clear();
+            List<string> temp = new List<string>();
             foreach (string ip in res.camera_names) {
-                CameraInfo cam = new CameraInfo(ip, ip, 0 , 0, 1);
-                camList.Add(cam);
+                if (!temp.Contains(ip)) {
+                    temp.Add(ip);
+                    CameraInfo cam = new CameraInfo(ip, ip, 0, 0, 1);
+                    camList.Add(cam);
+                }
             }
             
             _ea.GetEvent<StatusUpdateEvent>().Publish("Camera discovery finished");

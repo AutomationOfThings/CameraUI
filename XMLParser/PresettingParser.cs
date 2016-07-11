@@ -15,7 +15,7 @@ namespace XMLParser {
             this.fileName = filename;
         }
         
-        public List<PresetParams> parse() {
+        public List<PresetParams> parse(List<string> usedCamList) {
             List<PresetParams> cams = new List<PresetParams>();
             XmlTextReader reader = new XmlTextReader(fileName);
 
@@ -33,6 +33,8 @@ namespace XMLParser {
                     cam.tilt = Convert.ToDouble(node.SelectSingleNode("Tilt").InnerText);
                     cam.zoom = Convert.ToDouble(node.SelectSingleNode("Zoom").InnerText); //node.Attributes["Zoom"].Value;
                     cams.Add(cam);
+
+                    if (!usedCamList.Contains(cam.CamId)) { usedCamList.Add(cam.CamId); }
                 } catch {
                     Debug.WriteLine("Invalide Format.");
                 }

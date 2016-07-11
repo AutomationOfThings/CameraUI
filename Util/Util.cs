@@ -7,6 +7,7 @@ using Microsoft.Practices.Prism.Mvvm;
 using System.Windows.Threading;
 using ptz_camera;
 using NotificationCenter;
+using System.Windows;
 
 namespace Util {
     public class PresetParams {
@@ -87,6 +88,9 @@ namespace Util {
         }
 
         public PresetParamsExtend(List<string> camList) {
+            Pan = 0;
+            Tilt = 0;
+            Zoom = 1;
             CanSave = false;
             CamList = camList;
         }
@@ -193,10 +197,10 @@ namespace Util {
             Zoom = z;
 
             _ea = Notification.Instance;
-            _ea.GetEvent<PositionResponseReceivedEvent>().Subscribe(setPosition);
+            _ea.GetEvent<PositionResponseReceivedEvent>().Subscribe(onGetPositionUpdate);
             _ea.GetEvent<EndSessionResponseReceivedEvent>().Subscribe(OnGetEndSessionResponse);
 
-            dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer = new DispatcherTimer(DispatcherPriority.Background, Application.Current.Dispatcher);
             dispatcherTimer.Tick += new EventHandler(updatePTZ);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
         }
@@ -205,8 +209,8 @@ namespace Util {
             CameraConnnector.getStreamUri(IP);
         }
 
-        private void setPosition(position_response_t res) {
-            if (IP == res.ip_address) {
+        private void onGetPositionUpdate(position_response_t res) {
+            if (IP == res.ip_address && res.response_message == "OK") {
                 Pan = double.Parse(res.pan_value);
                 Tilt = double.Parse(res.tilt_value);
                 Zoom = double.Parse(res.zoom_value);
@@ -230,6 +234,14 @@ namespace Util {
                     endSession();
                 }
             }
+        }
+
+        public void startUpdatePTZ() {
+            dispatcherTimer.Start();
+        }
+
+        public void stopUpdatePTZ() {
+            dispatcherTimer.Stop();
         }
 
         private void updatePTZ(object sender, EventArgs e) {

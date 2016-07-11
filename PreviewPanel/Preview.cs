@@ -127,10 +127,10 @@ namespace PreviewPanel {
             } else {
                 CurrentSetting = preset;
                 CurrentCamera.changePTZ(PTZ_MODE.Absolute, preset.pan, preset.tilt, preset.zoom);
-                sliderPan = Convert.ToInt32(preset.pan);
-                sliderTilt = Convert.ToInt32(preset.tilt);
+                SliderPan = Convert.ToInt32(preset.pan);
+                SliderTilt = Convert.ToInt32(preset.tilt);
                 UndoRedoManager.clear();
-                sliderZoom = Convert.ToInt32(preset.zoom);
+                SliderZoom = Convert.ToInt32(preset.zoom);
             }
         }
 
@@ -158,8 +158,10 @@ namespace PreviewPanel {
                 CurrentSetting.pan = camInfo.Pan;
                 CurrentSetting.tilt = camInfo.Tilt;
                 CurrentSetting.zoom = camInfo.Zoom;
-                _ea.GetEvent<SaveSettingEvent>().Publish(currentSetting);
+            } else {
+                CurrentSetting = new PresetParams("", CurrentCamera.CameraID, currentCamera.Pan, CurrentCamera.Tilt, CurrentCamera.Zoom);
             }
+            _ea.GetEvent<SaveSettingEvent>().Publish(currentSetting);
         }
 
         private void undo(UndoRedo<ptz> ud) {
