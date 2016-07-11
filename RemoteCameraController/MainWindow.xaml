@@ -220,7 +220,7 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0" MinHeight="200">
                 <Border BorderBrush="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" BorderThickness="2">
-                    <Border BorderBrush="{Binding modeColors.ModeColor_White_Gray}" BorderThickness="1">
+                    <Border BorderBrush="{Binding modeColors.ModeColor_LightGray_Gray}" BorderThickness="1">
                         <ScrollViewer HorizontalScrollBarVisibility="Auto" Style="{StaticResource FavsScrollViewer}" PanningMode="Both">
                             <preview:PreviewView DataContext="{Binding PreviewVM}" Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </ScrollViewer>
@@ -279,7 +279,7 @@
                                         <TranslateTransform/>
                                     </TransformGroup>
                                 </Grid.LayoutTransform>
-                                <Border BorderBrush="{Binding modeColors.ModeColor_White_Gray}" BorderThickness="1">
+                                <Border BorderBrush="{Binding modeColors.ModeColor_LightGray_Gray}" BorderThickness="1">
                                     <ScrollViewer HorizontalScrollBarVisibility="Auto" Style="{StaticResource FavsScrollViewer}" PanningMode="Both">
                                         <output:OutputView DataContext="{Binding OutputVM}" Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                                     </ScrollViewer>
@@ -379,7 +379,7 @@
             <Grid Name="CamList" Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
                 <cam:CameraListView DataContext="{Binding CamListVM}" />
             </Grid>
-            <Border VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderBrush="{Binding modeColors.ModeColor_White_Gray}" BorderThickness="1,1,1,0" />
+            <Border VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderBrush="{Binding modeColors.ModeColor_LightGray_Gray}" BorderThickness="1,1,1,0" />
         </Grid>
         <Border VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="25" BorderThickness="0,1,0,0" BorderBrush="{Binding modeColors.ModeColor_LightBlue_DimDark}">
             <Grid Name="StatusBar" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="25" Background="{Binding modeColors.ModeColor_AliceBlue_Dark}" >

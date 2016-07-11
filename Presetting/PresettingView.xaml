@@ -201,7 +201,7 @@
 
         <DataGrid Name="PresetDataGrid" ItemsSource="{Binding CamList}" SelectedIndex="{Binding SelectedIndex}" CanUserAddRows="True" CanUserDeleteRows="True" RowHeaderWidth="0"
             AutoGenerateColumns="False" Margin="0,0,0,40" GridLinesVisibility="Horizontal" HorizontalAlignment="Stretch" Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" 
-            HorizontalGridLinesBrush="{Binding DataContext.modeColors.ModeColor_LightGray_Gray, RelativeSource={RelativeSource AncestorType=UserControl}}" CanUserResizeColumns="False"
+            HorizontalGridLinesBrush="{Binding DataContext.modeColors.ModeColor_LightGray_Gray, RelativeSource={RelativeSource AncestorType=UserControl}}" CanUserResizeColumns="False" CanUserSortColumns="False"
             Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" BorderThickness="1,1,1,1" BorderBrush="{Binding modeColors.ModeColor_LightGray_Gray}" ScrollViewer.PanningMode="Both">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">

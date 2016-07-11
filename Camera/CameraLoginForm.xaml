@@ -10,7 +10,7 @@
         <Label Content="Password:" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" HorizontalAlignment="Left" Margin="53,104,0,0" VerticalAlignment="Top"/>
         <TextBox Name="UsernameBox" Background="{Binding modeColors.ModeColor_White_Gray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Height="23" Margin="0,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Center" Width="180"/>
         <PasswordBox Name="PasswordBox" Background="{Binding modeColors.ModeColor_White_Gray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Height="23" Margin="0,130,0,0" PasswordChar="●" VerticalAlignment="Top" HorizontalAlignment="Center" Width="180"/>
-        <Label Content="Loggin failed" Name="StatusIndicator" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" HorizontalAlignment="Center" Margin="108,167,108,0" VerticalAlignment="Top"/>
+        <Label Content="Loggin failed" Name="StatusIndicator" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" HorizontalAlignment="Center" Margin="0,167,0,0" Width="100" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
         <Button Background="{Binding modeColors.ModeColor_White_Gray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" x:Name="SignIn" Content="Sign in" HorizontalAlignment="Center" Margin="0,0,0,40" VerticalAlignment="Bottom" Width="85" Height="25" Click="signIn"/>
         <ProgressBar Background="{Binding modeColors.ModeColor_LightGray_Gray}" Name="ConnectionStatus" Minimum="0" Maximum="100" Width="180" Height="10" Margin="0,0,0,50" VerticalAlignment="Bottom" IsIndeterminate="True" />
     </Grid>

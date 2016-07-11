@@ -11,7 +11,7 @@ using PreviewPanel;
 using Program;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Input;
 using Util;
 using XMLParser;
@@ -93,7 +93,8 @@ namespace RemoteCameraController {
 
         public void endCameraSessions() {
             bool canExit = true;
-            while (true){
+            int i = 0;
+            while (i < 6) {
                 foreach (CameraInfo cam in camInfoList) {
                     if (cam.UserName != null) {
                         cam.endSession();
@@ -102,7 +103,8 @@ namespace RemoteCameraController {
                 }
                 if (canExit)
                     return;
-                Task.Delay(500);                    
+                Thread.Sleep(500);
+                i ++;                    
             }
         }
 

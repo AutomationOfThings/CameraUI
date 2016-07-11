@@ -51,7 +51,9 @@ namespace Camera {
             CamInfo.isLoggedIn = false;
             CamInfo.UserName = null;
             camInfo.Password = null;
-            form.activate();
+            if (form != null) {
+                form.activate();
+            }
         }
 
         private void MjpegDecoderError(object sender, ErrorEventArgs e) {
