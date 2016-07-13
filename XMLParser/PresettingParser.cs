@@ -28,13 +28,13 @@ namespace XMLParser {
                 PresetParams cam = new PresetParams();
                 try {
                     cam.presettingId = node.Attributes["Name"].Value.ToString();
-                    cam.CamId = node.SelectSingleNode("CameraID").InnerText;
+                    cam.CameraName = node.SelectSingleNode("CameraID").InnerText;
                     cam.pan = Convert.ToDouble(node.SelectSingleNode("Pan").InnerText);
                     cam.tilt = Convert.ToDouble(node.SelectSingleNode("Tilt").InnerText);
                     cam.zoom = Convert.ToDouble(node.SelectSingleNode("Zoom").InnerText); //node.Attributes["Zoom"].Value;
                     cams.Add(cam);
 
-                    if (!usedCamList.Contains(cam.CamId)) { usedCamList.Add(cam.CamId); }
+                    if (!usedCamList.Contains(cam.CameraName)) { usedCamList.Add(cam.CameraName); }
                 } catch {
                     Debug.WriteLine("Invalide Format.");
                 }

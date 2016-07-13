@@ -25,8 +25,8 @@ namespace Presetting {
         public ModeColors modeColors { get; set; }
 
         List<PresetParams> camListForDisk;
-        List<string> camIdList;
-        List<string> usedCamIdList;
+
+        ObservableCollection<CameraNameWrapper> CameraNameList;
 
         ObservableCollection<PresetParamsExtend> camList;
         public ObservableCollection<PresetParamsExtend> CamList {
@@ -42,23 +42,21 @@ namespace Presetting {
             set { _selectedIndex = value; }
         }
 
-        public Color color { get; set; } = Color.FromRgb(60,0,0);
-
-        public PresettingVM(List<PresetParams> presetList, List<CameraInfo> camList, List<string> usedCamList) {
+        public PresettingVM(List<PresetParams> presetList, List<CameraInfo> camList, List<string> usedCamList, ObservableCollection<CameraNameWrapper> cameraNameList) {
             _ea = Notification.Instance;
             modeColors = ModeColors.Singleton(_ea);
             camListForDisk = presetList;
+            CameraNameList = cameraNameList;
             this.camList = new ObservableCollection<PresetParamsExtend>();
-            camIdList = new List<string>();
-            usedCamIdList = usedCamList;
-            updateCamIdList(camList);
+            //updateCamIdList(camList);
             foreach (PresetParams i in presetList) {
-                PresetParamsExtend newItem = new PresetParamsExtend(i.presettingId, i.CamId, camIdList, i.pan, i.tilt, i.zoom);
+                PresetParamsExtend newItem = new PresetParamsExtend(i.presettingId, i.CameraName, CameraNameList,i.pan, i.tilt, i.zoom);
+                newItem.CanSave = false;
                 this.camList.Add(newItem);
                 camList2camListForDisk[newItem] = i;
             }
             _ea.GetEvent<SaveSettingEvent>().Subscribe(saveSetting);
-            _ea.GetEvent<CameraDiscoveredEvent>().Subscribe(updateCamIdList, ThreadOption.UIThread);
+            //_ea.GetEvent<CameraDiscoveredEvent>().Subscribe(updateCamIdList, ThreadOption.UIThread);
         }
 
         private void saveSetting(PresetParams setting) {
@@ -71,8 +69,8 @@ namespace Presetting {
                 }
             }
 
-            PresetParamsExtend newItem = new PresetParamsExtend(camIdList);
-            newItem.CameraID = setting.CamId;
+            PresetParamsExtend newItem = new PresetParamsExtend(CameraNameList);
+            newItem.Camera = new CameraNameWrapper(setting.CameraName);
             newItem.Pan = setting.pan;
             newItem.Tilt = setting.tilt;
             newItem.Zoom = setting.zoom;
@@ -93,16 +91,16 @@ namespace Presetting {
                         }
                     }
                 }
-                if (toSave.CameraID == null || toSave.PresettingId == null) {
+                if (toSave.Camera == null || toSave.PresettingId == null) {
                     MessageBox.Show("Missing data", "Warning");
                     return;
                 }
                 if (camList2camListForDisk.ContainsKey(toSave)) {
                     PresetParams itemInCamListForDisk = camList2camListForDisk[toSave];
-                    itemInCamListForDisk.update(toSave.PresettingId, toSave.CameraID, toSave.Pan, toSave.Tilt, toSave.Zoom);
+                    itemInCamListForDisk.update(toSave.PresettingId, toSave.Camera.CameraName, toSave.Pan, toSave.Tilt, toSave.Zoom);
 
                 } else {
-                    PresetParams savedItem = new PresetParams(toSave.PresettingId, toSave.CameraID, toSave.Pan, toSave.Tilt, toSave.Zoom);
+                    PresetParams savedItem = new PresetParams(toSave.PresettingId, toSave.Camera.CameraName, toSave.Pan, toSave.Tilt, toSave.Zoom);
                     camListForDisk.Add(savedItem);
                     camList2camListForDisk[toSave] = savedItem;
                 }
@@ -132,7 +130,7 @@ namespace Presetting {
                 foreach (PresetParams cam in camListForDisk) {
                     writer.WriteStartElement("Preset");
                     writer.WriteAttributeString("Name", cam.presettingId);
-                    writer.WriteElementString("CameraID", cam.CamId.ToString());
+                    writer.WriteElementString("CameraID", cam.CameraName.ToString());
                     writer.WriteElementString("Pan", cam.pan.ToString());
                     writer.WriteElementString("Tilt", cam.tilt.ToString());
                     writer.WriteElementString("Zoom", cam.zoom.ToString());
@@ -160,7 +158,7 @@ namespace Presetting {
         }
 
         public void add(object obj) {
-            PresetParamsExtend newItem = new PresetParamsExtend(camIdList);
+            PresetParamsExtend newItem = new PresetParamsExtend(CameraNameList);
             camList.Add(newItem);
         }
 
@@ -169,19 +167,20 @@ namespace Presetting {
             if (index < camList.Count && index >= 0) {
                 // Debug.WriteLine("set preset: " + camList[index].toString());
                 PresetParamsExtend toSet = camList[index];
-                PresetParams preset = new PresetParams(toSet.PresettingId, toSet.CameraID, toSet.Pan, toSet.Tilt, toSet.Zoom);
+                PresetParams preset = new PresetParams(toSet.PresettingId, toSet.Camera.CameraName, toSet.Pan, toSet.Tilt, toSet.Zoom);
                 _ea.GetEvent<SetPresetEvent>().Publish(preset);
             }
         }
-
+        /*
         public void updateCamIdList(List<CameraInfo> list) {
             camIdList.Clear();
-            foreach (string item in usedCamIdList) { camIdList.Add(item); }
+            //foreach (string item in usedCamIdList) { camIdList.Add(item); }
             foreach (CameraInfo item in list) {
                 if (!camIdList.Contains(item.CameraID)) { camIdList.Add(item.CameraID); }
             }
         }
 
+    */
 
         // ICommands:
 

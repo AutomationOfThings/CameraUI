@@ -5,7 +5,7 @@ using NotificationCenter;
 using ptz_camera;
 
 using System.Collections.Generic;
-
+using System.Collections.ObjectModel;
 
 namespace Util {
     public class CameraExplorer {
@@ -14,9 +14,13 @@ namespace Util {
         private EventAggregator _ea;
 
         List<CameraInfo> camList;
+        Dictionary<string, string> ip2CameraName;
+        ObservableCollection<CameraNameWrapper> cameraNameList;
 
-        public CameraExplorer(List<CameraInfo> camList) {
+        public CameraExplorer(List<CameraInfo> camList, Dictionary<string, string> IP2CameraName, ObservableCollection<CameraNameWrapper> cameraNameList) {
             this.camList = camList;
+            ip2CameraName = IP2CameraName;
+            this.cameraNameList = cameraNameList;
             _lcm = LCM.LCM.LCM.Singleton;
             _ea = Notification.Instance;
             _ea.GetEvent<CameraDiscoverEvent>().Subscribe(discover);
@@ -35,10 +39,22 @@ namespace Util {
         private void OnGetDiscoveryResponse(discovery_response_t res) {
             camList.Clear();
             List<string> temp = new List<string>();
-            foreach (string ip in res.camera_names) {
+            foreach (string ip in res.ip_addresses) {
                 if (!temp.Contains(ip)) {
                     temp.Add(ip);
-                    CameraInfo cam = new CameraInfo(ip, ip, 0, 0, 1);
+                    CameraInfo cam;
+                    if (ip2CameraName.ContainsKey(ip)) {
+                        cam = new CameraInfo(ip, ip2CameraName[ip], 0, 0, 1);
+                        foreach (CameraNameWrapper item in cameraNameList) {
+                            if (item.AssociatedIP == ip) {
+                                cam.UserName = item.username;
+                                cam.Password = item.password;
+                            }
+                        }
+                    } else {
+                        cam = new CameraInfo(ip, null, 0, 0, 1);
+                    }
+                    
                     camList.Add(cam);
                 }
             }

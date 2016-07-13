@@ -27,7 +27,7 @@ namespace PreviewPanel {
 
         private static void OnPropertyChange(DependencyObject d, DependencyPropertyChangedEventArgs e) {
             ScaleSlider obj = d as ScaleSlider;
-            double offset = (obj.Position) / (obj.Max - obj.Min) * (obj.Width - obj.ArrowWidth);
+            double offset = (obj.Position - obj.Min) / (obj.Max - obj.Min) * (obj.Width - obj.ArrowWidth);
             obj.Arrow.Margin = new Thickness(offset, 0, 0, 0);
         }
 

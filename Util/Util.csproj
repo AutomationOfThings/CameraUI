@@ -121,6 +121,8 @@
     <Compile Include="ptz_camera\position_response_t.cs" />
     <Compile Include="ptz_camera\ptz_control_request_t.cs" />
     <Compile Include="ptz_camera\ptz_control_response_t.cs" />
+    <Compile Include="ptz_camera\stop_ptz_control_request_t.cs" />
+    <Compile Include="ptz_camera\stop_ptz_control_response_t.cs" />
     <Compile Include="ptz_camera\stream_uri_request_t.cs" />
     <Compile Include="ptz_camera\stream_uri_response_t.cs" />
     <Compile Include="Util.cs" />

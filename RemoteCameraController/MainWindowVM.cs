@@ -26,9 +26,11 @@ namespace RemoteCameraController {
         List<string> usedCamList = new List<string>();
 
         List<CameraInfo> camInfoList = new List<CameraInfo>();
-        // ObservableCollection<CameraVM> camList = new ObservableCollection<CameraVM>();
         List<PresetParams> presetList;
         ObservableCollection<ProgramInfo> programList;
+        ObservableCollection<CameraNameWrapper> cameraNameList;
+        Dictionary<string, string> CameraName2IP;
+        Dictionary<string, string> IP2CameraName;
 
         public ProgramVM ProgramVM { get; set; }
         public CameraListVM CamListVM { get; set; }
@@ -39,33 +41,37 @@ namespace RemoteCameraController {
         public StatusBarVM StatusBarVM { get; set; }
         public ProgramRunBarVM ProgramRunBarVM { get; set; }
         private CameraExplorer cameraExplorer;
-
+        
         public MainWindowVM () {
             //modeColors = new ModeColors(notificationCenter);
             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable()) {
                 modeColors = ModeColors.Singleton(notificationCenter);
-                loadXML(Constant.PRESET_FILE, Constant.PROGRAM_FILE);
+                loadXML(Constant.PRESET_FILE, Constant.PROGRAM_FILE, Constant.CAMERANAME_FILE);
                 setupViewModels();
             }
         }
 
-        public void loadXML(string presettingFile, string programFile) {
+        public void loadXML(string presettingFile, string programFile, string cameraNameFile) {
             presetList = new PresettingParser(presettingFile).parse(usedCamList);
             programList = new ProgramParser(programFile).parse();
+            CameraName2IP = new Dictionary<string, string>();
+            IP2CameraName = new Dictionary<string, string>();
+            cameraNameList = new ObservableCollection<CameraNameWrapper>();
+            (new CameraNameParser(cameraNameFile)).parse(CameraName2IP, IP2CameraName, cameraNameList);
         }
 
         private void setupViewModels() {
             // initialize Cameras
-            string ip1 = "192.168.0.148";
+            // string ip1 = "192.168.0.148";
             // string ip2 = "192.168.0.119";
-            string URL1 = "http://192.168.1.211/stw-cgi/video.cgi?msubmenu=stream&action=view&Profile=1&CodecType=MJPEG";
+            // string URL1 = "http://192.168.1.211/stw-cgi/video.cgi?msubmenu=stream&action=view&Profile=1&CodecType=MJPEG";
             // string URL2 = "http://192.168.0.119/stw-cgi/video.cgi?msubmenu=stream&action=view&Profile=4&CodecType=MJPEG&Resolution=800x600&FrameRate=30&CompressionLevel=10";
 
             camInfoList = new List<CameraInfo>();
 
             // initialize camera list view
-            CamListVM = new CameraListVM(camInfoList);
-            cameraExplorer = new CameraExplorer(camInfoList);
+            CamListVM = new CameraListVM(camInfoList, cameraNameList);
+            cameraExplorer = new CameraExplorer(camInfoList, IP2CameraName, cameraNameList);
             // initialize preview View
             PreviewVM = new PreviewVM();
 
@@ -74,10 +80,10 @@ namespace RemoteCameraController {
             OutputVM = new OutputVM();
 
             // set up bottom right area: presetting
-            PresetVM = new PresettingVM(presetList, camInfoList, usedCamList);
+            PresetVM = new PresettingVM(presetList, camInfoList, usedCamList, cameraNameList);
 
             // set up bottom right area: program
-            ProgramVM = new ProgramVM(programList, camInfoList, presetList);
+            ProgramVM = new ProgramVM(programList, camInfoList, cameraNameList, presetList);
             ProgramRunBarVM = new ProgramRunBarVM(programList);
 
             // set up menu bar
@@ -89,6 +95,10 @@ namespace RemoteCameraController {
             // change to dark mode when program starts up
             changeModeShortCut(modeColors);
 
+        }
+
+        public void saveCameras() {
+            (new CameraNameWriter(Constant.CAMERANAME_FILE)).writeToDisk(cameraNameList);
         }
 
         public void endCameraSessions() {

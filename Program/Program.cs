@@ -18,6 +18,7 @@ namespace Program {
         ObservableCollection<ProgramInfo> programList;
 
         List<CameraInfo> camList;
+        ObservableCollection<CameraNameWrapper> cameraNameList;
         List<PresetParams> presetList;
 
         public ObservableCollection<BindingWapper> programStringList { get; set; }
@@ -28,9 +29,10 @@ namespace Program {
             set { _selectedIndex = value; }
         }
 
-        public ProgramVM(ObservableCollection<ProgramInfo> programList, List<CameraInfo> camInfoList, List<PresetParams> presettingList) {
+        public ProgramVM(ObservableCollection<ProgramInfo> programList, List<CameraInfo> camInfoList, ObservableCollection<CameraNameWrapper> cameraNameList,List<PresetParams> presettingList) {
             _ea = Notification.Instance;
             this.programList = programList;
+            this.cameraNameList = cameraNameList;
             camList = camInfoList;
             presetList = presettingList;
             modeColors = ModeColors.Singleton(_ea);
@@ -40,7 +42,7 @@ namespace Program {
             _ea.GetEvent<ProgramSaveEvent>().Subscribe(save);
         }
 
-        public void edit(Object input) {
+        public void edit(object input) {
             int index = _selectedIndex;
             EditProgramVM vm;
             /*
@@ -54,7 +56,7 @@ namespace Program {
                 vm = new EditProgramVM(index, programNameList, programList, camList, presetList, _ea);
             }
             */
-            vm = new EditProgramVM(index, programList, camList, presetList, _ea);
+            vm = new EditProgramVM(index, programList, cameraNameList, camList, presetList, _ea);
             vm.modeColors = modeColors;
             EditProgramForm form = new EditProgramForm(vm);
             form.ShowDialog();

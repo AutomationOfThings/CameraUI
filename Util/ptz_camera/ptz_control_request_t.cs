@@ -14,19 +14,20 @@ namespace ptz_camera
     {
         public byte mode;
         public String ip_address;
-        public short pan_value;
-        public short tilt_value;
-        public short zoom_value;
+        public String pan_value;
+        public String tilt_value;
+        public String zoom_value;
  
         public ptz_control_request_t()
         {
         }
  
         public static readonly ulong LCM_FINGERPRINT;
-        public static readonly ulong LCM_FINGERPRINT_BASE = 0x3743c8f477189f9bL;
+        public static readonly ulong LCM_FINGERPRINT_BASE = 0xe08abd5474f2a26eL;
  
-        public const int ABSOLUTE = 1;
-        public const int RELATIVE = 2;
+        public const int ABS = 1;
+        public const int REL = 2;
+        public const int CON = 3;
 
         static ptz_control_request_t()
         {
@@ -58,11 +59,11 @@ namespace ptz_camera
  
             __strbuf = System.Text.Encoding.GetEncoding("US-ASCII").GetBytes(this.ip_address); outs.Write(__strbuf.Length+1); outs.Write(__strbuf, 0, __strbuf.Length); outs.Write((byte) 0); 
  
-            outs.Write(this.pan_value); 
+            __strbuf = System.Text.Encoding.GetEncoding("US-ASCII").GetBytes(this.pan_value); outs.Write(__strbuf.Length+1); outs.Write(__strbuf, 0, __strbuf.Length); outs.Write((byte) 0); 
  
-            outs.Write(this.tilt_value); 
+            __strbuf = System.Text.Encoding.GetEncoding("US-ASCII").GetBytes(this.tilt_value); outs.Write(__strbuf.Length+1); outs.Write(__strbuf, 0, __strbuf.Length); outs.Write((byte) 0); 
  
-            outs.Write(this.zoom_value); 
+            __strbuf = System.Text.Encoding.GetEncoding("US-ASCII").GetBytes(this.zoom_value); outs.Write(__strbuf.Length+1); outs.Write(__strbuf, 0, __strbuf.Length); outs.Write((byte) 0); 
  
         }
  
@@ -92,11 +93,11 @@ namespace ptz_camera
  
             __strbuf = new byte[ins.ReadInt32()-1]; ins.ReadFully(__strbuf); ins.ReadByte(); this.ip_address = System.Text.Encoding.GetEncoding("US-ASCII").GetString(__strbuf);
  
-            this.pan_value = ins.ReadInt16();
+            __strbuf = new byte[ins.ReadInt32()-1]; ins.ReadFully(__strbuf); ins.ReadByte(); this.pan_value = System.Text.Encoding.GetEncoding("US-ASCII").GetString(__strbuf);
  
-            this.tilt_value = ins.ReadInt16();
+            __strbuf = new byte[ins.ReadInt32()-1]; ins.ReadFully(__strbuf); ins.ReadByte(); this.tilt_value = System.Text.Encoding.GetEncoding("US-ASCII").GetString(__strbuf);
  
-            this.zoom_value = ins.ReadInt16();
+            __strbuf = new byte[ins.ReadInt32()-1]; ins.ReadFully(__strbuf); ins.ReadByte(); this.zoom_value = System.Text.Encoding.GetEncoding("US-ASCII").GetString(__strbuf);
  
         }
  

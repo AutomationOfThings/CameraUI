@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CameraNameParser.cs" />
     <Compile Include="PresettingParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProgramParser.cs" />

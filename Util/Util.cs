@@ -8,10 +8,11 @@ using System.Windows.Threading;
 using ptz_camera;
 using NotificationCenter;
 using System.Windows;
+using System.Collections.ObjectModel;
 
 namespace Util {
     public class PresetParams {
-        public string CamId { get; set; }
+        public string CameraName { get; set; }
         public string presettingId;
         public double pan;
         public double tilt;
@@ -21,7 +22,7 @@ namespace Util {
 
         public PresetParams(string presetId, string id, double p, double t, double z) {
             presettingId = presetId;
-            CamId = id;
+            CameraName = id;
             pan = p;
             tilt = t;
             zoom = z;
@@ -29,16 +30,14 @@ namespace Util {
 
         public void update(string presetId, string ID, double p, double t, double z) {
             presettingId = presetId;
-            CamId = ID;
+            CameraName = ID;
             pan = p;
             tilt = t;
             zoom = z;
         }
     }
 
-    public class PresetParamsExtend : BindableBase
-    {
-        public List<string> CamList { get; set; }
+    public class PresetParamsExtend : BindableBase {
 
         private bool _canSave;
         public bool CanSave { get { return _canSave; } set { SetProperty(ref _canSave, value); } }
@@ -51,11 +50,11 @@ namespace Util {
                 CanSave = true;
             }
         }
-        string cameraId;
-        public string CameraID {
-            get { return cameraId; }
+        CameraNameWrapper camera;
+        public CameraNameWrapper Camera {
+            get { return camera; }
             set {
-                SetProperty(ref cameraId, value);
+                SetProperty(ref camera, value);
                 CanSave = true;
             }
         }
@@ -87,26 +86,31 @@ namespace Util {
             }
         }
 
-        public PresetParamsExtend(List<string> camList) {
+        public ObservableCollection<CameraNameWrapper> CameraNameList { get; set; }
+
+        public PresetParamsExtend(ObservableCollection<CameraNameWrapper> cameraNameList) {
             Pan = 0;
             Tilt = 0;
             Zoom = 1;
             CanSave = false;
-            CamList = camList;
+            CameraNameList = cameraNameList;
         }
 
-        public PresetParamsExtend(string presetId, string id, List<string> camList, double p, double t, double z) {
-            CamList = camList;
+        public PresetParamsExtend(string presetId, string id, ObservableCollection<CameraNameWrapper> cameraNameList, double p, double t, double z) {
+            CameraNameList = cameraNameList;
             presettingId = presetId;
-            cameraId = id;
+            Camera = new CameraNameWrapper(null);
             pan = p;
             tilt = t;
             zoom = z;
             CanSave = false;
+            foreach (CameraNameWrapper item in CameraNameList) {
+                if (item.CameraName == id) { Camera = item; break; }
+            }
         }
 
         public string toString() {
-            return "CameraID: " + CameraID.ToString() + "   Pan: " + Pan.ToString() + "   Tilt: " + Tilt.ToString() + "   Zoom: " + Zoom.ToString();
+            return "CameraID: " + Camera.ToString() + "   Pan: " + Pan.ToString() + "   Tilt: " + Tilt.ToString() + "   Zoom: " + Zoom.ToString();
         }
 
     }
@@ -122,6 +126,36 @@ namespace Util {
 
     }
 
+    public class CameraNameWrapper: BindableBase {
+
+        private string cameraName;
+        public string CameraName {
+            get { return cameraName; }
+            set { SetProperty(ref cameraName, value); }
+        }
+
+        private bool notAssociated;
+        public bool NotAssociated {
+            get { return notAssociated; }
+            set { SetProperty(ref notAssociated, value); }
+        }
+
+        private string associatedIP;
+        public string AssociatedIP {
+            get { return associatedIP; }
+            set { SetProperty(ref associatedIP, value); }
+        }
+
+        public string username;
+        public string password;
+
+        public CameraNameWrapper(string name) {
+            CameraName = name;
+            NotAssociated = false;
+        }
+
+    }
+
     public class CameraInfo: BindableBase {
 
         private EventAggregator _ea;
@@ -134,10 +168,10 @@ namespace Util {
             set { SetProperty(ref ip, value); }
         }
 
-        string cameraID;
-        public string CameraID {
-            get { return cameraID; }
-            set { SetProperty(ref cameraID, value); }
+        string cameraName;
+        public string CameraName {
+            get { return cameraName; }
+            set { SetProperty(ref cameraName, value); }
         }
 
         public string VideoURL { get; set; }
@@ -165,7 +199,7 @@ namespace Util {
             get { return pan; }
             set {
                 if (value < 0) { value += 360; } 
-                else if (value > 360) { value %= 360; }
+                else if (value > 360) { value %= 361; }
                 SetProperty(ref pan, value);
             }
         }
@@ -174,7 +208,7 @@ namespace Util {
         public double Tilt {
             get { return tilt; }
             set {
-                if (value >= -5 && value <= 185) { SetProperty(ref tilt, value); }
+                if (value >= -15 && value <= 195) { SetProperty(ref tilt, value); }
             }
         }
 
@@ -191,7 +225,7 @@ namespace Util {
         public CameraInfo(string ip, string id, double p, double t, double z) {
             isLoggedIn = false;
             IP = ip;
-            CameraID = id;
+            CameraName = id;
             Pan = p;
             Tilt = t;
             Zoom = z;
@@ -211,9 +245,14 @@ namespace Util {
 
         private void onGetPositionUpdate(position_response_t res) {
             if (IP == res.ip_address && res.response_message == "OK") {
-                Pan = double.Parse(res.pan_value);
-                Tilt = double.Parse(res.tilt_value);
-                Zoom = double.Parse(res.zoom_value);
+                try {
+                    Pan = double.Parse(res.pan_value);
+                    Tilt = double.Parse(res.tilt_value);
+                    Zoom = double.Parse(res.zoom_value);
+                } catch(Exception e) {
+                    return;
+                }
+                
             }
         }
 
@@ -633,6 +672,12 @@ namespace Util {
             set { SetProperty(ref modeColor_Gray_LightGray, value); }
         }
 
+        SolidColorBrush modeColor_Black_White;
+        public SolidColorBrush ModeColor_Black_White {
+            get { return modeColor_Black_White; }
+            set { SetProperty(ref modeColor_Black_White, value); }
+        }
+
         private void init() {
             ModeColor_WhiteSmoke_MedianDark = Brushes.WhiteSmoke;
             ModeColor_WhiteSmoke_Gray = Brushes.WhiteSmoke;
@@ -652,6 +697,7 @@ namespace Util {
             ModeColor_Gray_Black = new SolidColorBrush(Color.FromRgb(235, 235, 235));
             ModeColor_Gray_LightGray = Brushes.Gray;
             ModeColor_White_Gray = Brushes.White;
+            ModeColor_Black_White = Brushes.Black;
 
         }
 
@@ -675,6 +721,7 @@ namespace Util {
                 ModeColor_Gray_Black = new SolidColorBrush(Color.FromRgb(35, 35, 35));
                 ModeColor_Gray_LightGray = Brushes.LightGray;
                 ModeColor_White_Gray = Brushes.Gray;
+                ModeColor_Black_White = Brushes.White;
             }
 
             if (mode == "Light Mode") {
@@ -696,6 +743,7 @@ namespace Util {
                 ModeColor_Gray_Black = new SolidColorBrush(Color.FromRgb(235, 235, 235));
                 ModeColor_Gray_LightGray = Brushes.Gray;
                 ModeColor_White_Gray = Brushes.White;
+                ModeColor_Black_White = Brushes.Black;
             }
         }
 
@@ -707,6 +755,7 @@ namespace Util {
     public static class Constant {
         public const string PRESET_FILE = "../../../Data/Presetting.xml";
         public const string PROGRAM_FILE = "../../../Data/Programs.xml";
+        public const string CAMERANAME_FILE = "../../../Data/CameraName.xml";
         public const char DEF_REQ_SCAN = '1';
         public const int CAMLIST_AREA_VISIBLE_HEIGHT = 155;
         public const int CAMLIST_AREA_HIDDEN_HEIGHT = 1;

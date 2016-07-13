@@ -122,7 +122,7 @@ namespace PreviewPanel {
         }
 
         public void acceptPreset(PresetParams preset) {
-            if (CurrentCamera == null || preset.CamId != CurrentCamera.CameraID || preset.presettingId == null) {
+            if (CurrentCamera == null || preset.CameraName != CurrentCamera.CameraName || preset.presettingId == null) {
                 MessageBox.Show("Preset cannot be applied to this camera.");
             } else {
                 CurrentSetting = preset;
@@ -140,9 +140,17 @@ namespace PreviewPanel {
                 CurrentSetting.tilt = camInfo.Tilt;
                 CurrentSetting.zoom = camInfo.Zoom;
             } else {
-                CurrentSetting = new PresetParams("", CurrentCamera.CameraID, currentCamera.Pan, CurrentCamera.Tilt, CurrentCamera.Zoom);
+                CurrentSetting = new PresetParams("", CurrentCamera.CameraName, currentCamera.Pan, CurrentCamera.Tilt, CurrentCamera.Zoom);
             }
             _ea.GetEvent<SaveSettingEvent>().Publish(currentSetting);
+        }
+
+        private void clear(CameraInfo camInfo) {
+            CurrentSetting = null;
+            CurrentCamera = null;
+            Idle = Visibility.Visible;
+            Active = Visibility.Hidden;
+            UndoRedoManager.clear();
         }
 
         private void undo(UndoRedo<ptz> ud) {
@@ -163,6 +171,15 @@ namespace PreviewPanel {
             isRedoMode = false;
         }
 
+        ICommand clearCameraCommand;
+        public ICommand ClearCameraCommand {
+            get {
+                if (clearCameraCommand == null) {
+                    clearCameraCommand = new DelegateCommand<CameraInfo>(clear);
+                }
+                return clearCameraCommand;
+            }
+        }
 
         ICommand undoCommand;
         public ICommand UndoCommand {

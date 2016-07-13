@@ -14,6 +14,7 @@ namespace ptz_camera
     {
         public String ip_address;
         public String uri;
+        public short status_code;
         public String response_message;
  
         public stream_uri_response_t()
@@ -21,7 +22,7 @@ namespace ptz_camera
         }
  
         public static readonly ulong LCM_FINGERPRINT;
-        public static readonly ulong LCM_FINGERPRINT_BASE = 0x3dff6cd473792915L;
+        public static readonly ulong LCM_FINGERPRINT_BASE = 0x726e0100be99395aL;
  
         static stream_uri_response_t()
         {
@@ -53,6 +54,8 @@ namespace ptz_camera
  
             __strbuf = System.Text.Encoding.GetEncoding("US-ASCII").GetBytes(this.uri); outs.Write(__strbuf.Length+1); outs.Write(__strbuf, 0, __strbuf.Length); outs.Write((byte) 0); 
  
+            outs.Write(this.status_code); 
+ 
             __strbuf = System.Text.Encoding.GetEncoding("US-ASCII").GetBytes(this.response_message); outs.Write(__strbuf.Length+1); outs.Write(__strbuf, 0, __strbuf.Length); outs.Write((byte) 0); 
  
         }
@@ -83,6 +86,8 @@ namespace ptz_camera
  
             __strbuf = new byte[ins.ReadInt32()-1]; ins.ReadFully(__strbuf); ins.ReadByte(); this.uri = System.Text.Encoding.GetEncoding("US-ASCII").GetString(__strbuf);
  
+            this.status_code = ins.ReadInt16();
+ 
             __strbuf = new byte[ins.ReadInt32()-1]; ins.ReadFully(__strbuf); ins.ReadByte(); this.response_message = System.Text.Encoding.GetEncoding("US-ASCII").GetString(__strbuf);
  
         }
@@ -93,6 +98,8 @@ namespace ptz_camera
             outobj.ip_address = this.ip_address;
  
             outobj.uri = this.uri;
+ 
+            outobj.status_code = this.status_code;
  
             outobj.response_message = this.response_message;
  

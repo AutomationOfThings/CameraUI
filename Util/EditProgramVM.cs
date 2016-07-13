@@ -30,7 +30,7 @@ namespace Util {
             set { SetProperty(ref selectedIndex, value); }
         }
 
-        public EditProgramVM(int index, ObservableCollection<ProgramInfo> programList, List<CameraInfo> camList, List<PresetParams> presetList, EventAggregator ea) {
+        public EditProgramVM(int index, ObservableCollection<ProgramInfo> programList, ObservableCollection<CameraNameWrapper> cameraNameList, List<CameraInfo> camList, List<PresetParams> presetList, EventAggregator ea) {
             _ea = ea;
             Index = index;
             this.programList = programList;
@@ -38,8 +38,8 @@ namespace Util {
             CommandWrapperList = new ObservableCollection<CameraCommandEditWrapper>();
             camStringList = new List<string>();
             presetStringList = new List<string>();
-            foreach (CameraInfo item in camList) {
-                camStringList.Add(item.CameraID);
+            foreach (CameraNameWrapper item in cameraNameList) {
+                camStringList.Add(item.CameraName);
             }
             foreach (PresetParams item in presetList) {
                 presetStringList.Add(item.presettingId);

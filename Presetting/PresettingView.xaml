@@ -113,7 +113,7 @@
         </Style>
 
         <DataTemplate x:Key="CameraComboBoxTemplate">
-            <ComboBox ItemsSource="{Binding CamList}" SelectedItem="{Binding CameraID, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Stretch" BorderBrush="{x:Null}" BorderThickness="0"
+            <ComboBox ItemsSource="{Binding CameraNameList}" DisplayMemberPath="CameraName" SelectedItem="{Binding Camera, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Stretch" BorderBrush="{x:Null}" BorderThickness="0"
              Background="{Binding DataContext.modeColors.ModeColor_White_MedianDark, RelativeSource={RelativeSource AncestorType=Window}}" 
              Foreground="{Binding DataContext.modeColors.ModeColor_Black_WhiteSmoke, RelativeSource={RelativeSource AncestorType=Window}}">
                 <ComboBox.ItemContainerStyle>
@@ -202,7 +202,7 @@
         <DataGrid Name="PresetDataGrid" ItemsSource="{Binding CamList}" SelectedIndex="{Binding SelectedIndex}" CanUserAddRows="True" CanUserDeleteRows="True" RowHeaderWidth="0"
             AutoGenerateColumns="False" Margin="0,0,0,40" GridLinesVisibility="Horizontal" HorizontalAlignment="Stretch" Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" 
             HorizontalGridLinesBrush="{Binding DataContext.modeColors.ModeColor_LightGray_Gray, RelativeSource={RelativeSource AncestorType=UserControl}}" CanUserResizeColumns="False" CanUserSortColumns="False"
-            Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" BorderThickness="1,1,1,1" BorderBrush="{Binding modeColors.ModeColor_LightGray_Gray}" ScrollViewer.PanningMode="Both">
+            Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" BorderThickness="0" BorderBrush="{Binding modeColors.ModeColor_LightGray_Gray}" ScrollViewer.PanningMode="Both">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -214,7 +214,7 @@
                 <Style TargetType="{x:Type DataGridRow}">
                     <Style.Triggers >
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="BorderBrush" Value="#FFF83C89" />
+                            <Setter Property="BorderBrush" Value="#FF02B402" />
                             <Setter Property="BorderThickness" Value="0.5" />
                         </Trigger>
                     </Style.Triggers>
@@ -249,7 +249,7 @@
                     </DataGridTextColumn.EditingElementStyle>
                 </DataGridTextColumn>
 
-                <DataGridTemplateColumn Header="Camera ID" Width="*"  CellTemplate="{StaticResource CameraComboBoxTemplate}" CellEditingTemplate="{StaticResource CameraComboBoxTemplate}" >
+                <DataGridTemplateColumn Header="Camera Name" Width="*"  CellTemplate="{StaticResource CameraComboBoxTemplate}" CellEditingTemplate="{StaticResource CameraComboBoxTemplate}" >
                     <DataGridTemplateColumn.CellStyle>
                         <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
                             <Setter Property="BorderThickness" Value="0" />
@@ -271,7 +271,7 @@
                     <DataGridTemplateColumn.CellTemplate>        
                         <DataTemplate>
                             <Button BorderThickness="0" Command="{Binding DataContext.SaveCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}} }" IsEnabled="{Binding CanSave}" 
-                            Style="{StaticResource MyButton}" >Save</Button>
+                            Style="{StaticResource MyButton}" >Store</Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -292,7 +292,7 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Save All" Command="{Binding SaveAllCommand}" Background="{Binding modeColors.ModeColor_WhiteSmoke_Gray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Height="25" Width="70" Margin="0,0,10,7.5" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
+        <Button Content="Store All" Command="{Binding SaveAllCommand}" Background="{Binding modeColors.ModeColor_WhiteSmoke_Gray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Height="25" Width="70" Margin="0,0,10,7.5" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
         <Button Content="Delete" Command="{Binding DeleteCommand}" Background="{Binding modeColors.ModeColor_WhiteSmoke_Gray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Height="25" Width="70" Margin="0,0,90,7.5" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
         <Button Content="Add New" Command="{Binding AddCommand}" Background="{Binding modeColors.ModeColor_WhiteSmoke_Gray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Height="25" Width="70" Margin="0,0,170,7.5" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
     </Grid>

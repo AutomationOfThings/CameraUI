@@ -10,6 +10,7 @@ using MjpegProcessor;
 using System.Windows;
 using ptz_camera;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace Camera {
     public class CameraVM: BindableBase {
@@ -29,12 +30,16 @@ namespace Camera {
         }
 
         CameraLoginForm form;
+        CameraNamingForm namingForm;
+
+        ObservableCollection<CameraNameWrapper> cameraNameList;
 
         protected readonly EventAggregator _ea;
         public MjpegDecoder mjpegDecoder;
 
-        public CameraVM(CameraInfo cam, ModeColors mode ,EventAggregator ea) {
+        public CameraVM(CameraInfo cam, ObservableCollection<CameraNameWrapper> cameraNameList, ModeColors mode ,EventAggregator ea) {
             CamInfo = cam;
+            this.cameraNameList = cameraNameList;
             _ea = ea;
             _ea.GetEvent<CameraSelectEvent>().Subscribe(beSelected);
             _ea.GetEvent<CameraOutPutEvent>().Subscribe(beOutput);
@@ -103,13 +108,20 @@ namespace Camera {
                 form.ShowDialog();                
             }
         }
+
+        private void showNamingWindow() {
+            CameraNamingVM vm = new CameraNamingVM(cameraNameList, CamInfo);
+            namingForm = new CameraNamingForm(vm);
+            namingForm.ShowDialog();
+        }
+
         public void beOutput(CameraInfo cam) {
-            if (CamInfo.CameraID == cam.CameraID) { OutputBackgroundColor = Brushes.LightGreen; } 
+            if (CamInfo.CameraName == cam.CameraName) { OutputBackgroundColor = Brushes.LightGreen; } 
             else { OutputBackgroundColor = Brushes.Gray; }
         }
 
         public void beSelected(CameraInfo param) {
-            if (CamInfo.CameraID == param.CameraID) {
+            if (CamInfo.CameraName == param.CameraName) {
                 Selected = Visibility.Visible;
             }
             else { Selected = Visibility.Hidden; }
@@ -134,6 +146,18 @@ namespace Camera {
             if (CamInfo.isLoggedIn) {
                 _ea.GetEvent<CameraOutPutEvent>().Publish(cam);
                 _ea.GetEvent<StatusUpdateEvent>().Publish("Camera selected as output");
+            }
+        }
+
+        void onName(CameraInfo cam) {
+            showNamingWindow();
+        }
+
+        ICommand nameCommand;
+        public ICommand NameCommand {
+            get {
+                if (nameCommand == null) { nameCommand = new DelegateCommand<CameraInfo>(onName); }
+                return nameCommand;
             }
         }
 

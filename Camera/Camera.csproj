@@ -97,6 +97,10 @@
     <Compile Include="CameraLoginForm.xaml.cs">
       <DependentUpon>CameraLoginForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CameraNamingForm.xaml.cs">
+      <DependentUpon>CameraNamingForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CameraNamingVM.cs" />
     <Compile Include="CameraVM.cs" />
     <Compile Include="CameraView.xaml.cs">
       <DependentUpon>CameraView.xaml</DependentUpon>
@@ -123,6 +127,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CameraLoginForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CameraNamingForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

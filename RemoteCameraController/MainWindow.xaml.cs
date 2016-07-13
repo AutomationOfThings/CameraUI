@@ -85,6 +85,7 @@ namespace RemoteCameraController {
                 return;
             }
             System.Windows.Forms.DialogResult dialog = System.Windows.Forms.MessageBox.Show("Are you sure you want to exit the application?", "Exit", System.Windows.Forms.MessageBoxButtons.YesNo);
+            ((MainWindowVM)DataContext).saveCameras();
             if (dialog == System.Windows.Forms.DialogResult.No) {
                 e.Cancel = true;
                 return;

@@ -13,6 +13,7 @@ namespace ptz_camera
     public sealed class ptz_control_response_t : LCM.LCM.LCMEncodable
     {
         public String ip_address;
+        public short status_code;
         public String response_message;
  
         public ptz_control_response_t()
@@ -20,7 +21,7 @@ namespace ptz_camera
         }
  
         public static readonly ulong LCM_FINGERPRINT;
-        public static readonly ulong LCM_FINGERPRINT_BASE = 0xf80f8b8aacfaf9aaL;
+        public static readonly ulong LCM_FINGERPRINT_BASE = 0x407fe9ad8541642cL;
  
         static ptz_control_response_t()
         {
@@ -50,6 +51,8 @@ namespace ptz_camera
             byte[] __strbuf = null;
             __strbuf = System.Text.Encoding.GetEncoding("US-ASCII").GetBytes(this.ip_address); outs.Write(__strbuf.Length+1); outs.Write(__strbuf, 0, __strbuf.Length); outs.Write((byte) 0); 
  
+            outs.Write(this.status_code); 
+ 
             __strbuf = System.Text.Encoding.GetEncoding("US-ASCII").GetBytes(this.response_message); outs.Write(__strbuf.Length+1); outs.Write(__strbuf, 0, __strbuf.Length); outs.Write((byte) 0); 
  
         }
@@ -78,6 +81,8 @@ namespace ptz_camera
             byte[] __strbuf = null;
             __strbuf = new byte[ins.ReadInt32()-1]; ins.ReadFully(__strbuf); ins.ReadByte(); this.ip_address = System.Text.Encoding.GetEncoding("US-ASCII").GetString(__strbuf);
  
+            this.status_code = ins.ReadInt16();
+ 
             __strbuf = new byte[ins.ReadInt32()-1]; ins.ReadFully(__strbuf); ins.ReadByte(); this.response_message = System.Text.Encoding.GetEncoding("US-ASCII").GetString(__strbuf);
  
         }
@@ -86,6 +91,8 @@ namespace ptz_camera
         {
             ptz_camera.ptz_control_response_t outobj = new ptz_camera.ptz_control_response_t();
             outobj.ip_address = this.ip_address;
+ 
+            outobj.status_code = this.status_code;
  
             outobj.response_message = this.response_message;
  

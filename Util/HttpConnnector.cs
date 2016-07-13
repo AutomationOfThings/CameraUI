@@ -59,9 +59,9 @@ namespace Util {
 
             var ptzRequest = new ptz_control_request_t() {
                 ip_address = ip,
-                pan_value = (byte)pan,
-                tilt_value = (byte)tilt,
-                zoom_value = (byte)zoom
+                pan_value = pan.ToString(),
+                tilt_value = tilt.ToString(),
+                zoom_value = zoom.ToString()
             };
 
             if (mode == PTZ_MODE.Absolute) {

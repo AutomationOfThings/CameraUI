@@ -10,30 +10,30 @@ using LCM.LCM;
  
 namespace ptz_camera
 {
-    public sealed class init_session_response_t : LCM.LCM.LCMEncodable
+    public sealed class stop_ptz_control_response_t : LCM.LCM.LCMEncodable
     {
         public String ip_address;
         public short status_code;
         public String response_message;
  
-        public init_session_response_t()
+        public stop_ptz_control_response_t()
         {
         }
  
         public static readonly ulong LCM_FINGERPRINT;
         public static readonly ulong LCM_FINGERPRINT_BASE = 0x407fe9ad8541642cL;
  
-        static init_session_response_t()
+        static stop_ptz_control_response_t()
         {
             LCM_FINGERPRINT = _hashRecursive(new List<String>());
         }
  
         public static ulong _hashRecursive(List<String> classes)
         {
-            if (classes.Contains("ptz_camera.init_session_response_t"))
+            if (classes.Contains("ptz_camera.stop_ptz_control_response_t"))
                 return 0L;
  
-            classes.Add("ptz_camera.init_session_response_t");
+            classes.Add("ptz_camera.stop_ptz_control_response_t");
             ulong hash = LCM_FINGERPRINT_BASE
                 ;
             classes.RemoveAt(classes.Count - 1);
@@ -57,11 +57,11 @@ namespace ptz_camera
  
         }
  
-        public init_session_response_t(byte[] data) : this(new LCMDataInputStream(data))
+        public stop_ptz_control_response_t(byte[] data) : this(new LCMDataInputStream(data))
         {
         }
  
-        public init_session_response_t(LCMDataInputStream ins)
+        public stop_ptz_control_response_t(LCMDataInputStream ins)
         {
             if ((ulong) ins.ReadInt64() != LCM_FINGERPRINT)
                 throw new System.IO.IOException("LCM Decode error: bad fingerprint");
@@ -69,9 +69,9 @@ namespace ptz_camera
             _decodeRecursive(ins);
         }
  
-        public static ptz_camera.init_session_response_t _decodeRecursiveFactory(LCMDataInputStream ins)
+        public static ptz_camera.stop_ptz_control_response_t _decodeRecursiveFactory(LCMDataInputStream ins)
         {
-            ptz_camera.init_session_response_t o = new ptz_camera.init_session_response_t();
+            ptz_camera.stop_ptz_control_response_t o = new ptz_camera.stop_ptz_control_response_t();
             o._decodeRecursive(ins);
             return o;
         }
@@ -87,9 +87,9 @@ namespace ptz_camera
  
         }
  
-        public ptz_camera.init_session_response_t Copy()
+        public ptz_camera.stop_ptz_control_response_t Copy()
         {
-            ptz_camera.init_session_response_t outobj = new ptz_camera.init_session_response_t();
+            ptz_camera.stop_ptz_control_response_t outobj = new ptz_camera.stop_ptz_control_response_t();
             outobj.ip_address = this.ip_address;
  
             outobj.status_code = this.status_code;

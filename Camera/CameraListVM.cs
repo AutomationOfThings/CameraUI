@@ -15,7 +15,7 @@ namespace Camera {
         EventAggregator _ea;
 
         List<CameraInfo> camInfoList;
-
+        ObservableCollection<CameraNameWrapper> cameraNameList;
         ObservableCollection<CameraVM> camList;
         public ObservableCollection<CameraVM> CamList {
             get { return camList; }
@@ -24,10 +24,10 @@ namespace Camera {
 
         public ModeColors modeColors { get; set; }
 
-        public CameraListVM(List<CameraInfo> camInfoList) {
+        public CameraListVM(List<CameraInfo> camInfoList, ObservableCollection<CameraNameWrapper> CameraNameList) {
             _ea = Notification.Instance;
             _ea.GetEvent<CameraDiscoveredEvent>().Subscribe(updateCamList, ThreadOption.UIThread);
-
+            cameraNameList = CameraNameList;
             modeColors = ModeColors.Singleton(_ea);
             this.camInfoList = camInfoList;
             CamList = new ObservableCollection<CameraVM>();
@@ -37,7 +37,11 @@ namespace Camera {
         public void updateCamList(List<CameraInfo> list) {
             CamList.Clear();
             for (int i = 0; i < camInfoList.Count; i++) {
-                CameraVM vm = new CameraVM(camInfoList[i], modeColors, _ea);
+                CameraVM vm = new CameraVM(camInfoList[i], cameraNameList, modeColors, _ea);
+                if (camInfoList[i].IP != "" && camInfoList[i].IP != null 
+                    && camInfoList[i].UserName!=null && camInfoList[i].Password != null) {
+                    vm.connect();
+                }
                 CamList.Add(vm);
             }
         }

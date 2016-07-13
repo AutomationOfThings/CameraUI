@@ -299,7 +299,7 @@
                                         <TranslateTransform/>
                                     </TransformGroup>
                                 </Grid.LayoutTransform>
-                                <Border BorderBrush="{Binding modeColors.ModeColor_White_Gray}" BorderThickness="1">
+                                <Border BorderBrush="{Binding modeColors.ModeColor_LightGray_Gray}" BorderThickness="1">
                                     <!--
                                     <Grid Name="ProgramContainer" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></Grid>
                                     -->
@@ -320,7 +320,7 @@
                                         <TranslateTransform/>
                                     </TransformGroup>
                                 </Grid.LayoutTransform>
-                                <Border BorderBrush="{Binding modeColors.ModeColor_White_Gray}" BorderThickness="1">
+                                <Border BorderBrush="{Binding modeColors.ModeColor_LightGray_Gray}" BorderThickness="1">
                                     <preset:PresettingView DataContext="{Binding PresetVM}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                                 </Border>
                             </Grid>
@@ -338,7 +338,7 @@
                                         <TranslateTransform/>
                                     </TransformGroup>
                                 </Grid.LayoutTransform>
-                                <Border BorderBrush="{Binding modeColors.ModeColor_White_Gray}" BorderThickness="1">
+                                <Border BorderBrush="{Binding modeColors.ModeColor_LightGray_Gray}" BorderThickness="1">
                                     <ScrollViewer Style="{StaticResource FavsScrollViewer}" PanningMode="Both">
                                         <Grid Name="ConfigurationContainer" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></Grid>
                                     </ScrollViewer>

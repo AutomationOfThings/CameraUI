@@ -14,7 +14,7 @@
     </UserControl.InputBindings>
     
     <Grid Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}">
-        <DataGrid Name="ProgramgDataGrid" ItemsSource="{Binding programStringList}" BorderThickness="1,1,0.5,1" BorderBrush="{Binding modeColors.ModeColor_LightGray_Gray}" SelectedIndex="{Binding SelectedIndex}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" 
+        <DataGrid Name="ProgramgDataGrid" ItemsSource="{Binding programStringList}" BorderThickness="0" BorderBrush="{Binding modeColors.ModeColor_LightGray_Gray}" SelectedIndex="{Binding SelectedIndex}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" 
             Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" HorizontalScrollBarVisibility="Disabled" CanUserAddRows="True" CanUserDeleteRows="True" AutoGenerateColumns="False" GridLinesVisibility="Horizontal" CanUserSortColumns="False"
             HorizontalGridLinesBrush="{Binding DataContext.modeColors.ModeColor_LightGray_Gray, RelativeSource={RelativeSource AncestorType=UserControl}}" HorizontalAlignment="Stretch" CanUserResizeColumns="False" RowHeaderWidth="0" >
             <DataGrid.Resources>

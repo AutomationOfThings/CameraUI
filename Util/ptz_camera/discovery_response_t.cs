@@ -13,14 +13,16 @@ namespace ptz_camera
     public sealed class discovery_response_t : LCM.LCM.LCMEncodable
     {
         public int total_cams;
-        public String[] camera_names;
+        public String[] ip_addresses;
+        public short status_code;
+        public String response_message;
  
         public discovery_response_t()
         {
         }
  
         public static readonly ulong LCM_FINGERPRINT;
-        public static readonly ulong LCM_FINGERPRINT_BASE = 0xf048aef40b0471e3L;
+        public static readonly ulong LCM_FINGERPRINT_BASE = 0x523c44aa5c281b5aL;
  
         static discovery_response_t()
         {
@@ -51,8 +53,12 @@ namespace ptz_camera
             outs.Write(this.total_cams); 
  
             for (int a = 0; a < this.total_cams; a++) {
-                __strbuf = System.Text.Encoding.GetEncoding("US-ASCII").GetBytes(this.camera_names[a]); outs.Write(__strbuf.Length+1); outs.Write(__strbuf, 0, __strbuf.Length); outs.Write((byte) 0); 
+                __strbuf = System.Text.Encoding.GetEncoding("US-ASCII").GetBytes(this.ip_addresses[a]); outs.Write(__strbuf.Length+1); outs.Write(__strbuf, 0, __strbuf.Length); outs.Write((byte) 0); 
             }
+ 
+            outs.Write(this.status_code); 
+ 
+            __strbuf = System.Text.Encoding.GetEncoding("US-ASCII").GetBytes(this.response_message); outs.Write(__strbuf.Length+1); outs.Write(__strbuf, 0, __strbuf.Length); outs.Write((byte) 0); 
  
         }
  
@@ -80,10 +86,14 @@ namespace ptz_camera
             byte[] __strbuf = null;
             this.total_cams = ins.ReadInt32();
  
-            this.camera_names = new String[(int) total_cams];
+            this.ip_addresses = new String[(int) total_cams];
             for (int a = 0; a < this.total_cams; a++) {
-                __strbuf = new byte[ins.ReadInt32()-1]; ins.ReadFully(__strbuf); ins.ReadByte(); this.camera_names[a] = System.Text.Encoding.GetEncoding("US-ASCII").GetString(__strbuf);
+                __strbuf = new byte[ins.ReadInt32()-1]; ins.ReadFully(__strbuf); ins.ReadByte(); this.ip_addresses[a] = System.Text.Encoding.GetEncoding("US-ASCII").GetString(__strbuf);
             }
+ 
+            this.status_code = ins.ReadInt16();
+ 
+            __strbuf = new byte[ins.ReadInt32()-1]; ins.ReadFully(__strbuf); ins.ReadByte(); this.response_message = System.Text.Encoding.GetEncoding("US-ASCII").GetString(__strbuf);
  
         }
  
@@ -92,10 +102,14 @@ namespace ptz_camera
             ptz_camera.discovery_response_t outobj = new ptz_camera.discovery_response_t();
             outobj.total_cams = this.total_cams;
  
-            outobj.camera_names = new String[(int) total_cams];
+            outobj.ip_addresses = new String[(int) total_cams];
             for (int a = 0; a < this.total_cams; a++) {
-                outobj.camera_names[a] = this.camera_names[a];
+                outobj.ip_addresses[a] = this.ip_addresses[a];
             }
+ 
+            outobj.status_code = this.status_code;
+ 
+            outobj.response_message = this.response_message;
  
             return outobj;
         }

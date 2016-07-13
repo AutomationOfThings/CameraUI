@@ -13,7 +13,7 @@ namespace XMLParser {
         string fileName = null;
 
         public ProgramParser(string filename) {
-            this.fileName = filename;
+            fileName = filename;
         }
 
         public ObservableCollection<ProgramInfo> parse() {
