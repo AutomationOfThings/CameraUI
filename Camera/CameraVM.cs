@@ -73,7 +73,7 @@ namespace Camera {
             CamInfo.isLoggedIn = true;
             CamInfo.dispatcherTimer.Start();
             CamInfo.VideoSource = e.BitmapImage;
-            
+            updateCameraNameList();
         }
 
         private void OnGetInitSessionResponse(init_session_response_t res) {
@@ -113,6 +113,16 @@ namespace Camera {
             CameraNamingVM vm = new CameraNamingVM(cameraNameList, CamInfo);
             namingForm = new CameraNamingForm(vm);
             namingForm.ShowDialog();
+        }
+
+        private void updateCameraNameList() {
+            foreach (CameraNameWrapper item in cameraNameList) {
+                if (item.CameraName == CamInfo.CameraName) {
+                    item.username = CamInfo.UserName;
+                    item.password = CamInfo.Password;
+                    break;
+                }
+            }
         }
 
         public void beOutput(CameraInfo cam) {

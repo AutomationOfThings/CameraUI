@@ -777,7 +777,8 @@ namespace Util {
     public class PresettingDeleteEvent : PubSubEvent<int> {}
     public class SetPresetEvent : PubSubEvent<PresetParams> {}
     public class SaveSettingEvent : PubSubEvent<PresetParams> {}
-    
+    public class SaveSettingAsNewEvent: PubSubEvent<PresetParams> {}
+
     public class ChangeModeEvent : PubSubEvent<string> {}
     public class ChangeModeShortCutEvent : PubSubEvent<ModeColors> {}
     public class CameraDiscoverShortCutEvent : PubSubEvent<string> {}

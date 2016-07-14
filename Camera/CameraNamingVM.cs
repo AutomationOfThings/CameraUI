@@ -41,8 +41,8 @@ namespace Camera {
         }
 
         private void add(ObservableCollection<CameraNameWrapper> list) {
-            CameraNameWrapper item = new CameraNameWrapper("hello");
-            item.NotAssociated = false;
+            CameraNameWrapper item = new CameraNameWrapper(null);
+            item.NotAssociated = true;
             CameraNameList.Add(item);
         }
 
@@ -56,14 +56,18 @@ namespace Camera {
             if (index < CameraNameList.Count || CameraNameList[SelectedIndex].CameraName != "") {
 
                 CameraNameWrapper cam = CameraNameList[SelectedIndex];
-                foreach (CameraNameWrapper item in CameraNameList) {
-                    if (item.CameraName == CameraName) {
-                        item.AssociatedIP = "";
-                        item.NotAssociated = true;
-                        item.username = "";
-                        item.password = "";
+                if (CameraName != null) {
+                    foreach (CameraNameWrapper item in CameraNameList) {
+                        if (item.CameraName == CameraName) {
+                            item.AssociatedIP = "";
+                            item.NotAssociated = true;
+                            item.username = "";
+                            item.password = "";
+                            break;
+                        }
                     }
                 }
+                
                 cam.NotAssociated = false;
                 cam.AssociatedIP = camera.IP;
                 cam.username = camera.UserName;

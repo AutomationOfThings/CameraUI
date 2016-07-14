@@ -63,18 +63,26 @@ namespace XMLParser {
                 writer.WriteStartElement("CameraNames");
 
                 foreach (CameraNameWrapper cam in cameraNameList) {
-                    writer.WriteStartElement("Camera");
-                    writer.WriteElementString("Name", cam.CameraName.ToString());
-                    if (cam.NotAssociated == false) {
-                        writer.WriteElementString("IP", cam.AssociatedIP.ToString());
-                        writer.WriteElementString("Username", cam.username.ToString());
-                        writer.WriteElementString("Password", cam.password.ToString());
-                    } else {
-                        writer.WriteElementString("IP", "");
-                        writer.WriteElementString("Username", "");
-                        writer.WriteElementString("Password", "");
+                   if (cam.CameraName != null || cam.CameraName != null) { 
+                        writer.WriteStartElement("Camera");
+                        writer.WriteElementString("Name", cam.CameraName.ToString());
+                        if (cam.NotAssociated == false) {
+                            writer.WriteElementString("IP", cam.AssociatedIP.ToString());
+                            if (cam.username == null || cam.password == null) {
+                                writer.WriteElementString("Username", "");
+                                writer.WriteElementString("Password", "");
+                            } else {
+                                writer.WriteElementString("Username", cam.username.ToString());
+                                writer.WriteElementString("Password", cam.password.ToString());
+                            }
+                            
+                        } else {
+                            writer.WriteElementString("IP", "");
+                            writer.WriteElementString("Username", "");
+                            writer.WriteElementString("Password", "");
+                        }
+                        writer.WriteEndElement();
                     }
-                    writer.WriteEndElement();
                 }
                 writer.WriteEndElement();
                 writer.WriteEndDocument();

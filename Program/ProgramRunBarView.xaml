@@ -8,7 +8,7 @@
              d:DesignHeight="30" d:DesignWidth="600">
 
     <UserControl.Resources>
-        
+
         <ControlTemplate x:Key="ComboBoxToggleButton"
                  TargetType="{x:Type ToggleButton}">
             <Grid>
@@ -21,7 +21,6 @@
                 <Path x:Name="Arrow" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z" Fill="{Binding modeColors.ModeColor_LightGray_Gray}"/>
             </Grid>
         </ControlTemplate>
-        
         <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
             <Setter Property="SnapsToDevicePixels" Value="true" />
             <Setter Property="OverridesDefaultStyle" Value="true" />
@@ -63,7 +62,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
         <Style x:Key="{x:Type ComboBoxItem}" TargetType="{x:Type ComboBoxItem}">
             <Setter Property="SnapsToDevicePixels" Value="true" />
             <Setter Property="OverridesDefaultStyle" Value="true" />

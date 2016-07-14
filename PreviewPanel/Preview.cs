@@ -145,6 +145,17 @@ namespace PreviewPanel {
             _ea.GetEvent<SaveSettingEvent>().Publish(currentSetting);
         }
 
+        private void saveAsNew(CameraInfo camInfo) {
+            if (CurrentSetting != null) {
+                CurrentSetting.pan = camInfo.Pan;
+                CurrentSetting.tilt = camInfo.Tilt;
+                CurrentSetting.zoom = camInfo.Zoom;
+            } else {
+                CurrentSetting = new PresetParams("", CurrentCamera.CameraName, currentCamera.Pan, CurrentCamera.Tilt, CurrentCamera.Zoom);
+            }
+            _ea.GetEvent<SaveSettingAsNewEvent>().Publish(currentSetting);
+        }
+
         private void clear(CameraInfo camInfo) {
             CurrentSetting = null;
             CurrentCamera = null;
@@ -169,6 +180,16 @@ namespace PreviewPanel {
             SliderTilt = datapint.tilt;
             SliderZoom = datapint.zoom;
             isRedoMode = false;
+        }
+
+        ICommand saveAsNewSettingCommand;
+        public ICommand SaveAsNewSettingCommand {
+            get {
+                if (saveAsNewSettingCommand == null) {
+                    saveAsNewSettingCommand = new DelegateCommand<CameraInfo>(saveAsNew);
+                }
+                return saveAsNewSettingCommand;
+            }
         }
 
         ICommand clearCameraCommand;

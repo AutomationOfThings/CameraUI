@@ -56,6 +56,7 @@ namespace Presetting {
                 camList2camListForDisk[newItem] = i;
             }
             _ea.GetEvent<SaveSettingEvent>().Subscribe(saveSetting);
+            _ea.GetEvent<SaveSettingAsNewEvent>().Subscribe(saveAsNewSetting);
             //_ea.GetEvent<CameraDiscoveredEvent>().Subscribe(updateCamIdList, ThreadOption.UIThread);
         }
 
@@ -69,6 +70,10 @@ namespace Presetting {
                 }
             }
 
+            saveAsNewSetting(setting);
+        }
+
+        private void saveAsNewSetting(PresetParams setting) {
             PresetParamsExtend newItem = new PresetParamsExtend(CameraNameList);
             newItem.Camera = new CameraNameWrapper(setting.CameraName);
             newItem.Pan = setting.pan;
