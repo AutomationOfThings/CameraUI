@@ -39,7 +39,6 @@ namespace Camera {
         public MjpegDecoder mjpegDecoder;
 
         public CameraVM(CameraInfo cam, ObservableCollection<CameraNameWrapper> cameraNameList, ModeColors mode, EventAggregator ea) {
-            Debug.WriteLine("CameraVM created");
             CamInfo = cam;
             this.cameraNameList = cameraNameList;
             _ea = ea;

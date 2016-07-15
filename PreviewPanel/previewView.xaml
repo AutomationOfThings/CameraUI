@@ -9,10 +9,7 @@
     <UserControl.Resources>
         <!-- A customized slider -->
         <SolidColorBrush x:Key="HorizontalSliderTrackNormalBackground" Color="Gray"/>
-        <LinearGradientBrush x:Key="HorizontalSliderTrackNormalBorder" EndPoint="0,1" StartPoint="0,0">
-            <GradientStop Color="{Binding modeColors.ModeColor_White_Black}" Offset="0.1"/>
-            <GradientStop Color="{Binding modeColors.ModeColor_White_Black}" Offset=".9"/>
-        </LinearGradientBrush>
+
         <Style x:Key="SliderRepeatButtonStyle" TargetType="{x:Type RepeatButton}">
             <Setter Property="OverridesDefaultStyle" Value="true"/>
             <Setter Property="IsTabStop" Value="false"/>
@@ -52,7 +49,7 @@
                                 <TickBar x:Name="BottomTick" Visibility="Collapsed" Fill="{TemplateBinding Foreground}" Placement="Bottom" Height="4" Grid.Row="0"/>
                                 <Border x:Name="TrackBackground" 
                                         Background="{StaticResource HorizontalSliderTrackNormalBackground}"
-                                        BorderBrush="{StaticResource HorizontalSliderTrackNormalBorder}"                                        
+                                        BorderBrush="{StaticResource HorizontalSliderTrackNormalBackground}"                                        
                                         BorderThickness="1" CornerRadius="1"
                                         Margin="5,0" VerticalAlignment="Center" Height="4.0" Grid.Row="1" >
                                     <Canvas Margin="-6,-1">

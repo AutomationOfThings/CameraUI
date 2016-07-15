@@ -37,7 +37,7 @@
 
     <Grid Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" VerticalAlignment="Center" HorizontalAlignment="Center" Height="600" Width="720">
         <Label Content="Camera:" FontSize="20" Foreground="{Binding modeColors.ModeColor_Black_LightGray}" Visibility="{Binding Active}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="280,30,358,534" />
-        <Label Content="{Binding OutputCamera.CameraID}" Foreground="{Binding modeColors.ModeColor_Black_LightGray}" Visibility="{Binding Active}" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Width="135" Height="36" Margin="361,30,224,534"></Label>
+        <Label Content="{Binding OutputCamera.CameraName}" Foreground="{Binding modeColors.ModeColor_Black_LightGray}" Visibility="{Binding Active}" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Width="135" Height="36" Margin="361,30,224,534"></Label>
         <Label Content="Live" FontSize="13" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Visibility="{Binding Active}" VerticalAlignment="Top" Width="40" Margin="666,36,14,0"></Label>
         <Label Content="Menul Overwrite" FontSize="13" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Visibility="{Binding Active}" VerticalAlignment="Top" Margin="21,36,591,0"/>
         <Label x:Name="Notice" Content="Select a Camera as Output" Visibility="{Binding Idle}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI Semibold" FontSize="36" Foreground="#FFCFCCCC"/>

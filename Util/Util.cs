@@ -9,6 +9,7 @@ using ptz_camera;
 using NotificationCenter;
 using System.Windows;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace Util {
     public class PresetParams {
@@ -158,6 +159,8 @@ namespace Util {
 
     public class CameraInfo: BindableBase {
 
+        private long lastPtzUpdateTime;
+
         private EventAggregator _ea;
 
         public bool isLoggedIn;
@@ -220,6 +223,10 @@ namespace Util {
             }
         }
 
+        double expectedPan;
+        double expectedTilt;
+        double expectedZoom;
+
         public DispatcherTimer dispatcherTimer;
 
         public CameraInfo(string ip, string id, double p, double t, double z) {
@@ -230,6 +237,11 @@ namespace Util {
             Tilt = t;
             Zoom = z;
 
+            expectedPan = p;
+            expectedTilt = t;
+            expectedZoom = z;
+
+            lastPtzUpdateTime = DateTime.Now.Ticks / 10000;
             _ea = Notification.Instance;
             _ea.GetEvent<PositionResponseReceivedEvent>().Subscribe(onGetPositionUpdate);
             _ea.GetEvent<EndSessionResponseReceivedEvent>().Subscribe(OnGetEndSessionResponse);
@@ -246,6 +258,13 @@ namespace Util {
         private void onGetPositionUpdate(position_response_t res) {
             if (IP == res.ip_address && res.status_code == status_codes_t.OK) {
                 try {
+                    double newPan = double.Parse(res.pan_value);
+                    double newTilt = double.Parse(res.tilt_value);
+                    double newZoom = double.Parse(res.zoom_value);
+                    if (newPan == Pan && newTilt == Tilt && newZoom == Zoom
+                        && (Pan != expectedPan || Tilt != expectedTilt || Zoom != expectedZoom)) {
+                        changePTZ(PTZ_MODE.Absolute, expectedPan, expectedTilt, expectedZoom);
+                    }
                     Pan = double.Parse(res.pan_value);
                     Tilt = double.Parse(res.tilt_value);
                     Zoom = double.Parse(res.zoom_value);
@@ -298,7 +317,14 @@ namespace Util {
         }
 
         public void changePTZ(PTZ_MODE mode, double p, double t, double z) {
-            CameraConnnector.requestPtzControl(IP, mode, (int)p, (int)t, (int)z);
+            expectedPan = p;
+            expectedTilt = t;
+            expectedZoom = z;
+            if (DateTime.Now.Ticks / 10000 - lastPtzUpdateTime > 50) {
+                Debug.WriteLine((DateTime.Now.Ticks / 10000).ToString());
+                lastPtzUpdateTime = DateTime.Now.Ticks / 10000;
+                CameraConnnector.requestPtzControl(IP, mode, (int)p, (int)t, (int)z);
+            }
         }
 
         /* these set of functions use .NET HttpWebRequest to connect with SumSung Camera
