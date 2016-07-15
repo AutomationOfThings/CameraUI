@@ -206,6 +206,7 @@
     <Window.InputBindings>
         <KeyBinding Key="M" Modifiers="Ctrl" Command="{Binding ModeCommand}"  CommandParameter="{Binding modeColors}"/>
         <KeyBinding Key="D" Modifiers="Ctrl" Command="{Binding DiscoverCommand}" />
+        <KeyBinding Key="R" Modifiers="Ctrl" Command="{Binding RelaunchRuntimeCommand}" />
     </Window.InputBindings>
 
     <Grid Background="{Binding modeColors.ModeColor_White_Black}">

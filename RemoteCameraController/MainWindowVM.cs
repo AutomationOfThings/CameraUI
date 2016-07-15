@@ -9,9 +9,13 @@ using Output;
 using Presetting;
 using PreviewPanel;
 using Program;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
 using System.Threading;
+using System.Windows.Forms;
 using System.Windows.Input;
 using Util;
 using XMLParser;
@@ -22,6 +26,8 @@ namespace RemoteCameraController {
         protected EventAggregator notificationCenter = Notification.Instance;
 
         public ModeColors modeColors { get; set; }
+
+        Process runtime;
 
         List<string> usedCamList = new List<string>();
 
@@ -61,11 +67,8 @@ namespace RemoteCameraController {
         }
 
         private void setupViewModels() {
-            // initialize Cameras
-            // string ip1 = "192.168.0.148";
-            // string ip2 = "192.168.0.119";
-            // string URL1 = "http://192.168.1.211/stw-cgi/video.cgi?msubmenu=stream&action=view&Profile=1&CodecType=MJPEG";
-            // string URL2 = "http://192.168.0.119/stw-cgi/video.cgi?msubmenu=stream&action=view&Profile=4&CodecType=MJPEG&Resolution=800x600&FrameRate=30&CompressionLevel=10";
+
+            setupRuntime();
 
             camInfoList = new List<CameraInfo>();
 
@@ -87,7 +90,7 @@ namespace RemoteCameraController {
             ProgramRunBarVM = new ProgramRunBarVM(programList);
 
             // set up menu bar
-            MenuBarVM = new MenuVM(camInfoList);
+            MenuBarVM = new MenuVM(camInfoList, runtime);
 
             // set up status bar
             StatusBarVM = new StatusBarVM();
@@ -99,6 +102,36 @@ namespace RemoteCameraController {
 
         public void saveCameras() {
             (new CameraNameWriter(Constant.CAMERANAME_FILE)).writeToDisk(cameraNameList);
+        }
+
+        private void setupRuntime() {
+            try {
+                runtime = new Process();
+                runtime.StartInfo.FileName = Constant.RUNTIME_FILE;
+                runtime.StartInfo.UseShellExecute = false;
+                runtime.StartInfo.WorkingDirectory = Path.GetDirectoryName(Constant.RUNTIME_FILE);
+            } catch (Exception e) {
+                MessageBox.Show("Runtime file is not found.", "Attention", MessageBoxButtons.OK);
+            }
+        }
+
+        public void startRunTime() {
+            try {
+                runtime.Start();
+            } catch (Exception ex) {
+                Console.WriteLine("An error occurred in starting runtime!!!: " + ex.Message);
+                MessageBox.Show("Meet an error in launching the runtime.", "Attention", MessageBoxButtons.OK);
+                return;
+            }
+        }
+
+        public void stopRunTime() {
+            try {
+                runtime.Kill();
+            } catch (Exception ex) {
+                Console.WriteLine("An error occurred in killing runtime!!!: " + ex.Message);
+                return;
+            }
         }
 
         public void endCameraSessions() {
@@ -124,6 +157,17 @@ namespace RemoteCameraController {
 
         private void discoverShortCut(string discovery) {
             notificationCenter.GetEvent<CameraDiscoverShortCutEvent>().Publish("discover");
+        }
+
+        private void relaunchRuntimeShortCut(string relauch) {
+            notificationCenter.GetEvent<RelaunchRuntimeShortCutEvent>().Publish("relaunchRuntime");
+        }
+
+        ICommand relaunchRuntimeCommand;
+        public ICommand RelaunchRuntimeCommand {
+            get {
+                return relaunchRuntimeCommand ?? new DelegateCommand<string>(relaunchRuntimeShortCut);
+            }
         }
 
         ICommand modeCommand;

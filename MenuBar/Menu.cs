@@ -7,13 +7,15 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Practices.Prism.Mvvm;
 using NotificationCenter;
+using System.IO;
+using System.Windows.Forms;
 
 namespace MenuBar
 {
     public class MenuVM: BindableBase
     {
         public string Discover { get; set; } = "Discover";
-
+        private Process runtime;
         string mode;
         public string Mode {
             get { return mode; }
@@ -25,13 +27,14 @@ namespace MenuBar
         protected readonly EventAggregator _ea;
         List<CameraInfo> camList;
 
-        public MenuVM(List<CameraInfo> camList) {
+        public MenuVM(List<CameraInfo> camList, Process runtime) {
             _ea = Notification.Instance;
             this.camList = camList;
             modeColors = ModeColors.Singleton(_ea);
             Mode = "Dark Mode";
-
+            this.runtime = runtime;
             _ea.GetEvent<ChangeModeShortCutEvent>().Subscribe(changeMode);
+            _ea.GetEvent<RelaunchRuntimeShortCutEvent>().Subscribe(relaunchRuntime);
         }
 
 
@@ -41,10 +44,10 @@ namespace MenuBar
 
         public void changeMode(string mode) {
             _ea.GetEvent<ChangeModeEvent>().Publish(mode);
-            if (this.Mode == "Dark Mode") {
-                this.Mode = "Light Mode";
-            } else if (this.Mode == "Light Mode") {
-                this.Mode = "Dark Mode";
+            if (Mode == "Dark Mode") {
+                Mode = "Light Mode";
+            } else if (Mode == "Light Mode") {
+                Mode = "Dark Mode";
             }
 
         }
@@ -53,7 +56,27 @@ namespace MenuBar
             changeMode(Mode);
         }
 
+        private void relaunchRuntime(string obj) {
+            try {
+                runtime.Kill();
+                runtime.Start();
+
+            } catch (Exception ex) {
+                Console.WriteLine("An error occurred in starting runtime!!!: " + ex.Message);
+                MessageBox.Show("Meet an error in launching the runtime.", "Attention", MessageBoxButtons.OK);
+                return;
+            }
+        }
+
         // ICommands:
+
+        ICommand relaunchRuntimeCommand;
+        public ICommand RelaunchRuntimeCommand {
+            get {
+                return relaunchRuntimeCommand ?? new DelegateCommand<string>(relaunchRuntime);
+            }
+        }
+
         ICommand discoverCommand;
         public ICommand DiscoverCommand {
             get {

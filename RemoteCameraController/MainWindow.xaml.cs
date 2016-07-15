@@ -23,6 +23,7 @@ namespace RemoteCameraController {
 
             checkNetwork();
             DataContext = new MainWindowVM();
+            ((MainWindowVM)DataContext).startRunTime();
             setUpAnimations();
         }
 
@@ -90,7 +91,8 @@ namespace RemoteCameraController {
                 e.Cancel = true;
                 return;
             }
-            ( (MainWindowVM) DataContext).endCameraSessions();
+            ((MainWindowVM) DataContext).endCameraSessions();
+            ((MainWindowVM)DataContext).stopRunTime();
         }
 
         private void changeCamListVisibility(object sender, RoutedEventArgs e) {

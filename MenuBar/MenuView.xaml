@@ -89,7 +89,7 @@
                         <Path Name="CheckMark" Width="7" Height="7"  Visibility="Hidden"  SnapsToDevicePixels="False"  Stroke="{StaticResource GlyphBrush}" StrokeThickness="2" Data="M 0 0 L 7 7 M 0 7 L 7 0" />
                     </Border>
                     <ContentPresenter  Name="HeaderHost" Grid.Column="1" ContentSource="Header" VerticalAlignment="Center" RecognizesAccessKey="True"/>
-                    <TextBlock x:Name="InputGestureText" Grid.Column="2" VerticalAlignment="Center" Text="{TemplateBinding InputGestureText}" Margin="15,2,0,2" DockPanel.Dock="Right" />
+                    <TextBlock x:Name="InputGestureText" Grid.Column="2" VerticalAlignment="Center" Text="{TemplateBinding InputGestureText}" Margin="15,2,0,2" DockPanel.Dock="Right" TextAlignment="Right"/>
                 </Grid>
             </Border>
             <ControlTemplate.Triggers>
@@ -190,6 +190,11 @@
                 <MenuItem Header="Change Mode" Command="{Binding ModeCommand}" CommandParameter="{Binding Mode}" InputGestureText="Ctrl+M" Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" BorderBrush="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" >
                     <MenuItem.Icon>
                         <Image Source="Resources/Mode.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Relaunch runtime" Command="{Binding RelaunchRuntimeCommand}" InputGestureText="Ctrl+R" Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" BorderBrush="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" >
+                    <MenuItem.Icon>
+                        <Image Source="Resources/relaunch.png" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>

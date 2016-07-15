@@ -754,6 +754,7 @@ namespace Util {
         public const string PRESET_FILE = "../../../Data/Presetting.xml";
         public const string PROGRAM_FILE = "../../../Data/Programs.xml";
         public const string CAMERANAME_FILE = "../../../Data/CameraName.xml";
+        public const string RUNTIME_FILE = "../../../Data/Runtime/camera_rt.exe";
         public const char DEF_REQ_SCAN = '1';
         public const int CAMLIST_AREA_VISIBLE_HEIGHT = 155;
         public const int CAMLIST_AREA_HIDDEN_HEIGHT = 1;
@@ -780,7 +781,7 @@ namespace Util {
     public class ChangeModeEvent : PubSubEvent<string> {}
     public class ChangeModeShortCutEvent : PubSubEvent<ModeColors> {}
     public class CameraDiscoverShortCutEvent : PubSubEvent<string> {}
-
+    public class RelaunchRuntimeShortCutEvent: PubSubEvent<string> {}
     public class StatusUpdateEvent: PubSubEvent<string> {}
 
     public class DiscoveryResponseReceivedEvent : PubSubEvent<discovery_response_t> {}
@@ -788,4 +789,5 @@ namespace Util {
     public class PositionResponseReceivedEvent : PubSubEvent<position_response_t> {}
     public class InitSessionResponseReceivedEvent: PubSubEvent<init_session_response_t> {}
     public class EndSessionResponseReceivedEvent : PubSubEvent<end_session_response_t> {}
+
 }
