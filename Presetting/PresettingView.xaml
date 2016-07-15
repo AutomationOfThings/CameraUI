@@ -146,7 +146,7 @@
                 <Setter Property="BorderBrush" Value="{Binding DataContext.modeColors.ModeColor_LightGray_Gray, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
             </Style>
             <DataTemplate x:Key="PanSpinnerTemplate">
-                <xctk:IntegerUpDown Value="{Binding Pan, UpdateSourceTrigger=PropertyChanged}" Minimum="0" Maximum="360" BorderThickness="0"
+                <xctk:IntegerUpDown Value="{Binding Pan, UpdateSourceTrigger=PropertyChanged}" Minimum="0" Maximum="359" BorderThickness="0"
                     Background="{Binding DataContext.modeColors.ModeColor_White_MedianDark, RelativeSource={RelativeSource AncestorType=UserControl}}" 
                     Foreground="{Binding DataContext.modeColors.ModeColor_Black_WhiteSmoke, RelativeSource={RelativeSource AncestorType=UserControl}}">
                     <xctk:IntegerUpDown.Style>

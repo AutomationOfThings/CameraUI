@@ -119,8 +119,13 @@
     <Compile Include="ptz_camera\init_session_response_t.cs" />
     <Compile Include="ptz_camera\position_request_t.cs" />
     <Compile Include="ptz_camera\position_response_t.cs" />
+    <Compile Include="ptz_camera\preset_config_request_t.cs" />
+    <Compile Include="ptz_camera\preset_config_response_t.cs" />
+    <Compile Include="ptz_camera\preset_move_request_t.cs" />
+    <Compile Include="ptz_camera\preset_move_response_t.cs" />
     <Compile Include="ptz_camera\ptz_control_request_t.cs" />
     <Compile Include="ptz_camera\ptz_control_response_t.cs" />
+    <Compile Include="ptz_camera\status_codes_t.cs" />
     <Compile Include="ptz_camera\stop_ptz_control_request_t.cs" />
     <Compile Include="ptz_camera\stop_ptz_control_response_t.cs" />
     <Compile Include="ptz_camera\stream_uri_request_t.cs" />

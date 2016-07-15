@@ -35,11 +35,17 @@ namespace Camera {
         }
 
         public void updateCamList(List<CameraInfo> list) {
+            foreach (CameraVM item in CamList) {
+                item.mjpegDecoder.StopStream();
+                item.unSbscribe();
+                item.mjpegDecoder = null;
+            }
             CamList.Clear();
             for (int i = 0; i < camInfoList.Count; i++) {
                 CameraVM vm = new CameraVM(camInfoList[i], cameraNameList, modeColors, _ea);
                 if (camInfoList[i].IP != "" && camInfoList[i].IP != null 
-                    && camInfoList[i].UserName!=null && camInfoList[i].Password != null) {
+                    && camInfoList[i].UserName!=null && camInfoList[i].Password != null
+                    && camInfoList[i].UserName != "" && camInfoList[i].Password != "") {
                     vm.connect();
                 }
                 CamList.Add(vm);

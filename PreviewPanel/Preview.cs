@@ -101,6 +101,7 @@ namespace PreviewPanel {
             modeColors = ModeColors.Singleton(_ea);
             _ea.GetEvent<CameraSelectEvent>().Subscribe(acceptCamera);
             _ea.GetEvent<SetPresetEvent>().Subscribe(acceptPreset);
+            _ea.GetEvent<CameraDiscoverEvent>().Subscribe(clearBeforeDiscover);
             Idle = Visibility.Visible;
             Active = Visibility.Hidden;
             SliderPan = 0;
@@ -154,6 +155,10 @@ namespace PreviewPanel {
                 CurrentSetting = new PresetParams("", CurrentCamera.CameraName, currentCamera.Pan, CurrentCamera.Tilt, CurrentCamera.Zoom);
             }
             _ea.GetEvent<SaveSettingAsNewEvent>().Publish(currentSetting);
+        }
+
+        private void clearBeforeDiscover(string disc) {
+            clear(CurrentCamera);
         }
 
         private void clear(CameraInfo camInfo) {

@@ -22,6 +22,7 @@ namespace Util {
             ip2CameraName = IP2CameraName;
             this.cameraNameList = cameraNameList;
             _lcm = LCM.LCM.LCM.Singleton;
+            subscribeForResponses();
             _ea = Notification.Instance;
             _ea.GetEvent<CameraDiscoverEvent>().Subscribe(discover);
             _ea.GetEvent<CameraDiscoverShortCutEvent>().Subscribe(discover);
@@ -29,14 +30,24 @@ namespace Util {
             
         }
 
+        private void subscribeForResponses() {
+            _lcm.Subscribe(Channels.discovery_res_channel, new DiscoveryResponseHandler());
+            _lcm.Subscribe(Channels.init_session_res_channel, new InitSessionResponseHandler());
+            _lcm.Subscribe(Channels.end_session_res_channel, new EndSessionResponseHandler());
+            _lcm.Subscribe(Channels.position_res_channel, new PositionResponseHandler());
+            _lcm.Subscribe(Channels.stream_res_channel, new StreamUriResponseHandler());
+        }
+
         public void discover(string input) {
             _ea.GetEvent<StatusUpdateEvent>().Publish("Discovering...");
             discovery_request_t discoveryRequest = new discovery_request_t();
             _lcm.Publish(Channels.discovery_req_channel, discoveryRequest);
-            _lcm.Subscribe(Channels.discovery_res_channel, new DiscoveryResponseHandler());
         }
 
         private void OnGetDiscoveryResponse(discovery_response_t res) {
+            foreach (CameraInfo item in camList) {
+                item.stopUpdatePTZ();
+            }
             camList.Clear();
             List<string> temp = new List<string>();
             foreach (string ip in res.ip_addresses) {

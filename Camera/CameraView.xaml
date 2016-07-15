@@ -18,7 +18,7 @@
         <Button Command="{Binding SelectedCommand}" CommandParameter="{Binding CamInfo}" Background="{x:Null}" BorderBrush="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" Margin="4"/>
         -->
         <Button Content="Output" Opacity="0.8" Command="{Binding OutputCommand}" CommandParameter="{Binding CamInfo}" Background="{Binding OutputBackgroundColor}" Foreground="{Binding modeColors.ModeColor_Black_White}" Width="79" Height="25" BorderBrush="DimGray" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,5,5"/>
-        <Button Content="Name" Opacity="0.8" Command="{Binding NameCommand}" CommandParameter="{Binding CamInfo}" Background="Gray" Foreground="{Binding modeColors.ModeColor_Black_White}" Width="79" Height="25" BorderBrush="DimGray" BorderThickness="1,1,0,1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,160,5"/>
+        <Button Content="Rename" Opacity="0.8" Command="{Binding NameCommand}" CommandParameter="{Binding CamInfo}" Background="Gray" Foreground="{Binding modeColors.ModeColor_Black_White}" Width="79" Height="25" BorderBrush="DimGray" BorderThickness="1,1,0,1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,160,5"/>
         <Button Content="Preview" Opacity="0.8" Command="{Binding SelectedCommand}" CommandParameter="{Binding CamInfo}" Background="Gray" Foreground="{Binding modeColors.ModeColor_Black_White}" Width="78" Height="25" BorderBrush="DimGray" BorderThickness="1,1,0,1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,83,5"/>
 
         <!--

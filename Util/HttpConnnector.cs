@@ -21,7 +21,6 @@ namespace Util {
                 password = pwd
             };
             _lcm.Publish(Channels.init_session_req_channel, initSessionRequest);
-            _lcm.Subscribe(Channels.init_session_res_channel, new InitSessionResponseHandler());
         }
 
         public static void endSession(string ip) {
@@ -29,7 +28,6 @@ namespace Util {
                 ip_address = ip
             };
             _lcm.Publish(Channels.end_session_req_channel, endSessionRequest);
-            _lcm.Subscribe(Channels.end_session_res_chanel, new EndSessionResponseHandler());
         }
 
         public static void getStreamUri(string ip) {
@@ -44,7 +42,6 @@ namespace Util {
 
             };
             _lcm.Publish(Channels.stream_req_channel, streamUriRequest);
-            _lcm.Subscribe(Channels.stream_res_channel, new StreamUriResponseHandler());
         }
 
         public static void requestCameraPosition(string ip) {
@@ -52,7 +49,6 @@ namespace Util {
                 ip_address = ip
             };
             _lcm.Publish(Channels.position_req_channel, positionRequest);
-            _lcm.Subscribe(Channels.position_res_channel, new PositionResponseHandler());
         }
 
         public static void requestPtzControl(string ip, PTZ_MODE mode, int pan, int tilt, int zoom) {
@@ -107,7 +103,7 @@ namespace Util {
 
     public class EndSessionResponseHandler : LCMSubscriber {
         public void MessageReceived(LCM.LCM.LCM lcm, string channel, LCMDataInputStream data_stream) {
-            if (channel == Channels.end_session_res_chanel) {
+            if (channel == Channels.end_session_res_channel) {
                 end_session_response_t response = new end_session_response_t(data_stream);
                 var _ea = Notification.Instance;
                 _ea.GetEvent<EndSessionResponseReceivedEvent>().Publish(response);

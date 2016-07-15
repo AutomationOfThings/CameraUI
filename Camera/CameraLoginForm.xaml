@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Camera"
-             Height="300" Width="300" Title="Loggin to access camera">
+             Height="300" Width="300" Title="Loggin to access camera" ResizeMode="NoResize">
     <Grid Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}">
         <Label Content="Username:" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" HorizontalAlignment="Left" Margin="53,34,0,0" VerticalAlignment="Top"/>
         <Label Content="Password:" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" HorizontalAlignment="Left" Margin="53,104,0,0" VerticalAlignment="Top"/>

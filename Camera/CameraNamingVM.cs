@@ -52,19 +52,32 @@ namespace Camera {
             } 
         }
 
-        private void set(int? index) {
-            if (index < CameraNameList.Count || CameraNameList[SelectedIndex].CameraName != "") {
+        private void clear(string name) {
 
+            if (CameraName != null) {
+                foreach (CameraNameWrapper item in CameraNameList) {
+                    if (item.CameraName == CameraName) {
+                        item.AssociatedIP = "";
+                        item.NotAssociated = true;
+                        item.username = "";
+                        item.password = "";
+                        break;
+                    }
+                }
+            }
+            CameraName = null;
+        }
+
+        private void set(int? index) {
+            if (index < CameraNameList.Count && !string.IsNullOrEmpty(CameraNameList[SelectedIndex].CameraName)) {
                 CameraNameWrapper cam = CameraNameList[SelectedIndex];
-                if (CameraName != null) {
-                    foreach (CameraNameWrapper item in CameraNameList) {
-                        if (item.CameraName == CameraName) {
-                            item.AssociatedIP = "";
-                            item.NotAssociated = true;
-                            item.username = "";
-                            item.password = "";
-                            break;
-                        }
+                foreach (CameraNameWrapper item in CameraNameList) {
+                    if (item.CameraName == CameraName) {
+                        item.AssociatedIP = "";
+                        item.NotAssociated = true;
+                        item.username = "";
+                        item.password = "";
+                        break;
                     }
                 }
                 
@@ -76,6 +89,14 @@ namespace Camera {
                 camera.CameraName = cam.CameraName;
             } else {
                 MessageBox.Show("Invalid Camera Name", "Warning");
+            }
+        }
+
+        ICommand clearCommand;
+        public ICommand ClearCommand {
+            get {
+                if (clearCommand == null) { clearCommand = new DelegateCommand<string>(clear); }
+                return clearCommand;
             }
         }
 

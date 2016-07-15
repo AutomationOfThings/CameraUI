@@ -17,11 +17,17 @@ namespace Camera {
         }
 
         private void signIn(object sender, RoutedEventArgs e) {
-            model.CamInfo.UserName = UsernameBox.Text;
-            model.CamInfo.Password = PasswordBox.Password;
             ConnectionStatus.Visibility = Visibility.Visible;
             SignIn.Visibility = Visibility.Hidden;
             StatusIndicator.Visibility = Visibility.Hidden;
+            if (model.CamInfo.isLoggedIn 
+                && model.CamInfo.UserName != null && model.CamInfo.Password != null
+                && model.CamInfo.UserName != "" && model.CamInfo.Password != "") {
+                model.getStreamUri();
+                return;
+            }
+            model.CamInfo.UserName = UsernameBox.Text;
+            model.CamInfo.Password = PasswordBox.Password;
             model.connect();
         }
 

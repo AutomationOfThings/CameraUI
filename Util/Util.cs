@@ -244,14 +244,12 @@ namespace Util {
         }
 
         private void onGetPositionUpdate(position_response_t res) {
-            if (IP == res.ip_address && res.response_message == "OK") {
+            if (IP == res.ip_address && res.status_code == status_codes_t.OK) {
                 try {
                     Pan = double.Parse(res.pan_value);
                     Tilt = double.Parse(res.tilt_value);
                     Zoom = double.Parse(res.zoom_value);
-                } catch(Exception e) {
-                    return;
-                }
+                } catch(Exception e) { return; }
                 
             }
         }

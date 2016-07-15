@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Camera"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="300"
-             Width="450">
+             Width="450" ResizeMode="NoResize" Title="Camera Name Editor">
     <Window.Resources>
 
         <Color x:Key="ControlLightColor">Gray</Color>
@@ -49,8 +49,8 @@
     </Window.InputBindings>
 
     <Grid Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}">
-        <Label Content="Camera Name:" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Width="90" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,9,0,0"/>
-        <Label Content="{Binding CameraName}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Width="150" VerticalAlignment="Top" HorizontalAlignment="Left" Height="30" Margin="112,9,0,0"/>
+        <Label Content="Camera Name:" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Width="94" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="13" Margin="16,9,0,0"/>
+        <Label Content="{Binding CameraName}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Width="243" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="13" Height="30" Margin="109,9,0,0"/>
         <DataGrid ItemsSource="{Binding CameraNameList}" SelectedIndex="{Binding SelectedIndex}" CanUserResizeColumns="False" BorderThickness="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
             CanUserAddRows="True" AutoGenerateColumns="False" RowHeight="24" HorizontalAlignment="Stretch" Margin="20,45,20,60" VerticalAlignment="Stretch" RowHeaderWidth="0"
             Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" BorderBrush="{Binding modeColors.ModeColor_LightGray_Gray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}"
@@ -103,7 +103,7 @@
                         </Style>
                     </DataGridTextColumn.EditingElementStyle>
                 </DataGridTextColumn>
-                <DataGridTemplateColumn Width="80" >
+                <DataGridTemplateColumn Width="60" >
                     <DataGridTemplateColumn.CellStyle>
                         <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
                             <Setter Property="BorderThickness" Value="0" />
@@ -117,7 +117,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Width="80" >
+                <DataGridTemplateColumn Width="60" >
                     <DataGridTemplateColumn.CellStyle>
                         <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
                             <Setter Property="BorderThickness" Value="0" />
@@ -133,7 +133,8 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Delete" Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedIndex}" Background="{Binding modeColors.ModeColor_WhiteSmoke_Gray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Width="80" Height="25" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="140,0,0,16"></Button>
-        <Button Content="Add" Width="80" Command="{Binding AddCommand}" CommandParameter="{Binding CameraNameList}" Background="{Binding modeColors.ModeColor_WhiteSmoke_Gray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Height="25" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,140,16"/>
+        <Button Content="Delete" Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedIndex}" Background="{Binding modeColors.ModeColor_WhiteSmoke_Gray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Width="80" Height="25" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="200,0,0,16"></Button>
+        <Button Content="Add" Width="80" Command="{Binding AddCommand}" CommandParameter="{Binding CameraNameList}" Background="{Binding modeColors.ModeColor_WhiteSmoke_Gray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Height="25" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,200,16"/>
+        <Button Content="Clear" Width="66" Command="{Binding ClearCommand}" CommandParameter="{Binding CameraName}" Background="{Binding modeColors.ModeColor_WhiteSmoke_Gray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Height="21" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,14,21,0"/>
     </Grid>
 </Window>

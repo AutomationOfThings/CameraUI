@@ -11,6 +11,7 @@ using System.Windows;
 using ptz_camera;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace Camera {
     public class CameraVM: BindableBase {
@@ -37,14 +38,15 @@ namespace Camera {
         protected readonly EventAggregator _ea;
         public MjpegDecoder mjpegDecoder;
 
-        public CameraVM(CameraInfo cam, ObservableCollection<CameraNameWrapper> cameraNameList, ModeColors mode ,EventAggregator ea) {
+        public CameraVM(CameraInfo cam, ObservableCollection<CameraNameWrapper> cameraNameList, ModeColors mode, EventAggregator ea) {
+            Debug.WriteLine("CameraVM created");
             CamInfo = cam;
             this.cameraNameList = cameraNameList;
             _ea = ea;
             _ea.GetEvent<CameraSelectEvent>().Subscribe(beSelected);
             _ea.GetEvent<CameraOutPutEvent>().Subscribe(beOutput);
-            _ea.GetEvent<InitSessionResponseReceivedEvent>().Subscribe(OnGetInitSessionResponse);
-            _ea.GetEvent<StreamUriResponseReceivedEvent>().Subscribe(OnGetStreamUri);
+            _ea.GetEvent<InitSessionResponseReceivedEvent>().Subscribe(OnGetInitSessionResponse, ThreadOption.UIThread);
+            _ea.GetEvent<StreamUriResponseReceivedEvent>().Subscribe(OnGetStreamUri, ThreadOption.UIThread);
             modeColors = mode;
 
             mjpegDecoder = new MjpegDecoder();
@@ -68,28 +70,49 @@ namespace Camera {
         public void FrameReady(object sender, FrameReadyEventArgs e) {
             if (form != null && form.IsActive == true) {
                 form.Close();
-                CamInfo.startUpdatePTZ();
             }
-            CamInfo.isLoggedIn = true;
-            CamInfo.dispatcherTimer.Start();
+            if (!CamInfo.isLoggedIn) {
+                CamInfo.isLoggedIn = true;
+                updateCameraNameList();
+            }
+            CamInfo.startUpdatePTZ();
             CamInfo.VideoSource = e.BitmapImage;
-            updateCameraNameList();
+        }
+
+        public void unSbscribe() {
+            mjpegDecoder.FrameReady -= FrameReady;
+            mjpegDecoder.Error -= MjpegDecoderError;
+            _ea.GetEvent<InitSessionResponseReceivedEvent>().Unsubscribe(OnGetInitSessionResponse);
+            _ea.GetEvent<StreamUriResponseReceivedEvent>().Unsubscribe(OnGetStreamUri);
         }
 
         private void OnGetInitSessionResponse(init_session_response_t res) {
             if ( res.ip_address == CamInfo.IP ) {
-                if (res.response_message == "OK") {
-                    if (CamInfo.VideoURL != null || CamInfo.VideoURL != "") { mjpegDecoder.ParseStream(new Uri(this.CamInfo.VideoURL, UriKind.Absolute), CamInfo.UserName, CamInfo.Password); } 
+                if (res.status_code == status_codes_t.OK) {
+                    if (CamInfo.VideoURL != null && CamInfo.VideoURL != "" ) {
+                        if (mjpegDecoder != null)
+                            mjpegDecoder.ParseStream(new Uri(this.CamInfo.VideoURL, UriKind.Absolute), CamInfo.UserName, CamInfo.Password);
+                    } 
                     else { CamInfo.getStreamUri(); }
                 } else { connectionErrorHandler(); }
             } 
         }
 
+        public void getStreamUri() {
+            if (CamInfo.VideoURL != null && CamInfo.VideoURL != "") {
+                if (mjpegDecoder != null)
+                    mjpegDecoder.ParseStream(new Uri(this.CamInfo.VideoURL, UriKind.Absolute), CamInfo.UserName, CamInfo.Password);
+            }
+            else {CamInfo.getStreamUri();}
+        }
+
         private void OnGetStreamUri(stream_uri_response_t res) {
             if (CamInfo.IP == res.ip_address) {
-                if (res.response_message == "OK") {
-                    CamInfo.VideoURL = res.uri;
-                    mjpegDecoder.ParseStream(new Uri(CamInfo.VideoURL, UriKind.Absolute), CamInfo.UserName, CamInfo.Password);
+                if (res.status_code == status_codes_t.OK) {
+                    if (mjpegDecoder != null) {
+                        CamInfo.VideoURL = res.uri;
+                        mjpegDecoder.ParseStream(new Uri(CamInfo.VideoURL, UriKind.Absolute), CamInfo.UserName, CamInfo.Password);
+                    }
                 } else { CamInfo.getStreamUri(); }
             }
         }
@@ -97,9 +120,6 @@ namespace Camera {
 
         public void connect() {
             CamInfo.initSession();
-            Task.Delay(2000).ContinueWith(_ => {
-                CamInfo.getStreamUri();
-            });
         }
 
         private void showLogginWindow() {

@@ -80,8 +80,13 @@ namespace Presetting {
             newItem.Tilt = setting.tilt;
             newItem.Zoom = setting.zoom;
             newItem.CanSave = true;
+            foreach (CameraNameWrapper item in CameraNameList) {
+                if (item.CameraName == setting.CameraName) {
+                    newItem.Camera = item;
+                    break;
+                }
+            }
             camList.Add(newItem);
-
         }
 
         private void saveToDiskListAtIndex(int index) {
