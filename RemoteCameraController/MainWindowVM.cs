@@ -52,7 +52,9 @@ namespace RemoteCameraController {
             //modeColors = new ModeColors(notificationCenter);
             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable()) {
                 modeColors = ModeColors.Singleton(notificationCenter);
-                loadXML(Constant.PRESET_FILE, Constant.PROGRAM_FILE, Constant.CAMERANAME_FILE);
+                loadXML(AppDomain.CurrentDomain.BaseDirectory + Constant.PRESET_FILE,
+                    AppDomain.CurrentDomain.BaseDirectory + Constant.PROGRAM_FILE,
+                    AppDomain.CurrentDomain.BaseDirectory + Constant.CAMERANAME_FILE);
                 setupViewModels();
             }
         }
