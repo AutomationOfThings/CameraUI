@@ -540,11 +540,12 @@ namespace Util {
         }
     }
     public class CameraCommandEditWrapper: CameraCommand {
-        public List<Cmd> CommandList { get; set; } = new List<Cmd> { Cmd.OUTPUT, Cmd.PRESET, Cmd.WAIT };
+        public List<Cmd> CommandList { get; set; }
         public List<string> CamList { get; set; }
         public List<string> PresetList { get; set; }
 
         public CameraCommandEditWrapper(CameraCommand cmd, List<string> camList, List<string> presetList) {
+            CommandList = new List<Cmd> { Cmd.OUTPUT, Cmd.PRESET, Cmd.WAIT };
             this.Command = cmd.Command;
             this.WaitTime = cmd.WaitTime;
             this.SelectedOutputCamera = cmd.SelectedOutputCamera;
@@ -554,6 +555,7 @@ namespace Util {
         }
 
         public CameraCommandEditWrapper(List<string> camList, List<string> presetList) {
+            CommandList = new List<Cmd> { Cmd.OUTPUT, Cmd.PRESET, Cmd.WAIT };
             this.WaitTime = 10;
             this.command = Cmd.WAIT;
             this.CamList = camList;
@@ -793,11 +795,13 @@ namespace Util {
     public class CameraSelectEvent : PubSubEvent<CameraInfo> {}
     public class CameraOutPutEvent : PubSubEvent<CameraInfo> {}
     public class CameraDiscoveredEvent : PubSubEvent<List<CameraInfo>> {}
-    
+    public class ClearCameraPreviewEvent: PubSubEvent<CameraInfo> {}
+    public class ClearCameraOutputEvent : PubSubEvent<CameraInfo> { }
+
     public class ProgramSaveEvent : PubSubEvent<int> {}
     public class ProgramCancelEvent : PubSubEvent<int> {}
     public class ProgramDeleteEvent : PubSubEvent<int> {}
-    public class ProgramRunEvent : PubSubEvent<int> {}
+    public class ProgramRunEvent : PubSubEvent<int?> {}
 
     public class PresettingDeleteEvent : PubSubEvent<int> {}
     public class SetPresetEvent : PubSubEvent<PresetParams> {}
@@ -815,5 +819,5 @@ namespace Util {
     public class PositionResponseReceivedEvent : PubSubEvent<position_response_t> {}
     public class InitSessionResponseReceivedEvent: PubSubEvent<init_session_response_t> {}
     public class EndSessionResponseReceivedEvent : PubSubEvent<end_session_response_t> {}
-
+    public class UpdateOutputCameraReceivedEvent: PubSubEvent<end_session_response_t> {}
 }

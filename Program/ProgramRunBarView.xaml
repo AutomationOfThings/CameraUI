@@ -80,14 +80,14 @@
     <Grid Background="Transparent">
         <Border Margin="2,0,23,2" BorderBrush="{Binding modeColors.ModeColor_LightGray_Gray}" BorderThickness="1">
             <Grid>
-                <Label Content="Running:" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Width="Auto" Height="27" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0"></Label>
-                <Label Content="{Binding RunningProgramString}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Height="27" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="75,0"></Label>
-                <Border VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,260,0" BorderThickness="1,0,0,0" BorderBrush="{Binding modeColors.ModeColor_White_Gray}">
-                    <Label Content=" Select Program: " Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Height="27" VerticalAlignment="Center" HorizontalAlignment="Left"></Label>
+                <Label Content="Running:" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Width="Auto" Height="27" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0"></Label>
+                <Label Content="{Binding RunningProgramString}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Height="27" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="65,0"></Label>
+                <Border VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,303,0" BorderThickness="1,0,0,0" BorderBrush="{Binding modeColors.ModeColor_White_Gray}">
+                    <Label Content=" Select Program: " Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Height="26" VerticalAlignment="Center" HorizontalAlignment="Left"></Label>
                 </Border>
-                <ComboBox ItemsSource="{Binding ProgramList}" DisplayMemberPath="ProgramName" SelectedItem="{Binding Program, UpdateSourceTrigger=PropertyChanged}" BorderBrush="{x:Null}" BorderThickness="0"
+                <ComboBox ItemsSource="{Binding ProgramList}" DisplayMemberPath="ProgramName" SelectedIndex="{Binding SelectedIndex, UpdateSourceTrigger=PropertyChanged}" BorderBrush="{x:Null}" BorderThickness="0"
                     Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Background="{Binding modeColors.ModeColor_White_MedianDark}"
-                    Width="180" Height="22" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="80,0,62,0">
+                    Width="180" Height="22" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="80,0,123,0">
                     <ComboBox.ItemContainerStyle>
                         <Style TargetType="ComboBoxItem">
                             <Setter Property="Background" Value="{Binding DataContext.modeColors.ModeColor_White_MedianDark, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
@@ -99,9 +99,12 @@
                         </Style>
                     </ComboBox.ItemContainerStyle>
                 </ComboBox>
-                <Button Width="60" Height="22" Content="Run" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="1,0"
+                <Button Width="60" Height="22" Content="Stop" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="1,0"
                     Background="{Binding modeColors.ModeColor_SmallGray_LargeGray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" BorderThickness="0"
-                    Command="{Binding RunCommand}" CommandParameter="{Binding Program}"/>
+                    Command="{Binding StopCommand}" CommandParameter="{Binding SelectedIndex}"/>
+                <Button Width="60" Height="22" Content="Run" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="1,0,62,0"
+                    Background="{Binding modeColors.ModeColor_SmallGray_LargeGray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" BorderThickness="0"
+                    Command="{Binding RunCommand}" CommandParameter="{Binding SelectedIndex}"/>
             </Grid>
         </Border>
     </Grid>

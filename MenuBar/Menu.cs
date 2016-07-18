@@ -14,7 +14,7 @@ namespace MenuBar
 {
     public class MenuVM: BindableBase
     {
-        public string Discover { get; set; } = "Discover";
+        public string Discover { get; set; }
         private Process runtime;
         string mode;
         public string Mode {
@@ -32,6 +32,7 @@ namespace MenuBar
             this.camList = camList;
             modeColors = ModeColors.Singleton(_ea);
             Mode = "Dark Mode";
+            Discover = "Discover";
             this.runtime = runtime;
             _ea.GetEvent<ChangeModeShortCutEvent>().Subscribe(changeMode);
             _ea.GetEvent<RelaunchRuntimeShortCutEvent>().Subscribe(relaunchRuntime);

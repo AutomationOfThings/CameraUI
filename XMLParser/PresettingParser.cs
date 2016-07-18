@@ -15,7 +15,7 @@ namespace XMLParser {
             this.fileName = filename;
         }
         
-        public List<PresetParams> parse(List<string> usedCamList) {
+        public List<PresetParams> parse(Dictionary<string, PresetParams> PresetName2Preset) {
             List<PresetParams> cams = new List<PresetParams>();
             XmlTextReader reader = new XmlTextReader(fileName);
 
@@ -34,7 +34,8 @@ namespace XMLParser {
                     cam.zoom = Convert.ToDouble(node.SelectSingleNode("Zoom").InnerText); //node.Attributes["Zoom"].Value;
                     cams.Add(cam);
 
-                    if (!usedCamList.Contains(cam.CameraName)) { usedCamList.Add(cam.CameraName); }
+                    PresetName2Preset[cam.presettingId] = cam;
+
                 } catch {
                     Debug.WriteLine("Invalide Format.");
                 }

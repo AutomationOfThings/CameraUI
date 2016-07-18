@@ -3,6 +3,8 @@ using LCM.LCM;
 using Microsoft.Practices.Prism.PubSubEvents;
 using NotificationCenter;
 using ptz_camera;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace Util {
     public class CameraConnnector {
@@ -67,6 +69,16 @@ namespace Util {
             }
             _lcm.Publish(Channels.ptz_control_req_channel, ptzRequest);
         }
+
+        public static void requestProgramRun(string program) {
+            Debug.WriteLine("run! " + program);
+        }
+
+        public static void requestProgramStop(string program) {
+
+        }
+
+        
 
     }
 

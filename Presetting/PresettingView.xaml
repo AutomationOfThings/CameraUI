@@ -128,7 +128,57 @@
                 </ComboBox.ItemContainerStyle>
             </ComboBox>
         </DataTemplate>
-        
+        <DataTemplate x:Key="PanSpinnerTemplate">
+            <xctk:IntegerUpDown Value="{Binding Pan, UpdateSourceTrigger=PropertyChanged}" Minimum="0" Maximum="359" BorderThickness="0"
+                    Background="{Binding DataContext.modeColors.ModeColor_White_MedianDark, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                    Foreground="{Binding DataContext.modeColors.ModeColor_Black_WhiteSmoke, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <xctk:IntegerUpDown.Style>
+                    <Style TargetType="{x:Type xctk:IntegerUpDown}">
+                        <Style.Resources>
+                            <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.GlyphNormalForegroundKey}"  Color="#FFA0A0A0"/>
+                            <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.ButtonNormalBackgroundKey}"  Color="#7FA0A0A0"/>
+                            <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.ButtonNormalOuterBorderKey}"  Color="Transparent"/>
+                            <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.ControlDisabledBackgroundKey}"  Color="Transparent"/>
+                            <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.ButtonDisabledOuterBorderKey}"  Color="Transparent"/>
+                        </Style.Resources>
+                    </Style>
+                </xctk:IntegerUpDown.Style>
+            </xctk:IntegerUpDown>
+        </DataTemplate>
+        <DataTemplate x:Key="TiltSpinnerTemplate">
+            <xctk:IntegerUpDown Value="{Binding Tilt, UpdateSourceTrigger=PropertyChanged}" Minimum="-15" Maximum="195" BorderThickness="0" 
+                    Background="{Binding DataContext.modeColors.ModeColor_White_MedianDark, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                    Foreground="{Binding DataContext.modeColors.ModeColor_Black_WhiteSmoke, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <xctk:IntegerUpDown.Style>
+                    <Style TargetType="{x:Type xctk:IntegerUpDown}">
+                        <Style.Resources>
+                            <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.GlyphNormalForegroundKey}"  Color="#FFA0A0A0"/>
+                            <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.ButtonNormalBackgroundKey}"  Color="#7FA0A0A0"/>
+                            <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.ButtonNormalOuterBorderKey}"  Color="Transparent"/>
+                            <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.ControlDisabledBackgroundKey}"  Color="Transparent"/>
+                            <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.ButtonDisabledOuterBorderKey}"  Color="Transparent"/>
+                        </Style.Resources>
+                    </Style>
+                </xctk:IntegerUpDown.Style>
+            </xctk:IntegerUpDown>
+        </DataTemplate>
+        <DataTemplate x:Key="ZoomSpinnerTemplate">
+            <xctk:IntegerUpDown Value="{Binding Zoom, UpdateSourceTrigger=PropertyChanged}" Minimum="1" Maximum="32" BorderThickness="0" 
+                    Background="{Binding DataContext.modeColors.ModeColor_White_MedianDark, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                    Foreground="{Binding DataContext.modeColors.ModeColor_Black_WhiteSmoke, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <xctk:IntegerUpDown.Style>
+                    <Style TargetType="{x:Type xctk:IntegerUpDown}">
+                        <Style.Resources>
+                            <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.GlyphNormalForegroundKey}"  Color="#FFA0A0A0"/>
+                            <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.ButtonNormalBackgroundKey}"  Color="#7FA0A0A0"/>
+                            <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.ButtonNormalOuterBorderKey}"  Color="Transparent"/>
+                            <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.ControlDisabledBackgroundKey}"  Color="Transparent"/>
+                            <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.ButtonDisabledOuterBorderKey}"  Color="Transparent"/>
+                        </Style.Resources>
+                    </Style>
+                </xctk:IntegerUpDown.Style>
+            </xctk:IntegerUpDown>
+        </DataTemplate>
     </UserControl.Resources>
 
     <UserControl.InputBindings>
@@ -145,58 +195,6 @@
                 <Setter Property="BorderThickness" Value="0,0,1,0"/>
                 <Setter Property="BorderBrush" Value="{Binding DataContext.modeColors.ModeColor_LightGray_Gray, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
             </Style>
-            <DataTemplate x:Key="PanSpinnerTemplate">
-                <xctk:IntegerUpDown Value="{Binding Pan, UpdateSourceTrigger=PropertyChanged}" Minimum="0" Maximum="359" BorderThickness="0"
-                    Background="{Binding DataContext.modeColors.ModeColor_White_MedianDark, RelativeSource={RelativeSource AncestorType=UserControl}}" 
-                    Foreground="{Binding DataContext.modeColors.ModeColor_Black_WhiteSmoke, RelativeSource={RelativeSource AncestorType=UserControl}}">
-                    <xctk:IntegerUpDown.Style>
-                        <Style TargetType="{x:Type xctk:IntegerUpDown}">
-                            <Style.Resources>
-                                <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.GlyphNormalForegroundKey}"  Color="#FFA0A0A0"/>
-                                <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.ButtonNormalBackgroundKey}"  Color="#7FA0A0A0"/>
-                                <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.ButtonNormalOuterBorderKey}"  Color="Transparent"/>
-                                <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.ControlDisabledBackgroundKey}"  Color="Transparent"/>
-                                <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.ButtonDisabledOuterBorderKey}"  Color="Transparent"/>
-                            </Style.Resources>
-                        </Style>
-                    </xctk:IntegerUpDown.Style>
-                </xctk:IntegerUpDown>
-            </DataTemplate>
-            <DataTemplate x:Key="TiltSpinnerTemplate">
-                <xctk:IntegerUpDown Value="{Binding Tilt, UpdateSourceTrigger=PropertyChanged}" Minimum="-15" Maximum="195" BorderThickness="0" 
-                    Background="{Binding DataContext.modeColors.ModeColor_White_MedianDark, RelativeSource={RelativeSource AncestorType=UserControl}}" 
-                    Foreground="{Binding DataContext.modeColors.ModeColor_Black_WhiteSmoke, RelativeSource={RelativeSource AncestorType=UserControl}}">
-                    <xctk:IntegerUpDown.Style>
-                        <Style TargetType="{x:Type xctk:IntegerUpDown}">
-                            <Style.Resources>
-                                <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.GlyphNormalForegroundKey}"  Color="#FFA0A0A0"/>
-                                <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.ButtonNormalBackgroundKey}"  Color="#7FA0A0A0"/>
-                                <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.ButtonNormalOuterBorderKey}"  Color="Transparent"/>
-                                <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.ControlDisabledBackgroundKey}"  Color="Transparent"/>
-                                <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.ButtonDisabledOuterBorderKey}"  Color="Transparent"/>
-                            </Style.Resources>
-                        </Style>
-                    </xctk:IntegerUpDown.Style>
-                </xctk:IntegerUpDown>
-            </DataTemplate>
-            <DataTemplate x:Key="ZoomSpinnerTemplate">
-                <xctk:IntegerUpDown Value="{Binding Zoom, UpdateSourceTrigger=PropertyChanged}" Minimum="1" Maximum="32" BorderThickness="0" 
-                    Background="{Binding DataContext.modeColors.ModeColor_White_MedianDark, RelativeSource={RelativeSource AncestorType=UserControl}}" 
-                    Foreground="{Binding DataContext.modeColors.ModeColor_Black_WhiteSmoke, RelativeSource={RelativeSource AncestorType=UserControl}}">
-                    <xctk:IntegerUpDown.Style>
-                        <Style TargetType="{x:Type xctk:IntegerUpDown}">
-                            <Style.Resources>
-                                <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.GlyphNormalForegroundKey}"  Color="#FFA0A0A0"/>
-                                <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.ButtonNormalBackgroundKey}"  Color="#7FA0A0A0"/>
-                                <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.ButtonNormalOuterBorderKey}"  Color="Transparent"/>
-                                <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.ControlDisabledBackgroundKey}"  Color="Transparent"/>
-                                <SolidColorBrush x:Key="{x:Static theme:ResourceKeys.ButtonDisabledOuterBorderKey}"  Color="Transparent"/>
-                            </Style.Resources>
-                        </Style>
-                    </xctk:IntegerUpDown.Style>
-                </xctk:IntegerUpDown>
-            </DataTemplate>
-
         </Grid.Resources>
 
         <DataGrid Name="PresetDataGrid" ItemsSource="{Binding CamList}" SelectedIndex="{Binding SelectedIndex}" CanUserAddRows="True" CanUserDeleteRows="True" RowHeaderWidth="0"
@@ -257,10 +255,10 @@
                     </DataGridTemplateColumn.CellStyle>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="Pan" Width="*"  CellTemplate="{StaticResource PanSpinnerTemplate}" CellEditingTemplate="{StaticResource PanSpinnerTemplate}"/>
-                <DataGridTemplateColumn Header="Tilt" Width="*"  CellTemplate="{StaticResource TiltSpinnerTemplate}" CellEditingTemplate="{StaticResource TiltSpinnerTemplate}"/>
-                <DataGridTemplateColumn Header="Zoom" Width="*"  CellTemplate="{StaticResource ZoomSpinnerTemplate}" CellEditingTemplate="{StaticResource ZoomSpinnerTemplate}"/>
-               
+                <DataGridTemplateColumn Header="Pan" Width="*" CellTemplate="{StaticResource PanSpinnerTemplate}" CellEditingTemplate="{StaticResource PanSpinnerTemplate}"/>
+                <DataGridTemplateColumn Header="Tilt" Width="*" CellTemplate="{StaticResource TiltSpinnerTemplate}" CellEditingTemplate="{StaticResource TiltSpinnerTemplate}"/>
+                <DataGridTemplateColumn Header="Zoom" Width="*" CellTemplate="{StaticResource ZoomSpinnerTemplate}" CellEditingTemplate="{StaticResource ZoomSpinnerTemplate}"/>
+                
                 <DataGridTemplateColumn Width="*">
                     <DataGridTemplateColumn.CellStyle>
                         <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">

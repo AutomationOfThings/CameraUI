@@ -42,8 +42,10 @@ namespace Camera {
             CamInfo = cam;
             this.cameraNameList = cameraNameList;
             _ea = ea;
-            _ea.GetEvent<CameraSelectEvent>().Subscribe(beSelected);
+            _ea.GetEvent<CameraSelectEvent>().Subscribe(bePreview);
             _ea.GetEvent<CameraOutPutEvent>().Subscribe(beOutput);
+            _ea.GetEvent<ClearCameraOutputEvent>().Subscribe(unOutput);
+            _ea.GetEvent<ClearCameraPreviewEvent>().Subscribe(unPreview);
             _ea.GetEvent<InitSessionResponseReceivedEvent>().Subscribe(OnGetInitSessionResponse, ThreadOption.UIThread);
             _ea.GetEvent<StreamUriResponseReceivedEvent>().Subscribe(OnGetStreamUri, ThreadOption.UIThread);
             modeColors = mode;
@@ -149,11 +151,17 @@ namespace Camera {
             else { OutputBackgroundColor = Brushes.Gray; }
         }
 
-        public void beSelected(CameraInfo param) {
-            if (CamInfo.CameraName == param.CameraName) {
-                Selected = Visibility.Visible;
-            }
+        public void bePreview(CameraInfo param) {
+            if (CamInfo.CameraName == param.CameraName) { Selected = Visibility.Visible; }
             else { Selected = Visibility.Hidden; }
+        }
+
+        private void unPreview(CameraInfo cam) {
+            if (CamInfo.CameraName == cam.CameraName) { Selected = Visibility.Hidden; }
+        }
+
+        private void unOutput(CameraInfo cam) {
+            if (CamInfo.CameraName == cam.CameraName) { OutputBackgroundColor = Brushes.Gray; } 
         }
 
         void onLoggin(CameraInfo cam) {

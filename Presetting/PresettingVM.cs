@@ -25,6 +25,7 @@ namespace Presetting {
         public ModeColors modeColors { get; set; }
 
         List<PresetParams> camListForDisk;
+        Dictionary<string, PresetParams> presetName2Preset;
 
         ObservableCollection<CameraNameWrapper> CameraNameList;
 
@@ -42,10 +43,11 @@ namespace Presetting {
             set { _selectedIndex = value; }
         }
 
-        public PresettingVM(List<PresetParams> presetList, List<CameraInfo> camList, List<string> usedCamList, ObservableCollection<CameraNameWrapper> cameraNameList) {
+        public PresettingVM(List<PresetParams> presetList, List<CameraInfo> camList, Dictionary<string, PresetParams> PresetName2Preset, ObservableCollection<CameraNameWrapper> cameraNameList) {
             _ea = Notification.Instance;
             modeColors = ModeColors.Singleton(_ea);
             camListForDisk = presetList;
+            presetName2Preset = PresetName2Preset;
             CameraNameList = cameraNameList;
             this.camList = new ObservableCollection<PresetParamsExtend>();
             //updateCamIdList(camList);
@@ -108,12 +110,16 @@ namespace Presetting {
                 if (camList2camListForDisk.ContainsKey(toSave)) {
                     PresetParams itemInCamListForDisk = camList2camListForDisk[toSave];
                     itemInCamListForDisk.update(toSave.PresettingId, toSave.Camera.CameraName, toSave.Pan, toSave.Tilt, toSave.Zoom);
-
+                    if (presetName2Preset.ContainsKey(camList2camListForDisk[toSave].presettingId)) {
+                        presetName2Preset.Remove(camList2camListForDisk[toSave].presettingId);
+                    }
+                    
                 } else {
                     PresetParams savedItem = new PresetParams(toSave.PresettingId, toSave.Camera.CameraName, toSave.Pan, toSave.Tilt, toSave.Zoom);
                     camListForDisk.Add(savedItem);
                     camList2camListForDisk[toSave] = savedItem;
                 }
+                presetName2Preset[toSave.PresettingId] = camList2camListForDisk[toSave];
                 toSave.CanSave = false;
             }
         }

@@ -27,7 +27,7 @@ namespace PreviewPanel {
             set { SetProperty(ref active, value); }
         }
 
-        public UndoRedo<ptz> UndoRedoManager { get; set; } = new UndoRedo<ptz>(Constant.UNDO_BUFFER_SIZE);
+        public UndoRedo<ptz> UndoRedoManager { get; set; }
 
         protected readonly EventAggregator _ea;
 
@@ -91,10 +91,6 @@ namespace PreviewPanel {
             }
         }
 
-
-        public PTZcmd? Increase { get; set; } = PTZcmd.Increase;
-        public PTZcmd? Decrease { get; set; } = PTZcmd.Decrease;
-
         public PreviewVM() {
             currentSetting = null;
             _ea = Notification.Instance;
@@ -102,6 +98,7 @@ namespace PreviewPanel {
             _ea.GetEvent<CameraSelectEvent>().Subscribe(acceptCamera);
             _ea.GetEvent<SetPresetEvent>().Subscribe(acceptPreset);
             _ea.GetEvent<CameraDiscoverEvent>().Subscribe(clearBeforeDiscover);
+            UndoRedoManager = new UndoRedo<ptz>(Constant.UNDO_BUFFER_SIZE);
             Idle = Visibility.Visible;
             Active = Visibility.Hidden;
             SliderPan = 0;
@@ -162,6 +159,7 @@ namespace PreviewPanel {
         }
 
         private void clear(CameraInfo camInfo) {
+            _ea.GetEvent<ClearCameraPreviewEvent>().Publish(CurrentCamera);
             CurrentSetting = null;
             CurrentCamera = null;
             Idle = Visibility.Visible;

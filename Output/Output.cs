@@ -10,11 +10,17 @@ using System.Diagnostics;
 using System.Windows;
 using Microsoft.Practices.Prism.Mvvm;
 using NotificationCenter;
+using ptz_camera;
+using System.Windows.Input;
+using Microsoft.Practices.Prism.Commands;
 
 namespace Output {
     public class OutputVM: BindableBase {
 
+        bool isRunningProgram;
+
         public ModeColors modeColors { get; set; }
+        List<CameraInfo> camInfoList;
 
         Visibility idle;
         public Visibility Idle {
@@ -36,19 +42,56 @@ namespace Output {
             set { SetProperty(ref outputCamera, value); }
         }
 
-        public OutputVM() {
+        public OutputVM(List<CameraInfo> camInfoList) {
+            isRunningProgram = false;
             outputCamera = null;
+            this.camInfoList = camInfoList;
             Idle = Visibility.Visible;
             Active = Visibility.Hidden;
             _ea = Notification.Instance;
-            _ea.GetEvent<CameraOutPutEvent>().Subscribe(outPutCamera);
+            _ea.GetEvent<CameraOutPutEvent>().Subscribe(outPutCameraFromCamlist);
+            _ea.GetEvent<UpdateOutputCameraReceivedEvent>().Subscribe(outPutCameraFromRuntime);
             modeColors = ModeColors.Singleton(_ea);
         }
 
-        public void outPutCamera(CameraInfo cam) {
-            OutputCamera = cam;
+        private void outPutCameraFromRuntime(end_session_response_t res) {
             Idle = Visibility.Hidden;
             Active = Visibility.Visible;
+            if (res.ip_address == "") {
+                isRunningProgram = false;
+                OutputCamera = null;
+                Idle = Visibility.Visible;
+                Active = Visibility.Hidden;
+            }
+            foreach (CameraInfo item in camInfoList) {
+                if (item.IP == res.ip_address) {
+                    isRunningProgram = true;
+                    OutputCamera = item;
+                }
+            }
+        }
+
+        private void outPutCameraFromCamlist(CameraInfo cam) {
+            if (!isRunningProgram) {
+                OutputCamera = cam;
+                Idle = Visibility.Hidden;
+                Active = Visibility.Visible;
+            } 
+        }
+
+        private void clear(CameraInfo cam) {
+            _ea.GetEvent<ClearCameraOutputEvent>().Publish(OutputCamera);
+            OutputCamera = null;
+            Idle = Visibility.Visible;
+            Active = Visibility.Hidden;
+        }
+
+        ICommand clearCommand;
+        public ICommand ClearCommand {
+            get {
+                if (clearCommand == null) { clearCommand = new DelegateCommand<CameraInfo>(clear); }
+                return clearCommand;
+            }
         }
     }
 }

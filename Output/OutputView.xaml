@@ -8,7 +8,7 @@
              d:DesignHeight="600" d:DesignWidth="720">
 
     <UserControl.Resources>
-        <Style TargetType="Button" x:Key="MyButton">
+        <Style TargetType="Button" x:Key="CircleButton">
             <Setter Property="OverridesDefaultStyle" Value="True" />
             <Setter Property="Background" Value="{Binding DataContext.modeColors.ModeColor_WhiteSmoke_MedianDark, RelativeSource={RelativeSource AncestorType=UserControl}}" />
             <Setter Property="Foreground" Value="{Binding DataContext.modeColors.ModeColor_Black_WhiteSmoke, RelativeSource={RelativeSource AncestorType=UserControl}}" />
@@ -43,7 +43,8 @@
         <Label x:Name="Notice" Content="Select a Camera as Output" Visibility="{Binding Idle}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI Semibold" FontSize="36" Foreground="#FFCFCCCC"/>
         <Grid Visibility="{Binding Active}" Background="Black" Height="405" Width="720" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <Image Source="{Binding OutputCamera.VideoSource}" Height="405" Width="720" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,98,0,0"/>
-        <Button Background="Red" Style="{StaticResource MyButton}" Visibility="{Binding Active}" Width="20" Height="20" Margin="699,40,1,540"></Button>
-        <Button Background="Green" Style="{StaticResource MyButton}" Visibility="{Binding Active}" Width="20" Height="20" Margin="1,40,699,540"></Button>
+        <Button Background="Red" Style="{StaticResource CircleButton}" Visibility="{Binding Active}" Width="20" Height="20" Margin="699,40,1,540"></Button>
+        <Button Background="Green" Style="{StaticResource CircleButton}" Visibility="{Binding Active}" Width="20" Height="20" Margin="1,40,699,540"></Button>
+        <Button Content="Clear" Command="{Binding ClearCommand}" CommandParameter="{Binding OutputCamera}" Background="{Binding modeColors.ModeColor_WhiteSmoke_Gray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Visibility="{Binding Active}" HorizontalAlignment="Center" Margin="320,530,320,44" VerticalAlignment="Center" Width="80" Height="26"/>
     </Grid>
 </UserControl>

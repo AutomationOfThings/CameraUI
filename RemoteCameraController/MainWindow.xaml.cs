@@ -97,6 +97,7 @@ namespace RemoteCameraController {
 
         private void changeCamListVisibility(object sender, RoutedEventArgs e) {
             if (CamAreaList.Height > Constant.CAMLIST_AREA_HIDDEN_HEIGHT) {
+                
                 //CamAreaList.Height = Constant.CAMLIST_AREA_HIDDEN_HEIGHT;
                 camListHideStoryboard.Begin(this);
                 // MainArea.Margin = new Thickness(0,30,0, Constant.CAMLIST_AREA_HIDDEN_HEIGHT + 25);

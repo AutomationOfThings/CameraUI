@@ -29,14 +29,13 @@ namespace RemoteCameraController {
 
         Process runtime;
 
-        List<string> usedCamList = new List<string>();
-
         List<CameraInfo> camInfoList = new List<CameraInfo>();
         List<PresetParams> presetList;
         ObservableCollection<ProgramInfo> programList;
         ObservableCollection<CameraNameWrapper> cameraNameList;
         Dictionary<string, string> CameraName2IP;
         Dictionary<string, string> IP2CameraName;
+        Dictionary<string, PresetParams> PresetName2Preset;
 
         public ProgramVM ProgramVM { get; set; }
         public CameraListVM CamListVM { get; set; }
@@ -60,7 +59,8 @@ namespace RemoteCameraController {
         }
 
         public void loadXML(string presettingFile, string programFile, string cameraNameFile) {
-            presetList = new PresettingParser(presettingFile).parse(usedCamList);
+            PresetName2Preset = new Dictionary<string, PresetParams>();
+            presetList = new PresettingParser(presettingFile).parse(PresetName2Preset);
             programList = new ProgramParser(programFile).parse();
             CameraName2IP = new Dictionary<string, string>();
             IP2CameraName = new Dictionary<string, string>();
@@ -82,14 +82,14 @@ namespace RemoteCameraController {
 
             // initialize output view
 
-            OutputVM = new OutputVM();
+            OutputVM = new OutputVM(camInfoList);
 
             // set up bottom right area: presetting
-            PresetVM = new PresettingVM(presetList, camInfoList, usedCamList, cameraNameList);
+            PresetVM = new PresettingVM(presetList, camInfoList, PresetName2Preset, cameraNameList);
 
             // set up bottom right area: program
             ProgramVM = new ProgramVM(programList, camInfoList, cameraNameList, presetList);
-            ProgramRunBarVM = new ProgramRunBarVM(programList);
+            ProgramRunBarVM = new ProgramRunBarVM(programList, PresetName2Preset, CameraName2IP);
 
             // set up menu bar
             MenuBarVM = new MenuVM(camInfoList, runtime);
@@ -113,7 +113,7 @@ namespace RemoteCameraController {
                 // runtime.StartInfo.CreateNoWindow = true;
                 runtime.StartInfo.UseShellExecute = false;
                 runtime.StartInfo.WorkingDirectory = Path.GetDirectoryName(Constant.RUNTIME_FILE);
-            } catch (Exception e) {
+            } catch (Exception) {
                 MessageBox.Show("Runtime file is not found.", "Attention", MessageBoxButtons.OK);
             }
         }
@@ -170,7 +170,8 @@ namespace RemoteCameraController {
         ICommand relaunchRuntimeCommand;
         public ICommand RelaunchRuntimeCommand {
             get {
-                return relaunchRuntimeCommand ?? new DelegateCommand<string>(relaunchRuntimeShortCut);
+                if (relaunchRuntimeCommand == null) { relaunchRuntimeCommand = new DelegateCommand<string>(relaunchRuntimeShortCut); }
+                return relaunchRuntimeCommand;
             }
         }
 
