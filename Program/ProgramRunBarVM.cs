@@ -50,7 +50,7 @@ namespace Program {
         }
 
 
-        private void stop(int? index) {
+        private void stop(object obj) {
             if (runningProgram != null) {
                 stop(runningProgram);
             }
@@ -72,15 +72,27 @@ namespace Program {
             if (program != null) {
                 string pgm = formatProgramString(program);
                 if (pgm != null) {
-                    runningProgram = null;
-                    RunningProgramString = RunningProgramPlaceHolder;
                     CameraConnnector.requestProgramStop(formatProgramString(program));
                 }
             }
         }
 
+        private void runProgramResponse() {
+            stop();
+        }
+
+        private void stopProgramResponse() {
+            stop();
+        }
+
+        private void stop() {
+            runningProgram = null;
+            RunningProgramString = RunningProgramPlaceHolder;
+        }
+
         private string formatProgramString(ProgramInfo program) {
             string output = "";
+            int i = 1;
             foreach (CameraCommand item in program.commandList) {
                 switch (item.Command) {
                     case Cmd.WAIT:
@@ -91,7 +103,8 @@ namespace Program {
                         if (cameraName2IP.ContainsKey(item.Parameter)) {
                             ip1 = cameraName2IP[item.Parameter];
                         } else {
-                            MessageBox.Show("Program contains invalid camera name", "Warning");
+                            string err = string.Format( "Line {0}: Output camera \"{1}\" is not associated with a valid IP.", i, item.Parameter);
+                            MessageBox.Show(err, "Error");
                             return null;
                         }
                         output += ("OUTPUT=" + ip1);
@@ -102,7 +115,8 @@ namespace Program {
                         if (cameraName2IP.ContainsKey(preset.CameraName)) {
                             ip2 = cameraName2IP[preset.CameraName];
                         } else {
-                            MessageBox.Show("Preset in the program contains invalid camera name", "Warning");
+                            string err = string.Format("Line {0}: Output camera \"{1}\" in Preset \"{2}\" is not associated with a valid IP.", i, preset.CameraName, preset.presettingId);
+                            MessageBox.Show(err, "Error");
                             return null;
                         }
                         string ptz = preset.pan + "," + preset.tilt + "," + preset.zoom;
@@ -112,6 +126,7 @@ namespace Program {
                         break;
                 }
                 output += "\n";
+                i ++;
             }
             return output;
         }
@@ -127,7 +142,7 @@ namespace Program {
         ICommand stopCommand;
         public ICommand StopCommand {
             get {
-                if (stopCommand == null) { stopCommand = new DelegateCommand<int?>(stop); }
+                if (stopCommand == null) { stopCommand = new DelegateCommand<object>(stop); }
                 return stopCommand;
             }
         }

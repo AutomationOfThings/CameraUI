@@ -93,5 +93,7 @@ namespace Output {
                 return clearCommand;
             }
         }
+
     }
+
 }

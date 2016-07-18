@@ -355,7 +355,7 @@
             </Grid>
         </Grid>
         <Grid Name="CamAreaList" Height="150" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="0,0,0,25" Background="{Binding modeColors.ModeColor_White_Black}">
-            <Button Content="Camera List" Width="80" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" BorderThickness="0" Margin="1,-20,1,0"
+            <Button Content="Camera List" Width="80" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" BorderThickness="0" Margin="12,-20,0,0"
                 Click="changeCamListVisibility">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">

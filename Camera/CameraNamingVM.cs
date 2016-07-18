@@ -66,6 +66,7 @@ namespace Camera {
                 }
             }
             CameraName = null;
+            camera.CameraName = null;
         }
 
         private void set(int? index) {

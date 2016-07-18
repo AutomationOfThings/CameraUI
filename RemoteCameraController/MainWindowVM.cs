@@ -77,6 +77,7 @@ namespace RemoteCameraController {
             // initialize camera list view
             CamListVM = new CameraListVM(camInfoList, cameraNameList);
             cameraExplorer = new CameraExplorer(camInfoList, IP2CameraName, cameraNameList);
+
             // initialize preview View
             PreviewVM = new PreviewVM();
 
@@ -116,6 +117,7 @@ namespace RemoteCameraController {
             } catch (Exception) {
                 MessageBox.Show("Runtime file is not found.", "Attention", MessageBoxButtons.OK);
             }
+
         }
 
         public void startRunTime() {
