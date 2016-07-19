@@ -54,14 +54,14 @@ namespace Output {
             modeColors = ModeColors.Singleton(_ea);
         }
 
-        private void outPutCameraFromRuntime(end_session_response_t res) {
+        private void outPutCameraFromRuntime(output_request_t res) {
             Idle = Visibility.Hidden;
             Active = Visibility.Visible;
             if (res.ip_address == "") {
                 isRunningProgram = false;
                 OutputCamera = null;
-                Idle = Visibility.Visible;
-                Active = Visibility.Hidden;
+                var response = new stop_program_response_t() { status_code = status_codes_t.OK };
+                _ea.GetEvent<ProgramStopResponseEvent>().Publish(response);
             }
             foreach (CameraInfo item in camInfoList) {
                 if (item.IP == res.ip_address) {

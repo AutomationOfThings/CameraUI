@@ -268,7 +268,7 @@ namespace Util {
                     Pan = double.Parse(res.pan_value);
                     Tilt = double.Parse(res.tilt_value);
                     Zoom = double.Parse(res.zoom_value);
-                } catch(Exception e) { return; }
+                } catch(Exception) { return; }
                 
             }
         }
@@ -293,11 +293,13 @@ namespace Util {
         }
 
         public void startUpdatePTZ() {
-            dispatcherTimer.Start();
+            if (!dispatcherTimer.IsEnabled)
+                dispatcherTimer.Start();
         }
 
         public void stopUpdatePTZ() {
-            dispatcherTimer.Stop();
+            if (dispatcherTimer.IsEnabled)
+                dispatcherTimer.Stop();
         }
 
         private void updatePTZ(object sender, EventArgs e) {
@@ -808,6 +810,9 @@ namespace Util {
     public class SaveSettingEvent : PubSubEvent<PresetParams> {}
     public class SaveSettingAsNewEvent: PubSubEvent<PresetParams> {}
 
+    public class PreviewPauseEvent : PubSubEvent<bool> {}
+    public class PreviewResumeEvent : PubSubEvent<bool> {}
+
     public class ChangeModeEvent : PubSubEvent<string> {}
     public class ChangeModeShortCutEvent : PubSubEvent<ModeColors> {}
     public class CameraDiscoverShortCutEvent : PubSubEvent<string> {}
@@ -817,7 +822,9 @@ namespace Util {
     public class DiscoveryResponseReceivedEvent : PubSubEvent<discovery_response_t> {}
     public class StreamUriResponseReceivedEvent : PubSubEvent<stream_uri_response_t> {}
     public class PositionResponseReceivedEvent : PubSubEvent<position_response_t> {}
-    public class InitSessionResponseReceivedEvent: PubSubEvent<init_session_response_t> {}
+    public class InitSessionResponseReceivedEvent : PubSubEvent<init_session_response_t> {}
     public class EndSessionResponseReceivedEvent : PubSubEvent<end_session_response_t> {}
-    public class UpdateOutputCameraReceivedEvent: PubSubEvent<end_session_response_t> {}
+    public class UpdateOutputCameraReceivedEvent: PubSubEvent<output_request_t> {}
+    public class ProgramStartResponseEvent : PubSubEvent<start_program_response_t> {}
+    public class ProgramStopResponseEvent : PubSubEvent<stop_program_response_t> { }
 }

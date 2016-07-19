@@ -71,11 +71,15 @@ namespace Util {
         }
 
         public static void requestProgramRun(string program) {
-            Debug.WriteLine("run! " + program);
+            var programStartRequest = new start_program_request_t() {
+                program = program
+            };
+            _lcm.Publish(Channels.start_program_req_channel, programStartRequest);
         }
 
-        public static void requestProgramStop(string program) {
-
+        public static void requestProgramStop() {
+            var programStopRequest = new stop_program_request_t() {};
+            _lcm.Publish(Channels.stop_program_req_channel, programStopRequest);
         }
 
         
@@ -119,6 +123,36 @@ namespace Util {
                 end_session_response_t response = new end_session_response_t(data_stream);
                 var _ea = Notification.Instance;
                 _ea.GetEvent<EndSessionResponseReceivedEvent>().Publish(response);
+            }
+        }
+    }
+
+    public class StartProgramResponseHandler : LCMSubscriber {
+        public void MessageReceived(LCM.LCM.LCM lcm, string channel, LCMDataInputStream data_stream) {
+            if (channel == Channels.start_program_res_channel) {
+                start_program_response_t response = new start_program_response_t(data_stream);
+                var _ea = Notification.Instance;
+                _ea.GetEvent<ProgramStartResponseEvent>().Publish(response);
+            }
+        }
+    }
+
+    public class StopProgramResponseHandler : LCMSubscriber {
+        public void MessageReceived(LCM.LCM.LCM lcm, string channel, LCMDataInputStream data_stream) {
+            if (channel == Channels.stop_program_res_channel) {
+                stop_program_response_t response = new stop_program_response_t(data_stream);
+                var _ea = Notification.Instance;
+                _ea.GetEvent<ProgramStopResponseEvent>().Publish(response);
+            }
+        }
+    }
+
+    public class OutputRequestHandler : LCMSubscriber {
+        public void MessageReceived(LCM.LCM.LCM lcm, string channel, LCMDataInputStream data_stream) {
+            if (channel == Channels.output_req_channel) {
+                output_request_t response = new output_request_t(data_stream);
+                var _ea = Notification.Instance;
+                _ea.GetEvent<UpdateOutputCameraReceivedEvent>().Publish(response);
             }
         }
     }

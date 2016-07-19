@@ -10,6 +10,9 @@ namespace Util {
         public const string stop_ptz_control_req_channel = "STOPPTZCONTROLREQ";
         public const string preset_config_req_channel = "PRESETCONFREQ";
         public const string preset_move_req_channel = "PRESETMOVEREQ";
+        public const string start_program_req_channel = "STARTPROGRAMREQ";
+        public const string stop_program_req_channel = "STOPPROGRAMREQ";
+        public const string output_req_channel = "OUTPUTREQ";
 
         public const string discovery_res_channel = "DISCOVERYRES";
         public const string init_session_res_channel = "INITSESSIONRES";
@@ -20,5 +23,7 @@ namespace Util {
         public const string stop_ptz_control_res_channel = "STOPPTZCONTROLRES";
         public const string preset_config_res_channel = "PRESETCONFRES";
         public const string preset_move_res_channel = "PRESETMOVERES";
+        public const string start_program_res_channel = "STARTPROGRAMRES";
+        public const string stop_program_res_channel = "STOPPROGRAMRES";
     }
 }

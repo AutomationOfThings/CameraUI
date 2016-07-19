@@ -68,9 +68,6 @@
       <HintPath>..\packages\MJPEG-Decoder.1.2\lib\net35\MjpegProcessor.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="OzekiSDK">
-      <HintPath>..\packages\Camera_SDK\.NET4\OzekiSDK.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">

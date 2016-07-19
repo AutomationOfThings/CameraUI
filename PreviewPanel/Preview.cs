@@ -12,6 +12,24 @@ using System.Collections.Generic;
 namespace PreviewPanel {
     public class PreviewVM: BindableBase {
 
+        bool previewIsForbidden;
+        private bool PreviewIsForbidden {
+            get { return previewIsForbidden; }
+            set {
+                previewIsForbidden = value;
+                if (previewIsForbidden)
+                    Forbidden = Visibility.Visible;
+                else
+                    Forbidden = Visibility.Hidden;
+            }
+        }
+
+        Visibility forbidden;
+        public Visibility Forbidden {
+            get { return forbidden; }
+            set { SetProperty(ref forbidden, value); }
+        }
+
         private bool isUndoMode = false;
         private bool isRedoMode = false;
 
@@ -49,13 +67,15 @@ namespace PreviewPanel {
         public int SliderPan {
             get { return sliderPan; }
             set {
-                if (CurrentCamera != null && sliderPan != value) {
-                    CurrentCamera.changePan(PTZ_MODE.Absolute, value);
-                    SetProperty(ref sliderPan, value);
-                }
-                if (!isRedoMode && !isUndoMode) {
-                    ptz dataPoint = new ptz(sliderPan, sliderTilt, sliderZoom);
-                    UndoRedoManager.add(dataPoint);
+                if (!previewIsForbidden) {
+                    if (CurrentCamera != null && sliderPan != value) {
+                        CurrentCamera.changePan(PTZ_MODE.Absolute, value);
+                        SetProperty(ref sliderPan, value);
+                    }
+                    if (!isRedoMode && !isUndoMode) {
+                        ptz dataPoint = new ptz(sliderPan, sliderTilt, sliderZoom);
+                        UndoRedoManager.add(dataPoint);
+                    }
                 }
             }
         }
@@ -64,13 +84,15 @@ namespace PreviewPanel {
         public int SliderTilt {
             get { return sliderTilt; }
             set {
-                if (CurrentCamera != null && sliderTilt != value) {
-                    CurrentCamera.changeTilt(PTZ_MODE.Absolute, value);
-                    SetProperty(ref sliderTilt, value);
-                }
-                if (!isRedoMode && !isUndoMode) {
-                    ptz dataPoint = new ptz(sliderPan, sliderTilt, sliderZoom);
-                    UndoRedoManager.add(dataPoint);
+                if (!previewIsForbidden) {
+                    if (CurrentCamera != null && sliderTilt != value) {
+                        CurrentCamera.changeTilt(PTZ_MODE.Absolute, value);
+                        SetProperty(ref sliderTilt, value);
+                    }
+                    if (!isRedoMode && !isUndoMode) {
+                        ptz dataPoint = new ptz(sliderPan, sliderTilt, sliderZoom);
+                        UndoRedoManager.add(dataPoint);
+                    }
                 }
             }
         }
@@ -79,28 +101,33 @@ namespace PreviewPanel {
         public int SliderZoom {
             get { return sliderZoom; }
             set {
-                if (CurrentCamera != null && sliderZoom != value) {
-                    CurrentCamera.changeZoom(PTZ_MODE.Absolute, value);
-                    SetProperty(ref sliderZoom, value);
+                if (!previewIsForbidden) {
+                    if (CurrentCamera != null && sliderZoom != value) {
+                        CurrentCamera.changeZoom(PTZ_MODE.Absolute, value);
+                        SetProperty(ref sliderZoom, value);
+                    }
+                    if (!isRedoMode && !isUndoMode) {
+                        ptz dataPoint = new ptz(sliderPan, sliderTilt, sliderZoom);
+                        UndoRedoManager.add(dataPoint);
+                    }
                 }
-                if (!isRedoMode && !isUndoMode) {
-                    ptz dataPoint = new ptz(sliderPan, sliderTilt, sliderZoom);
-                    UndoRedoManager.add(dataPoint);
-                }
-
             }
         }
 
         public PreviewVM() {
             currentSetting = null;
+            PreviewIsForbidden = false;
             _ea = Notification.Instance;
             modeColors = ModeColors.Singleton(_ea);
             _ea.GetEvent<CameraSelectEvent>().Subscribe(acceptCamera);
             _ea.GetEvent<SetPresetEvent>().Subscribe(acceptPreset);
             _ea.GetEvent<CameraDiscoverEvent>().Subscribe(clearBeforeDiscover);
+            _ea.GetEvent<PreviewPauseEvent>().Subscribe(pausePreview);
+            _ea.GetEvent<PreviewResumeEvent>().Subscribe(resumePreview);
             UndoRedoManager = new UndoRedo<ptz>(Constant.UNDO_BUFFER_SIZE);
             Idle = Visibility.Visible;
             Active = Visibility.Hidden;
+            Forbidden = Visibility.Hidden;
             SliderPan = 0;
             SliderTilt = 0;
             UndoRedoManager.clear();
@@ -108,8 +135,23 @@ namespace PreviewPanel {
 
         }
 
+        private void pausePreview(bool i) {
+            PreviewIsForbidden = true;
+            if (CurrentCamera != null)
+                CurrentCamera.stopUpdatePTZ();
+        }
+
+        private void resumePreview(bool i) {
+            PreviewIsForbidden = false;
+            if (CurrentCamera != null)
+                CurrentCamera.startUpdatePTZ();
+        }
+
         public void acceptCamera(CameraInfo cam) {
+            if (CurrentCamera != null)
+                CurrentCamera.stopUpdatePTZ();
             CurrentCamera = cam;
+            if (!previewIsForbidden) { CurrentCamera.startUpdatePTZ(); }
             Idle = Visibility.Hidden;
             Active = Visibility.Visible;
             SliderPan = Convert.ToInt32(CurrentCamera.Pan);

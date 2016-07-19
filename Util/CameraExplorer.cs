@@ -36,6 +36,9 @@ namespace Util {
             _lcm.Subscribe(Channels.end_session_res_channel, new EndSessionResponseHandler());
             _lcm.Subscribe(Channels.position_res_channel, new PositionResponseHandler());
             _lcm.Subscribe(Channels.stream_res_channel, new StreamUriResponseHandler());
+            _lcm.Subscribe(Channels.start_program_res_channel, new StartProgramResponseHandler());
+            _lcm.Subscribe(Channels.stop_program_res_channel, new StopProgramResponseHandler());
+            _lcm.Subscribe(Channels.output_req_channel, new OutputRequestHandler());
         }
 
         public void discover(string input) {

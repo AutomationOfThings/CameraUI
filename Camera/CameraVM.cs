@@ -76,11 +76,10 @@ namespace Camera {
                 CamInfo.isLoggedIn = true;
                 updateCameraNameList();
             }
-            CamInfo.startUpdatePTZ();
             CamInfo.VideoSource = e.BitmapImage;
         }
 
-        public void unSbscribe() {
+        public void unSubscribe() {
             mjpegDecoder.FrameReady -= FrameReady;
             mjpegDecoder.Error -= MjpegDecoderError;
             _ea.GetEvent<InitSessionResponseReceivedEvent>().Unsubscribe(OnGetInitSessionResponse);
@@ -151,17 +150,17 @@ namespace Camera {
             else { OutputBackgroundColor = Brushes.Gray; }
         }
 
-        public void bePreview(CameraInfo param) {
-            if (CamInfo.CameraName == param.CameraName) { Selected = Visibility.Visible; }
+        public void bePreview(CameraInfo cam) {
+            if (CamInfo.CameraName == cam.CameraName) { Selected = Visibility.Visible; }
             else { Selected = Visibility.Hidden; }
         }
 
         private void unPreview(CameraInfo cam) {
-            if (CamInfo.CameraName == cam.CameraName) { Selected = Visibility.Hidden; }
+            if (cam != null && CamInfo.CameraName == cam.CameraName) { Selected = Visibility.Hidden; }
         }
 
         private void unOutput(CameraInfo cam) {
-            if (CamInfo.CameraName == cam.CameraName) { OutputBackgroundColor = Brushes.Gray; } 
+            if (cam != null && CamInfo.CameraName == cam.CameraName) { OutputBackgroundColor = Brushes.Gray; } 
         }
 
         void onLoggin(CameraInfo cam) {

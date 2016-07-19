@@ -3,6 +3,7 @@ using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.PubSubEvents;
 using NotificationCenter;
+using ptz_camera;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Forms;
@@ -41,11 +42,17 @@ namespace Program {
             RunningProgramString = RunningProgramPlaceHolder;
             SelectedIndex = -1;
             _ea.GetEvent<ProgramRunEvent>().Subscribe(run);
+            _ea.GetEvent<ProgramStartResponseEvent>().Subscribe(startProgramResponse);
+            _ea.GetEvent<ProgramStopResponseEvent>().Subscribe(stopProgramResponse);
         }
 
         private void run(int? index) {
-            if (SelectedIndex < ProgramList.Count && SelectedIndex >= 0) {
-                run(ProgramList[SelectedIndex]);
+            if (runningProgram != null) {
+                MessageBox.Show("A program is currently running.", "Error");
+            } else {
+                if (SelectedIndex < ProgramList.Count && SelectedIndex >= 0) {
+                    run(ProgramList[SelectedIndex]);
+                }
             }
         }
 
@@ -63,31 +70,36 @@ namespace Program {
                     CameraConnnector.requestProgramRun(formatProgramString(program));
                     runningProgram = ProgramList[SelectedIndex];
                     RunningProgramString = program.ProgramName;
+                    _ea.GetEvent<PreviewPauseEvent>().Publish(true);
                 }
-                
             }
         }
 
         private void stop(ProgramInfo program) {
             if (program != null) {
-                string pgm = formatProgramString(program);
-                if (pgm != null) {
-                    CameraConnnector.requestProgramStop(formatProgramString(program));
-                }
+                CameraConnnector.requestProgramStop();
             }
         }
 
-        private void runProgramResponse() {
-            stop();
+        private void startProgramResponse(start_program_response_t res) {
+            if (res.status_code == status_codes_t.ERR)
+                stop();
+            if (res.response_message != "OK") {
+                output_request_t response = new output_request_t() { ip_address = "" };
+                var _ea = Notification.Instance;
+                _ea.GetEvent<UpdateOutputCameraReceivedEvent>().Publish(response);
+            }
         }
 
-        private void stopProgramResponse() {
-            stop();
+        private void stopProgramResponse(stop_program_response_t res) {
+            if (res.status_code == status_codes_t.OK)
+                stop();
         }
 
         private void stop() {
             runningProgram = null;
             RunningProgramString = RunningProgramPlaceHolder;
+            _ea.GetEvent<PreviewResumeEvent>().Publish(true);
         }
 
         private string formatProgramString(ProgramInfo program) {
@@ -96,7 +108,7 @@ namespace Program {
             foreach (CameraCommand item in program.commandList) {
                 switch (item.Command) {
                     case Cmd.WAIT:
-                        output += ("WAIT=" + item.Parameter);
+                        output += ("WAIT=" + int.Parse(item.Parameter) * 1000);
                         break;
                     case Cmd.OUTPUT:
                         string ip1 = "";

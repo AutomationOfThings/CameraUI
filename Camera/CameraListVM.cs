@@ -37,7 +37,7 @@ namespace Camera {
         public void updateCamList(List<CameraInfo> list) {
             foreach (CameraVM item in CamList) {
                 item.mjpegDecoder.StopStream();
-                item.unSbscribe();
+                item.unSubscribe();
                 item.mjpegDecoder = null;
             }
             CamList.Clear();
