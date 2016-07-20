@@ -20,7 +20,8 @@ namespace Output {
         bool isRunningProgram;
 
         public ModeColors modeColors { get; set; }
-        List<CameraInfo> camInfoList;
+
+        Dictionary<string, CameraInfo> IP2CameraInfo;
 
         Visibility idle;
         public Visibility Idle {
@@ -42,10 +43,10 @@ namespace Output {
             set { SetProperty(ref outputCamera, value); }
         }
 
-        public OutputVM(List<CameraInfo> camInfoList) {
+        public OutputVM(Dictionary<string, CameraInfo> ip2CameraInfo) {
             isRunningProgram = false;
             outputCamera = null;
-            this.camInfoList = camInfoList;
+            IP2CameraInfo = ip2CameraInfo;
             Idle = Visibility.Visible;
             Active = Visibility.Hidden;
             _ea = Notification.Instance;
@@ -66,12 +67,11 @@ namespace Output {
             }
             if (res.ip_address == "null") { return; }
 
-            foreach (CameraInfo item in camInfoList) {
-                if (item.IP == res.ip_address) {
-                    isRunningProgram = true;
-                    OutputCamera = item;
-                }
+            if (IP2CameraInfo.ContainsKey(res.ip_address)) {
+                isRunningProgram = true;
+                OutputCamera = IP2CameraInfo[res.ip_address];
             }
+
         }
 
         private void outPutCameraFromCamlist(CameraInfo cam) {

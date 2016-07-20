@@ -15,12 +15,14 @@ namespace Util {
 
         List<CameraInfo> camList;
         Dictionary<string, string> ip2CameraName;
+        Dictionary<string, CameraInfo> IP2CameraInfo;
         ObservableCollection<CameraNameWrapper> cameraNameList;
 
-        public CameraExplorer(List<CameraInfo> camList, Dictionary<string, string> IP2CameraName, ObservableCollection<CameraNameWrapper> cameraNameList) {
+        public CameraExplorer(List<CameraInfo> camList, Dictionary<string, CameraInfo> ip2CameraInfo, Dictionary<string, string> IP2CameraName, ObservableCollection<CameraNameWrapper> cameraNameList) {
             this.camList = camList;
             ip2CameraName = IP2CameraName;
             this.cameraNameList = cameraNameList;
+            IP2CameraInfo = ip2CameraInfo;
             _lcm = LCM.LCM.LCM.Singleton;
             subscribeForResponses();
             _ea = Notification.Instance;
@@ -52,6 +54,7 @@ namespace Util {
                 item.stopUpdatePTZ();
             }
             camList.Clear();
+            IP2CameraInfo.Clear();
             List<string> temp = new List<string>();
             foreach (string ip in res.ip_addresses) {
                 if (!temp.Contains(ip)) {
@@ -70,6 +73,7 @@ namespace Util {
                     }
                     
                     camList.Add(cam);
+                    IP2CameraInfo[ip] = cam;
                 }
             }
             

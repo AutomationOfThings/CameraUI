@@ -29,6 +29,7 @@ namespace RemoteCameraController {
 
         Process runtime;
 
+        Dictionary<string, CameraInfo> IP2CameraInfo;
         List<CameraInfo> camInfoList = new List<CameraInfo>();
         List<PresetParams> presetList;
         ObservableCollection<ProgramInfo> programList;
@@ -73,17 +74,17 @@ namespace RemoteCameraController {
             setupRuntime();
 
             camInfoList = new List<CameraInfo>();
-
+            IP2CameraInfo = new Dictionary<string, CameraInfo>();
             // initialize camera list view
             CamListVM = new CameraListVM(camInfoList, cameraNameList);
-            cameraExplorer = new CameraExplorer(camInfoList, IP2CameraName, cameraNameList);
+            cameraExplorer = new CameraExplorer(camInfoList, IP2CameraInfo, IP2CameraName, cameraNameList);
 
             // initialize preview View
             PreviewVM = new PreviewVM();
 
             // initialize output view
 
-            OutputVM = new OutputVM(camInfoList);
+            OutputVM = new OutputVM(IP2CameraInfo);
 
             // set up bottom right area: presetting
             PresetVM = new PresettingVM(presetList, camInfoList, PresetName2Preset, cameraNameList);
