@@ -11,6 +11,7 @@ namespace XMLParser {
     public class PresettingParser
     {
         string fileName = null;
+
         public PresettingParser(string filename) {
             this.fileName = filename;
         }
@@ -42,6 +43,34 @@ namespace XMLParser {
             }
 
             return cams;
+        }
+    }
+
+    public class PresettingWriter {
+        string fileName;
+
+        public PresettingWriter(string filename) {
+            this.fileName = filename;
+        }
+
+        public void write(List<PresetParams> list) {
+            using (XmlWriter writer = XmlWriter.Create(fileName)) {
+                writer.WriteStartDocument();
+                writer.WriteStartElement("Cameras");
+
+                foreach (PresetParams cam in list) {
+                    writer.WriteStartElement("Preset");
+                    writer.WriteAttributeString("Name", cam.presettingId);
+                    writer.WriteElementString("CameraID", cam.CameraName.ToString());
+                    writer.WriteElementString("Pan", cam.pan.ToString());
+                    writer.WriteElementString("Tilt", cam.tilt.ToString());
+                    writer.WriteElementString("Zoom", cam.zoom.ToString());
+
+                    writer.WriteEndElement();
+                }
+                writer.WriteEndElement();
+                writer.WriteEndDocument();
+            }
         }
     }
 }

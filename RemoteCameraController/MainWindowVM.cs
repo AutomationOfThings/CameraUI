@@ -104,7 +104,7 @@ namespace RemoteCameraController {
         }
 
         public void saveCameras() {
-            (new CameraNameWriter(Constant.CAMERANAME_FILE)).writeToDisk(cameraNameList);
+            (new CameraNameParser(Constant.CAMERANAME_FILE)).write(cameraNameList);
         }
 
         private void setupRuntime() {

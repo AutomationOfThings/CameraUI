@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Media;
 using NotificationCenter;
+using XMLParser;
 
 namespace Presetting {
     /*
@@ -23,6 +24,8 @@ namespace Presetting {
         protected readonly EventAggregator _ea;
 
         public ModeColors modeColors { get; set; }
+
+        PresettingWriter writer = new PresettingWriter(Constant.PRESET_FILE);
 
         List<PresetParams> camListForDisk;
         Dictionary<string, PresetParams> presetName2Preset;
@@ -139,24 +142,7 @@ namespace Presetting {
         }
 
         public void saveCamListToDisk() {
-            using (XmlWriter writer = XmlWriter.Create(Constant.PRESET_FILE)) {
-                writer.WriteStartDocument();
-                writer.WriteStartElement("Cameras");
-
-                foreach (PresetParams cam in camListForDisk) {
-                    writer.WriteStartElement("Preset");
-                    writer.WriteAttributeString("Name", cam.presettingId);
-                    writer.WriteElementString("CameraID", cam.CameraName.ToString());
-                    writer.WriteElementString("Pan", cam.pan.ToString());
-                    writer.WriteElementString("Tilt", cam.tilt.ToString());
-                    writer.WriteElementString("Zoom", cam.zoom.ToString());
-
-                    writer.WriteEndElement();
-                }
-                writer.WriteEndElement();
-                writer.WriteEndDocument();
-            }
-
+            writer.write(camListForDisk);
         }
 
         public void delete(object input)  {

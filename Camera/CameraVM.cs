@@ -18,11 +18,11 @@ namespace Camera {
 
         public ModeColors modeColors { get; set; }
 
-        Visibility selected = Visibility.Hidden;
-        public Visibility Selected { get { return selected; } set { SetProperty(ref selected, value); } }
+        Visibility preview = Visibility.Hidden;
+        public Visibility Preview { get { return preview; } set { SetProperty(ref preview, value); } }
 
-        SolidColorBrush _outputBackgroundColor = Brushes.Gray;
-        public SolidColorBrush OutputBackgroundColor { get { return _outputBackgroundColor; } set { SetProperty(ref _outputBackgroundColor, value); } }
+        Visibility output = Visibility.Hidden;
+        public Visibility Output { get { return output; } set { SetProperty(ref output, value); } }
 
         public CameraInfo camInfo;
         public CameraInfo CamInfo {
@@ -146,21 +146,21 @@ namespace Camera {
         }
 
         public void beOutput(CameraInfo cam) {
-            if (CamInfo.CameraName == cam.CameraName) { OutputBackgroundColor = Brushes.LightGreen; } 
-            else { OutputBackgroundColor = Brushes.Gray; }
+            if (CamInfo.CameraName == cam.CameraName) { Output = Visibility.Visible; } 
+            else { Output = Visibility.Hidden; }
         }
 
         public void bePreview(CameraInfo cam) {
-            if (CamInfo.CameraName == cam.CameraName) { Selected = Visibility.Visible; }
-            else { Selected = Visibility.Hidden; }
+            if (CamInfo.CameraName == cam.CameraName) { Preview = Visibility.Visible; }
+            else { Preview = Visibility.Hidden; }
         }
 
         private void unPreview(CameraInfo cam) {
-            if (cam != null && CamInfo.CameraName == cam.CameraName) { Selected = Visibility.Hidden; }
+            if (cam != null && CamInfo.CameraName == cam.CameraName) { Preview = Visibility.Hidden; }
         }
 
         private void unOutput(CameraInfo cam) {
-            if (cam != null && CamInfo.CameraName == cam.CameraName) { OutputBackgroundColor = Brushes.Gray; } 
+            if (cam != null && CamInfo.CameraName == cam.CameraName) { Output = Visibility.Hidden; } 
         }
 
         void onLoggin(CameraInfo cam) {

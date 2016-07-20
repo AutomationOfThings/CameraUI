@@ -125,6 +125,10 @@
       <Project>{6106d973-5a80-4cb6-a338-73edbc3ce696}</Project>
       <Name>Util</Name>
     </ProjectReference>
+    <ProjectReference Include="..\XMLParser\XMLParser.csproj">
+      <Project>{046B25F8-6D81-4717-81CC-33C02B390C21}</Project>
+      <Name>XMLParser</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

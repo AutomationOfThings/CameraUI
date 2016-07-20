@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using Util;
 
@@ -14,6 +10,8 @@ namespace XMLParser {
         public CameraNameParser(string filename) {
             fileName = filename;
         }
+
+        Encoder coder = new Encoder();
 
         public void parse(Dictionary<string, string> CameraName2IP, Dictionary<string, string> IP2CameraName, ObservableCollection<CameraNameWrapper> cameraNameList) {
 
@@ -36,8 +34,10 @@ namespace XMLParser {
                     CameraName2IP[cameraName] = ip;
                     IP2CameraName[ip] = cameraName;
                     item.NotAssociated = false;
-                    item.username = username;
-                    item.password = password;
+                    string decryptedUsername = coder.Decrypt(username);
+                    string decryptedPassword = coder.Decrypt(password);
+                    item.username = decryptedUsername;
+                    item.password = decryptedPassword;
                 } else {
                     item.NotAssociated = true;
                 }
@@ -47,23 +47,14 @@ namespace XMLParser {
             }
         }
 
-    }
-
-    public class CameraNameWriter {
-        string fileName = null;
-
-        public CameraNameWriter(string filename) {
-            fileName = filename;
-        }
-
-        public void writeToDisk(ObservableCollection<CameraNameWrapper> cameraNameList) {
+        public void write(ObservableCollection<CameraNameWrapper> cameraNameList) {
 
             using (XmlWriter writer = XmlWriter.Create(fileName)) {
                 writer.WriteStartDocument();
                 writer.WriteStartElement("CameraNames");
 
                 foreach (CameraNameWrapper cam in cameraNameList) {
-                   if (cam.CameraName != null || cam.CameraName != null) { 
+                    if (cam.CameraName != null || cam.CameraName != null) {
                         writer.WriteStartElement("Camera");
                         writer.WriteElementString("Name", cam.CameraName.ToString());
                         if (cam.NotAssociated == false) {
@@ -72,10 +63,12 @@ namespace XMLParser {
                                 writer.WriteElementString("Username", "");
                                 writer.WriteElementString("Password", "");
                             } else {
-                                writer.WriteElementString("Username", cam.username.ToString());
-                                writer.WriteElementString("Password", cam.password.ToString());
+                                string encryptedUsername = coder.Encrypt(cam.username);
+                                string encryptedPassword = coder.Encrypt(cam.password);
+                                writer.WriteElementString("Username", encryptedUsername);
+                                writer.WriteElementString("Password", encryptedPassword);
                             }
-                            
+
                         } else {
                             writer.WriteElementString("IP", "");
                             writer.WriteElementString("Username", "");
@@ -89,6 +82,6 @@ namespace XMLParser {
             }
 
         }
-
     }
+
 }

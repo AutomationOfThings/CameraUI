@@ -1,9 +1,9 @@
 <CameraNames>
 	<Camera>
 		<Name>Camera1</Name>
-		<IP>192.168.1.206</IP>
-		<Username>admin</Username>
-		<Password>aotcamera01</Password>
+		<IP></IP>
+		<Username></Username>
+		<Password></Password>
 	</Camera>
 	<Camera>
 		<Name>Camera2</Name>

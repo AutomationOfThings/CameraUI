@@ -57,4 +57,36 @@ namespace XMLParser {
         }
 
     }
+
+    public class ProgramWriter {
+        string fileName = null;
+
+        public ProgramWriter(string filename) {
+            fileName = filename;
+        }
+
+        public void write(ObservableCollection<ProgramInfo> list) {
+            using (XmlWriter writer = XmlWriter.Create(fileName)) {
+                writer.WriteStartDocument();
+                writer.WriteStartElement("Programs");
+
+                foreach (ProgramInfo item in list) {
+                    writer.WriteStartElement("Program");
+                    writer.WriteAttributeString("Name", item.ProgramName);
+                    foreach (CameraCommand cmd in item.commandList) {
+                        writer.WriteStartElement("Step");
+
+                        writer.WriteElementString("Command", cmd.Command.ToString());
+                        writer.WriteElementString("Parameter", cmd.Parameter.ToString());
+
+                        writer.WriteEndElement();
+                    }
+                    writer.WriteEndElement();
+                }
+
+                writer.WriteEndElement();
+                writer.WriteEndDocument();
+            }
+        }
+    }
 }

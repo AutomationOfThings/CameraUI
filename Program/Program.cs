@@ -8,11 +8,14 @@ using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using System.Collections.ObjectModel;
 using NotificationCenter;
+using XMLParser;
 
 namespace Program {
     public class ProgramVM {
 
         public ModeColors modeColors { get; set; }
+
+        ProgramWriter writer = new ProgramWriter(Constant.PROGRAM_FILE);
 
         protected readonly EventAggregator _ea;
         ObservableCollection<ProgramInfo> programList;
@@ -44,19 +47,7 @@ namespace Program {
 
         public void edit(object input) {
             int index = _selectedIndex;
-            EditProgramVM vm;
-            /*
-            if (index >= 0 && index < programList.Count) {
-                vm = new EditProgramVM(index, programNameList, programList, camList, presetList, _ea);
-            } else {
-                List<CameraCommand> list = new List<CameraCommand>();
-                programList.Add(list);
-                string newProgramName = "";
-                programNameList.Add(newProgramName);
-                vm = new EditProgramVM(index, programNameList, programList, camList, presetList, _ea);
-            }
-            */
-            vm = new EditProgramVM(index, programList, cameraNameList, camList, presetList, _ea);
+            EditProgramVM vm = new EditProgramVM(index, programList, cameraNameList, camList, presetList, _ea);
             vm.modeColors = modeColors;
             EditProgramForm form = new EditProgramForm(vm);
             form.ShowDialog();
@@ -112,28 +103,7 @@ namespace Program {
         }
 
         private void saveProgramListToDisk() {
-            using (XmlWriter writer = XmlWriter.Create(Constant.PROGRAM_FILE))
-            {
-                writer.WriteStartDocument();
-                writer.WriteStartElement("Programs");
-
-                foreach (ProgramInfo item in programList) {
-                    writer.WriteStartElement("Program");
-                    writer.WriteAttributeString("Name", item.ProgramName);
-                    foreach (CameraCommand cmd in item.commandList) {
-                        writer.WriteStartElement("Step");
-
-                        writer.WriteElementString("Command", cmd.Command.ToString());
-                        writer.WriteElementString("Parameter", cmd.Parameter.ToString());
-
-                        writer.WriteEndElement();
-                    }
-                    writer.WriteEndElement();
-                }
-
-                writer.WriteEndElement();
-                writer.WriteEndDocument();
-            }
+            writer.write(programList);
         }
 
         // ICommands:
