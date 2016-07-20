@@ -108,6 +108,10 @@ namespace RemoteCameraController {
         }
 
         private void setupRuntime() {
+            Process[] processes = Process.GetProcessesByName("camera_rt");
+            foreach (Process p in processes)
+                p.Kill();
+
             try {
                 runtime = new Process();
                 runtime.StartInfo.FileName = Constant.RUNTIME_FILE;
