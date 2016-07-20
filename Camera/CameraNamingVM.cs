@@ -2,7 +2,6 @@
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.PubSubEvents;
-using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;

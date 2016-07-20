@@ -93,7 +93,7 @@ namespace RemoteCameraController {
             ProgramRunBarVM = new ProgramRunBarVM(programList, PresetName2Preset, CameraName2IP);
 
             // set up menu bar
-            MenuBarVM = new MenuVM(camInfoList, runtime);
+            MenuBarVM = new MenuVM(camInfoList, runtime, cameraNameList);
 
             // set up status bar
             StatusBarVM = new StatusBarVM();

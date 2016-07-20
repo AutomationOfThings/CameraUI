@@ -15,7 +15,7 @@ namespace Program {
 
         public ModeColors modeColors { get; set; }
 
-        ProgramWriter writer = new ProgramWriter(Constant.PROGRAM_FILE);
+        ProgramParser writer = new ProgramParser(Constant.PROGRAM_FILE);
 
         protected readonly EventAggregator _ea;
         ObservableCollection<ProgramInfo> programList;

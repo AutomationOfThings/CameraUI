@@ -57,12 +57,15 @@ namespace Output {
         private void outPutCameraFromRuntime(output_request_t res) {
             Idle = Visibility.Hidden;
             Active = Visibility.Visible;
+            isRunningProgram = false;
+            OutputCamera = null;
             if (res.ip_address == "") {
-                isRunningProgram = false;
-                OutputCamera = null;
-                var response = new stop_program_response_t() { status_code = status_codes_t.OK };
+                var response = new stop_program_response_t() { status_code = status_codes_t.OK, response_message = "StopIndicatorFromUI" };
                 _ea.GetEvent<ProgramStopResponseEvent>().Publish(response);
+                return;
             }
+            if (res.ip_address == "null") { return; }
+
             foreach (CameraInfo item in camInfoList) {
                 if (item.IP == res.ip_address) {
                     isRunningProgram = true;

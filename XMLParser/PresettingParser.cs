@@ -13,7 +13,7 @@ namespace XMLParser {
         string fileName = null;
 
         public PresettingParser(string filename) {
-            this.fileName = filename;
+            fileName = filename;
         }
         
         public List<PresetParams> parse(Dictionary<string, PresetParams> PresetName2Preset) {
@@ -43,14 +43,6 @@ namespace XMLParser {
             }
 
             return cams;
-        }
-    }
-
-    public class PresettingWriter {
-        string fileName;
-
-        public PresettingWriter(string filename) {
-            this.fileName = filename;
         }
 
         public void write(List<PresetParams> list) {

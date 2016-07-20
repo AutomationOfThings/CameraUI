@@ -149,8 +149,8 @@ namespace Util {
             set { SetProperty(ref associatedIP, value); }
         }
 
-        public string username;
-        public string password;
+        public string username { get; set; }
+        public string password { get; set; }
 
         public CameraNameWrapper(string name) {
             CameraName = name;

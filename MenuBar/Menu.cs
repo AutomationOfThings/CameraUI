@@ -9,6 +9,7 @@ using Microsoft.Practices.Prism.Mvvm;
 using NotificationCenter;
 using System.IO;
 using System.Windows.Forms;
+using System.Collections.ObjectModel;
 
 namespace MenuBar
 {
@@ -26,10 +27,12 @@ namespace MenuBar
 
         protected readonly EventAggregator _ea;
         List<CameraInfo> camList;
+        public ObservableCollection<CameraNameWrapper> CameraNameList;
 
-        public MenuVM(List<CameraInfo> camList, Process runtime) {
+        public MenuVM(List<CameraInfo> camList, Process runtime, ObservableCollection<CameraNameWrapper> cameraNameList) {
             _ea = Notification.Instance;
             this.camList = camList;
+            CameraNameList = cameraNameList;
             modeColors = ModeColors.Singleton(_ea);
             Mode = "Dark Mode";
             Discover = "Discover";
@@ -69,6 +72,12 @@ namespace MenuBar
             }
         }
 
+        private void showCameraList(string obj) {
+            CameraInfoVM vm = new CameraInfoVM(CameraNameList);
+            CameraInfoForm form = new CameraInfoForm(vm);
+            form.Show();
+        }
+
         // ICommands:
 
         ICommand relaunchRuntimeCommand;
@@ -82,8 +91,7 @@ namespace MenuBar
         public ICommand DiscoverCommand {
             get {
                 if (discoverCommand == null) {
-                    discoverCommand = new DelegateCommand<string>(
-                        discover);
+                    discoverCommand = new DelegateCommand<string>(discover);
                 }
                 return discoverCommand;
             }
@@ -93,12 +101,22 @@ namespace MenuBar
         public ICommand ModeCommand {
             get {
                 if (modeCommand == null) {
-                    modeCommand = new DelegateCommand<string>(
-                        changeMode);
+                    modeCommand = new DelegateCommand<string>(changeMode);
                 }
                 return modeCommand;
             }
         }
+
+        ICommand checkCameraInfoCommand;
+        public ICommand CheckCameraInfoCommand {
+            get {
+                if (checkCameraInfoCommand == null) {
+                    checkCameraInfoCommand = new DelegateCommand<string>(showCameraList);
+                }
+                return checkCameraInfoCommand;
+            }
+        }
+        
 
 
     }

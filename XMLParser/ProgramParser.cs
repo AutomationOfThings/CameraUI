@@ -56,15 +56,6 @@ namespace XMLParser {
                 return Cmd.WAIT;               
         }
 
-    }
-
-    public class ProgramWriter {
-        string fileName = null;
-
-        public ProgramWriter(string filename) {
-            fileName = filename;
-        }
-
         public void write(ObservableCollection<ProgramInfo> list) {
             using (XmlWriter writer = XmlWriter.Create(fileName)) {
                 writer.WriteStartDocument();

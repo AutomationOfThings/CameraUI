@@ -146,7 +146,7 @@
             </xctk:IntegerUpDown>
         </DataTemplate>
         <DataTemplate x:Key="TiltSpinnerTemplate">
-            <xctk:IntegerUpDown Value="{Binding Tilt, UpdateSourceTrigger=PropertyChanged}" Minimum="-25" Maximum="195" BorderThickness="0" 
+            <xctk:IntegerUpDown Value="{Binding Tilt, UpdateSourceTrigger=PropertyChanged}" Minimum="-15" Maximum="195" BorderThickness="0" 
                     Background="{Binding DataContext.modeColors.ModeColor_White_MedianDark, RelativeSource={RelativeSource AncestorType=UserControl}}" 
                     Foreground="{Binding DataContext.modeColors.ModeColor_Black_WhiteSmoke, RelativeSource={RelativeSource AncestorType=UserControl}}">
                 <xctk:IntegerUpDown.Style>

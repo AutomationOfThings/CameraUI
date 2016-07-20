@@ -82,24 +82,31 @@ namespace Program {
         }
 
         private void startProgramResponse(start_program_response_t res) {
-            if (res.status_code == status_codes_t.ERR)
+            if (res.status_code == status_codes_t.ERR) {
                 stop();
-            if (res.response_message != "OK") {
-                output_request_t response = new output_request_t() { ip_address = "" };
-                var _ea = Notification.Instance;
-                _ea.GetEvent<UpdateOutputCameraReceivedEvent>().Publish(response);
-            }
+                stopOutput();
+                MessageBox.Show("Message: " + res.response_message, "Error");
+            }  
         }
 
         private void stopProgramResponse(stop_program_response_t res) {
-            if (res.status_code == status_codes_t.OK)
+            if (res.status_code == status_codes_t.OK) {
                 stop();
+                if (res.response_message != "StopIndicatorFromUI") {
+                    stopOutput();
+                }
+            }
         }
 
         private void stop() {
             runningProgram = null;
             RunningProgramString = RunningProgramPlaceHolder;
             _ea.GetEvent<PreviewResumeEvent>().Publish(true);
+        }
+
+        private void stopOutput() {
+            var res = new output_request_t() { ip_address = "null" };
+            _ea.GetEvent<UpdateOutputCameraReceivedEvent>().Publish(res);
         }
 
         private string formatProgramString(ProgramInfo program) {

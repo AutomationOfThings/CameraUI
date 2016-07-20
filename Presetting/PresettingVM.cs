@@ -25,7 +25,7 @@ namespace Presetting {
 
         public ModeColors modeColors { get; set; }
 
-        PresettingWriter writer = new PresettingWriter(Constant.PRESET_FILE);
+        PresettingParser writer = new PresettingParser(Constant.PRESET_FILE);
 
         List<PresetParams> camListForDisk;
         Dictionary<string, PresetParams> presetName2Preset;

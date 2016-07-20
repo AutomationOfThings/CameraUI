@@ -107,6 +107,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CameraExplorer.cs" />
+    <Compile Include="CameraInfoForm.xaml.cs">
+      <DependentUpon>CameraInfoForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CameraInfoVM.cs" />
     <Compile Include="EditProgramForm.xaml.cs">
       <DependentUpon>EditProgramForm.xaml</DependentUpon>
     </Compile>
@@ -145,6 +149,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="CameraInfoForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="EditProgramForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
