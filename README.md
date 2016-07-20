@@ -2,5 +2,5 @@
 
 The application is to connect, preview and control remote cameras.
 
-## Support:
+## Support
 Suppoted by SUNAPI2.4.1 provided by SUMSUNG
