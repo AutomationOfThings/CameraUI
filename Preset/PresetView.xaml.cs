@@ -1,14 +1,14 @@
 ﻿using System.Windows.Controls;
 
 
-namespace Presetting
+namespace Preset
 {
     /// <summary>
     /// Interaction logic for PresettingView.xaml
     /// </summary>
-    public partial class PresettingView : UserControl
+    public partial class PresetView : UserControl
     {
-        public PresettingView() {
+        public PresetView() {
             InitializeComponent();
         }
 

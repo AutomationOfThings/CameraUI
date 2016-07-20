@@ -173,11 +173,11 @@
       <Project>{66c4991a-1005-468a-aeb7-ef122c5a57a4}</Project>
       <Name>Output</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Presetting\Presetting.csproj">
+    <ProjectReference Include="..\Preset\Preset.csproj">
       <Project>{1a2ac95a-90df-4509-a734-002191e5290f}</Project>
-      <Name>Presetting</Name>
+      <Name>Preset</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PreviewPanel\Preview.csproj">
+    <ProjectReference Include="..\Preview\Preview.csproj">
       <Project>{b9965e06-d1a4-454d-8255-2654029860ce}</Project>
       <Name>Preview</Name>
     </ProjectReference>

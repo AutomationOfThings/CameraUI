@@ -9,7 +9,7 @@ using System;
 using NotificationCenter;
 using System.Collections.Generic;
 
-namespace PreviewPanel {
+namespace Preview {
     public class PreviewVM: BindableBase {
 
         bool previewIsForbidden;

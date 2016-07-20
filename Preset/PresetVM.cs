@@ -11,7 +11,7 @@ using System.Windows.Media;
 using NotificationCenter;
 using XMLParser;
 
-namespace Presetting {
+namespace Preset {
     /*
     public static class MyCommands
     {
@@ -19,7 +19,7 @@ namespace Presetting {
     }
     */
 
-    public class PresettingVM  {
+    public class PresetVM  {
 
         protected readonly EventAggregator _ea;
 
@@ -46,7 +46,7 @@ namespace Presetting {
             set { _selectedIndex = value; }
         }
 
-        public PresettingVM(List<PresetParams> presetList, List<CameraInfo> camList, Dictionary<string, PresetParams> PresetName2Preset, ObservableCollection<CameraNameWrapper> cameraNameList) {
+        public PresetVM(List<PresetParams> presetList, List<CameraInfo> camList, Dictionary<string, PresetParams> PresetName2Preset, ObservableCollection<CameraNameWrapper> cameraNameList) {
             _ea = Notification.Instance;
             modeColors = ModeColors.Singleton(_ea);
             camListForDisk = presetList;

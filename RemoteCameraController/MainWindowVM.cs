@@ -6,8 +6,8 @@ using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.PubSubEvents;
 using NotificationCenter;
 using Output;
-using Presetting;
-using PreviewPanel;
+using Preset;
+using Preview;
 using Program;
 using System;
 using System.Collections.Generic;
@@ -42,7 +42,7 @@ namespace RemoteCameraController {
         public CameraListVM CamListVM { get; set; }
         public PreviewVM PreviewVM { get; set; }
         public OutputVM OutputVM { get; set; }
-        public PresettingVM PresetVM { get; set; }
+        public PresetVM PresetVM { get; set; }
         public MenuVM MenuBarVM { get; set; }
         public StatusBarVM StatusBarVM { get; set; }
         public ProgramRunBarVM ProgramRunBarVM { get; set; }
@@ -87,7 +87,7 @@ namespace RemoteCameraController {
             OutputVM = new OutputVM(IP2CameraInfo);
 
             // set up bottom right area: presetting
-            PresetVM = new PresettingVM(presetList, camInfoList, PresetName2Preset, cameraNameList);
+            PresetVM = new PresetVM(presetList, camInfoList, PresetName2Preset, cameraNameList);
 
             // set up bottom right area: program
             ProgramVM = new ProgramVM(programList, camInfoList, cameraNameList, presetList);

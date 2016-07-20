@@ -6,8 +6,8 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:program="clr-namespace:Program;assembly=Program"
         xmlns:cam="clr-namespace:Camera;assembly=Camera"
-        xmlns:preset="clr-namespace:Presetting;assembly=Presetting"
-        xmlns:preview="clr-namespace:PreviewPanel;assembly=PreviewPanel"
+        xmlns:preset="clr-namespace:Preset;assembly=Preset"
+        xmlns:preview="clr-namespace:Preview;assembly=Preview"
         xmlns:menu="clr-namespace:MenuBar;assembly=MenuBar"
         xmlns:output="clr-namespace:Output;assembly=Output"
         mc:Ignorable="d"
@@ -322,7 +322,7 @@
                                     </TransformGroup>
                                 </Grid.LayoutTransform>
                                 <Border BorderBrush="{Binding modeColors.ModeColor_LightGray_Gray}" BorderThickness="1">
-                                    <preset:PresettingView DataContext="{Binding PresetVM}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                    <preset:PresetView DataContext="{Binding PresetVM}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                                 </Border>
                             </Grid>
                         </TabItem>

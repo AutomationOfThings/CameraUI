@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteCameraController", "RemoteCameraController\RemoteCameraController.csproj", "{0A65BE7E-C93B-4D2A-9C91-E08A48F5C25D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Camera", "Camera\Camera.csproj", "{F8191845-ABC2-4E3D-A935-48DB12580DA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Preview", "PreviewPanel\Preview.csproj", "{B9965E06-D1A4-454D-8255-2654029860CE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Preview", "Preview\Preview.csproj", "{B9965E06-D1A4-454D-8255-2654029860CE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationCenter", "NotificationCenter\NotificationCenter.csproj", "{F0680C62-98EC-4ADC-9CBF-952EFA99CB12}"
 EndProject
@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Output", "Output\Output.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XMLParser", "XMLParser\XMLParser.csproj", "{046B25F8-6D81-4717-81CC-33C02B390C21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presetting", "Presetting\Presetting.csproj", "{1A2AC95A-90DF-4509-A734-002191E5290F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Preset", "Preset\Preset.csproj", "{1A2AC95A-90DF-4509-A734-002191E5290F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Program", "Program\Program.csproj", "{0EAE947B-94DF-4E9B-AE03-920AB3E4F755}"
 EndProject
