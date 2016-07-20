@@ -194,7 +194,7 @@
                 </MenuItem>
                 <MenuItem Header="Camera information" Command="{Binding CheckCameraInfoCommand}" InputGestureText="Ctrl+R" Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" BorderBrush="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" >
                     <MenuItem.Icon>
-                        <Image Source="Resources/relaunch.png" />
+                        <Image Source="Resources/CamInfo.png" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Header="Relaunch runtime" Command="{Binding RelaunchRuntimeCommand}" InputGestureText="Ctrl+R" Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" BorderBrush="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" >
