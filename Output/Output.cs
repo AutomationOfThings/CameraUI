@@ -1,12 +1,7 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Practices.Prism.PubSubEvents;
 using Util;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Windows;
 using Microsoft.Practices.Prism.Mvvm;
 using NotificationCenter;

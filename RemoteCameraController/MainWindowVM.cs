@@ -148,7 +148,7 @@ namespace RemoteCameraController {
         public void endCameraSessions() {
             bool canExit = true;
             int i = 0;
-            while (i < 6) {
+            while (i < 3) {
                 foreach (CameraInfo cam in camInfoList) {
                     if (cam.UserName != null) {
                         cam.endSession();
