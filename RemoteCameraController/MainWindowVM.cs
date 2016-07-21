@@ -116,7 +116,7 @@ namespace RemoteCameraController {
             try {
                 runtime = new Process();
                 runtime.StartInfo.FileName = Constant.RUNTIME_FILE;
-                // runtime.StartInfo.CreateNoWindow = true;
+                runtime.StartInfo.CreateNoWindow = true;
                 runtime.StartInfo.UseShellExecute = false;
                 runtime.StartInfo.WorkingDirectory = Path.GetDirectoryName(Constant.RUNTIME_FILE);
             } catch (Exception) {

@@ -78,6 +78,22 @@ namespace MenuBar
             form.Show();
         }
 
+        private void sendEventToPreview(string command) {
+            _ea.GetEvent<MenuBarToPreviewEvent>().Publish(command);
+        }
+
+        private void saveSetting(string obj) {
+            sendEventToPreview("SaveSetting");
+        }
+
+        private void saveSettingAsNew(string obj) {
+            sendEventToPreview("SaveSettingAsNew");
+        }
+
+        private void clearPreview(string obj) {
+            sendEventToPreview("ClearPreview");
+        }
+
         // ICommands:
 
         ICommand relaunchRuntimeCommand;
@@ -116,8 +132,34 @@ namespace MenuBar
                 return checkCameraInfoCommand;
             }
         }
-        
 
+        ICommand saveSettingCommand;
+        public ICommand SaveSettingCommand {
+            get {
+                if (saveSettingCommand == null) {
+                    saveSettingCommand = new DelegateCommand<string>(saveSetting);
+                }
+                return saveSettingCommand;
+            }
+        }
+        ICommand saveAsNewSettingCommand;
+        public ICommand SaveAsNewSettingCommand {
+            get {
+                if (saveAsNewSettingCommand == null) {
+                    saveAsNewSettingCommand = new DelegateCommand<string>(saveSettingAsNew);
+                }
+                return saveAsNewSettingCommand;
+            }
+        }
+        ICommand clearPreviewCommand;
+        public ICommand ClearPreviewCommand {
+            get {
+                if (clearPreviewCommand == null) {
+                    clearPreviewCommand = new DelegateCommand<string>(clearPreview);
+                }
+                return clearPreviewCommand;
+            }
+        }
 
     }
 }

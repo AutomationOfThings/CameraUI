@@ -203,6 +203,23 @@
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
+            <MenuItem Header="Preview" VerticalAlignment="Center" HorizontalAlignment="Center" Height="24" Width="70" Margin="10,3,10,3" Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" >
+                <MenuItem Header="Save" Command="{Binding SaveSettingCommand}" InputGestureText="Ctrl+S" Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" BorderBrush="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" >
+                    <MenuItem.Icon>
+                        <Image Source="Resources/Discover.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Save As New" Command="{Binding SaveAsNewSettingCommand}" Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" BorderBrush="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" >
+                    <MenuItem.Icon>
+                        <Image Source="Resources/Mode.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Clear" Command="{Binding ClearPreviewCommand}" Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" BorderBrush="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" >
+                    <MenuItem.Icon>
+                        <Image Source="Resources/Mode.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
         </Menu>
         <Border BorderThickness="0,0,0,1" BorderBrush="{Binding modeColors.ModeColor_LightBlue_DimDark}"></Border>
 

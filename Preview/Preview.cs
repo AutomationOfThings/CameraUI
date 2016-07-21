@@ -123,6 +123,7 @@ namespace Preview {
             _ea.GetEvent<CameraDiscoverEvent>().Subscribe(clearBeforeDiscover);
             _ea.GetEvent<PreviewPauseEvent>().Subscribe(pausePreview);
             _ea.GetEvent<PreviewResumeEvent>().Subscribe(resumePreview);
+            _ea.GetEvent<MenuBarToPreviewEvent>().Subscribe(processMenuBarCommand);
             UndoRedoManager = new UndoRedo<ptz>(Constant.UNDO_BUFFER_SIZE);
             Idle = Visibility.Visible;
             Active = Visibility.Hidden;
@@ -174,25 +175,29 @@ namespace Preview {
         }
 
         private void saveSetting(CameraInfo camInfo) {
-            if (CurrentSetting != null) {
-                CurrentSetting.pan = camInfo.Pan;
-                CurrentSetting.tilt = camInfo.Tilt;
-                CurrentSetting.zoom = camInfo.Zoom;
-            } else {
-                CurrentSetting = new PresetParams("", CurrentCamera.CameraName, currentCamera.Pan, CurrentCamera.Tilt, CurrentCamera.Zoom);
+            if (CurrentCamera != null) {
+                if (CurrentSetting != null) {
+                    CurrentSetting.pan = camInfo.Pan;
+                    CurrentSetting.tilt = camInfo.Tilt;
+                    CurrentSetting.zoom = camInfo.Zoom;
+                } else {
+                    CurrentSetting = new PresetParams("", CurrentCamera.CameraName, currentCamera.Pan, CurrentCamera.Tilt, CurrentCamera.Zoom);
+                }
+                _ea.GetEvent<SaveSettingEvent>().Publish(CurrentSetting);
             }
-            _ea.GetEvent<SaveSettingEvent>().Publish(currentSetting);
         }
 
         private void saveAsNew(CameraInfo camInfo) {
-            if (CurrentSetting != null) {
-                CurrentSetting.pan = camInfo.Pan;
-                CurrentSetting.tilt = camInfo.Tilt;
-                CurrentSetting.zoom = camInfo.Zoom;
-            } else {
-                CurrentSetting = new PresetParams("", CurrentCamera.CameraName, currentCamera.Pan, CurrentCamera.Tilt, CurrentCamera.Zoom);
+            if (CurrentCamera != null) {
+                if (CurrentSetting != null) {
+                    CurrentSetting.pan = camInfo.Pan;
+                    CurrentSetting.tilt = camInfo.Tilt;
+                    CurrentSetting.zoom = camInfo.Zoom;
+                } else {
+                    CurrentSetting = new PresetParams("", CurrentCamera.CameraName, currentCamera.Pan, CurrentCamera.Tilt, CurrentCamera.Zoom);
+                }
+                _ea.GetEvent<SaveSettingAsNewEvent>().Publish(CurrentSetting);
             }
-            _ea.GetEvent<SaveSettingAsNewEvent>().Publish(currentSetting);
         }
 
         private void clearBeforeDiscover(string disc) {
@@ -226,25 +231,15 @@ namespace Preview {
             isRedoMode = false;
         }
 
-        ICommand saveAsNewSettingCommand;
-        public ICommand SaveAsNewSettingCommand {
-            get {
-                if (saveAsNewSettingCommand == null) {
-                    saveAsNewSettingCommand = new DelegateCommand<CameraInfo>(saveAsNew);
-                }
-                return saveAsNewSettingCommand;
-            }
+        private void processMenuBarCommand(string input) {
+            if (input == "SaveSetting")
+                saveSetting(CurrentCamera);
+            if (input == "SaveSettingAsNew")
+                saveAsNew(CurrentCamera);
+            if (input == "ClearPreview")
+                clear(CurrentCamera);
         }
 
-        ICommand clearCameraCommand;
-        public ICommand ClearCameraCommand {
-            get {
-                if (clearCameraCommand == null) {
-                    clearCameraCommand = new DelegateCommand<CameraInfo>(clear);
-                }
-                return clearCameraCommand;
-            }
-        }
 
         ICommand undoCommand;
         public ICommand UndoCommand {
@@ -263,16 +258,6 @@ namespace Preview {
                     redoCommand = new DelegateCommand<UndoRedo<ptz>>(redo);
                 }
                 return redoCommand;
-            }
-        }
-
-        ICommand saveSettingCommand;
-        public ICommand SaveSettingCommand {
-            get {
-                if (saveSettingCommand == null) {
-                    saveSettingCommand = new DelegateCommand<CameraInfo>(saveSetting);
-                }
-                return saveSettingCommand;
             }
         }
 

@@ -222,9 +222,7 @@
             <Grid Grid.Column="0" MinHeight="200">
                 <Border BorderBrush="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" BorderThickness="2">
                     <Border BorderBrush="{Binding modeColors.ModeColor_LightGray_Gray}" BorderThickness="1">
-                        <ScrollViewer HorizontalScrollBarVisibility="Auto" Style="{StaticResource FavsScrollViewer}" PanningMode="Both">
-                            <preview:PreviewView DataContext="{Binding PreviewVM}" Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </ScrollViewer>
+                        <preview:PreviewView DataContext="{Binding PreviewVM}" Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                     </Border>
                 </Border>
             </Grid>
@@ -281,7 +279,7 @@
                                     </TransformGroup>
                                 </Grid.LayoutTransform>
                                 <Border BorderBrush="{Binding modeColors.ModeColor_LightGray_Gray}" BorderThickness="1">
-                                    <ScrollViewer HorizontalScrollBarVisibility="Auto" Style="{StaticResource FavsScrollViewer}" PanningMode="Both">
+                                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled" Style="{StaticResource FavsScrollViewer}" PanningMode="Both">
                                         <output:OutputView DataContext="{Binding OutputVM}" Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                                     </ScrollViewer>
                                 </Border>

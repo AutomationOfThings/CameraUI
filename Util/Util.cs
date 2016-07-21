@@ -859,6 +859,8 @@ namespace Util {
     public class SaveSettingEvent : PubSubEvent<PresetParams> {}
     public class SaveSettingAsNewEvent: PubSubEvent<PresetParams> {}
 
+    public class MenuBarToPreviewEvent : PubSubEvent<string> {}
+
     public class PreviewPauseEvent : PubSubEvent<bool> {}
     public class PreviewResumeEvent : PubSubEvent<bool> {}
 
