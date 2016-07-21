@@ -41,6 +41,8 @@ namespace Util {
             _lcm.Subscribe(Channels.start_program_res_channel, new StartProgramResponseHandler());
             _lcm.Subscribe(Channels.stop_program_res_channel, new StopProgramResponseHandler());
             _lcm.Subscribe(Channels.output_req_channel, new OutputRequestHandler());
+            _lcm.Subscribe(Channels.program_status_mes_channel, new ProgramStatusUpdateHandler());
+            _lcm.Subscribe(Channels.end_program_mes_channel, new EndProgramMessageReceivedHandler());
         }
 
         public void discover(string input) {

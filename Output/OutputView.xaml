@@ -36,14 +36,15 @@
     </UserControl.Resources>
 
     <Grid Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" VerticalAlignment="Center" HorizontalAlignment="Center" Height="600" Width="720">
-        <Label Content="{Binding OutputCamera.CameraName}" Foreground="{Binding modeColors.ModeColor_Black_LightGray}" Visibility="{Binding Active}" FontSize="20" VerticalAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="235" Height="36" Margin="0,30,0,534"></Label>
-        <Label Content="Live" FontSize="13" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Visibility="{Binding Active}" VerticalAlignment="Top" Width="40" Margin="666,36,14,0"></Label>
-        <Label Content="Manual Overwrite" FontSize="13" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Visibility="{Binding Active}" VerticalAlignment="Top" Margin="21,36,584,0"/>
+        <Label Content="OUTPUT" Foreground="{Binding modeColors.ModeColor_Black_LightGray}" FontSize="16" VerticalAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="236" Height="30" Margin="242,6,242,564" />
+        <Label Content="{Binding OutputCamera.CameraName}" Foreground="{Binding modeColors.ModeColor_Black_LightGray}" Visibility="{Binding Active}" FontSize="20" VerticalAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="236" Height="36" Margin="242,51,242,513" />
+        <Label Content="Live" FontSize="13" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Visibility="{Binding Active}" VerticalAlignment="Top" Width="40" Margin="666,55,14,0"></Label>
+        <Label Content="Manual Overwrite" FontSize="13" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Visibility="{Binding Active}" VerticalAlignment="Top" Margin="21,55,584,0"/>
         <Label x:Name="Notice" Content="Select a Camera as Output" Visibility="{Binding Idle}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI Semibold" FontSize="36" Foreground="#FFCFCCCC"/>
         <Grid Visibility="{Binding Active}" Background="Black" Height="405" Width="720" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <Image Source="{Binding OutputCamera.VideoSource}" Height="405" Width="720" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,98,0,0"/>
-        <Button Background="Red" Style="{StaticResource CircleButton}" Visibility="{Binding Active}" Width="20" Height="20" Margin="699,40,1,540"></Button>
-        <Button Background="Green" Style="{StaticResource CircleButton}" Visibility="{Binding Active}" Width="20" Height="20" Margin="1,40,699,540"></Button>
+        <Button Background="Red" Style="{StaticResource CircleButton}" Visibility="{Binding Active}" Width="20" Height="20" Margin="699,59,1,521"></Button>
+        <Button Background="Green" Style="{StaticResource CircleButton}" Visibility="{Binding Active}" Width="20" Height="20" Margin="1,59,699,521"></Button>
         <Button Content="Clear" Command="{Binding ClearCommand}" CommandParameter="{Binding OutputCamera}" Background="{Binding modeColors.ModeColor_WhiteSmoke_Gray}" Foreground="{Binding modeColors.ModeColor_Black_WhiteSmoke}" Visibility="{Binding Active}" HorizontalAlignment="Center" Margin="320,530,320,44" VerticalAlignment="Center" Width="80" Height="26"/>
     </Grid>
 </UserControl>

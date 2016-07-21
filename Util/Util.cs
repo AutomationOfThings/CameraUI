@@ -235,13 +235,9 @@ namespace Util {
             isLoggedIn = false;
             IP = ip;
             CameraName = id;
-            Pan = p;
-            Tilt = t;
-            Zoom = z;
-
-            expectedPan = p;
-            expectedTilt = t;
-            expectedZoom = z;
+            expectedPan = Pan = p;
+            expectedTilt = Tilt = t;
+            expectedZoom = Zoom = z;
 
             lastPtzUpdateTime = DateTime.Now.Ticks / 10000;
             _ea = Notification.Instance;
@@ -250,7 +246,7 @@ namespace Util {
 
             dispatcherTimer = new DispatcherTimer(DispatcherPriority.Background, Application.Current.Dispatcher);
             dispatcherTimer.Tick += new EventHandler(updatePTZ);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 750);
         }
 
         public void getStreamUri() {
@@ -260,16 +256,13 @@ namespace Util {
         private void onGetPositionUpdate(position_response_t res) {
             if (IP == res.ip_address && res.status_code == status_codes_t.OK) {
                 try {
-                    double newPan = double.Parse(res.pan_value);
-                    double newTilt = double.Parse(res.tilt_value);
-                    double newZoom = double.Parse(res.zoom_value);
-                    if (newPan == Pan && newTilt == Tilt && newZoom == Zoom
-                        && (Pan != expectedPan || Tilt != expectedTilt || Zoom != expectedZoom)) {
-                        changePTZ(PTZ_MODE.Absolute, expectedPan, expectedTilt, expectedZoom);
-                    }
                     Pan = double.Parse(res.pan_value);
                     Tilt = double.Parse(res.tilt_value);
                     Zoom = double.Parse(res.zoom_value);
+                    if (Pan != expectedPan || Tilt != expectedTilt || Zoom != expectedZoom) {
+                        changePTZ(PTZ_MODE.Absolute, expectedPan, expectedTilt, expectedZoom);
+                    }
+
                 } catch(Exception) { return; }
                 
             }
@@ -309,22 +302,19 @@ namespace Util {
         }
 
         public void changePan(PTZ_MODE mode, double p) {
-            changePTZ(mode, p, Tilt, Zoom);
+            expectedPan = p;
         }
 
         public void changeTilt(PTZ_MODE mode, double t) {
-            changePTZ(mode, Pan, t, Zoom);
+            expectedTilt = t;
         }
 
         public void changeZoom(PTZ_MODE mode, double z) {
-            changePTZ(mode, Pan, Tilt, z);
+            expectedZoom = z;
         }
 
         public void changePTZ(PTZ_MODE mode, double p, double t, double z) {
-            expectedPan = p;
-            expectedTilt = t;
-            expectedZoom = z;
-            if (DateTime.Now.Ticks / 10000 - lastPtzUpdateTime > 50) {
+            if (DateTime.Now.Ticks / 10000 - lastPtzUpdateTime > 100) {
                 Debug.WriteLine((DateTime.Now.Ticks / 10000).ToString());
                 lastPtzUpdateTime = DateTime.Now.Ticks / 10000;
                 CameraConnnector.requestPtzControl(IP, mode, (int)p, (int)t, (int)z);
@@ -885,5 +875,7 @@ namespace Util {
     public class EndSessionResponseReceivedEvent : PubSubEvent<end_session_response_t> {}
     public class UpdateOutputCameraReceivedEvent: PubSubEvent<output_request_t> {}
     public class ProgramStartResponseEvent : PubSubEvent<start_program_response_t> {}
-    public class ProgramStopResponseEvent : PubSubEvent<stop_program_response_t> { }
+    public class ProgramStopResponseEvent : PubSubEvent<stop_program_response_t> {}
+    public class ProgramEndMessageReceivedEvent: PubSubEvent<end_program_message_t> { }
+    public class ProgramStatusMessageReceivedEvent : PubSubEvent<program_status_message_t> {}
 }

@@ -5,8 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Preview"
              mc:Ignorable="d" 
-             d:DesignHeight="12" d:DesignWidth="300">
-    <Grid Name="Container">
-        <Image Name="Arrow" Source="Resources/indicator.png" Stretch="Fill" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="10"/>
+             d:DesignHeight="30" d:DesignWidth="300">
+    <Grid Name="Container" Height="30">
+        <Image Name="Arrow" Source="Resources/indicator.png" Stretch="Fill" HorizontalAlignment="Left" VerticalAlignment="Top" Width="10" Height="12"/>
+        <Label Name="PositionLabel" Content="   " Padding="0" Foreground="Gray" HorizontalAlignment="Left" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="16" Height="12" FontSize="10"/>
     </Grid>
 </UserControl>

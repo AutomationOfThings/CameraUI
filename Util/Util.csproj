@@ -119,6 +119,7 @@
     <Compile Include="ptz_camera\Channels.cs" />
     <Compile Include="ptz_camera\discovery_request_t.cs" />
     <Compile Include="ptz_camera\discovery_response_t.cs" />
+    <Compile Include="ptz_camera\end_program_message_t.cs" />
     <Compile Include="ptz_camera\end_session_request_t.cs" />
     <Compile Include="ptz_camera\end_session_response_t.cs" />
     <Compile Include="ptz_camera\init_session_request_t.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="ptz_camera\preset_config_response_t.cs" />
     <Compile Include="ptz_camera\preset_move_request_t.cs" />
     <Compile Include="ptz_camera\preset_move_response_t.cs" />
+    <Compile Include="ptz_camera\program_status_message_t.cs" />
     <Compile Include="ptz_camera\ptz_control_request_t.cs" />
     <Compile Include="ptz_camera\ptz_control_response_t.cs" />
     <Compile Include="ptz_camera\start_program_request_t.cs" />

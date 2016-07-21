@@ -27,11 +27,14 @@ namespace Program {
             set { SetProperty(ref selectedIndex, value); }
         }
 
-        string RunningProgramPlaceHolder = "No running program";
         string runningProgramString;
-        public string RunningProgramString {
-            get { return runningProgramString; }
-            set { SetProperty(ref runningProgramString, value); }
+        string runningProgramStatusString;
+        string RunningProgramPlaceHolder = "No running program";
+
+        string programString;
+        public string ProgramString {
+            get { return programString; }
+            set { SetProperty(ref programString, value); }
         }
         public ProgramRunBarVM(ObservableCollection<ProgramInfo> programList, Dictionary<string, PresetParams> presetName2Preset, Dictionary<string, string> cameraName2IP) {
             ProgramList = programList;
@@ -39,11 +42,18 @@ namespace Program {
             this.cameraName2IP = cameraName2IP;
             _ea = Notification.Instance;
             modeColors = ModeColors.Singleton(_ea);
-            RunningProgramString = RunningProgramPlaceHolder;
+            runningProgramString = RunningProgramPlaceHolder;
+            runningProgramStatusString = "";
             SelectedIndex = -1;
             _ea.GetEvent<ProgramRunEvent>().Subscribe(run);
             _ea.GetEvent<ProgramStartResponseEvent>().Subscribe(startProgramResponse);
             _ea.GetEvent<ProgramStopResponseEvent>().Subscribe(stopProgramResponse);
+            _ea.GetEvent<ProgramEndMessageReceivedEvent>().Subscribe(endProgram);
+            _ea.GetEvent<ProgramStatusMessageReceivedEvent>().Subscribe(updateProgramRunningStatus);
+        }
+
+        private void updateProgramString() {
+            ProgramString = runningProgramString + runningProgramStatusString;
         }
 
         private void run(int? index) {
@@ -69,7 +79,8 @@ namespace Program {
                 if (pgm != null) {
                     CameraConnnector.requestProgramRun(formatProgramString(program));
                     runningProgram = ProgramList[SelectedIndex];
-                    RunningProgramString = program.ProgramName;
+                    runningProgramString = program.ProgramName;
+                    updateProgramString();
                     _ea.GetEvent<PreviewPauseEvent>().Publish(true);
                 }
             }
@@ -84,7 +95,6 @@ namespace Program {
         private void startProgramResponse(start_program_response_t res) {
             if (res.status_code == status_codes_t.ERR) {
                 stop();
-                stopOutput();
                 MessageBox.Show("Message: " + res.response_message, "Error");
             }  
         }
@@ -92,21 +102,36 @@ namespace Program {
         private void stopProgramResponse(stop_program_response_t res) {
             if (res.status_code == status_codes_t.OK) {
                 stop();
-                if (res.response_message != "StopIndicatorFromUI") {
-                    stopOutput();
-                }
             }
+        }
+
+        private void endProgram(end_program_message_t res) {
+            stop();
         }
 
         private void stop() {
             runningProgram = null;
-            RunningProgramString = RunningProgramPlaceHolder;
+            runningProgramString = RunningProgramPlaceHolder;
+            runningProgramStatusString = "";
+            updateProgramString();
             _ea.GetEvent<PreviewResumeEvent>().Publish(true);
         }
 
-        private void stopOutput() {
-            var res = new output_request_t() { ip_address = "null" };
-            _ea.GetEvent<UpdateOutputCameraReceivedEvent>().Publish(res);
+
+        private void updateProgramRunningStatus(program_status_message_t res) {
+            if (runningProgram != null) {
+                int line = res.line_num - 1;
+                if (line >= 0 && line < runningProgram.commandList.Count) {
+                    CameraCommand item = runningProgram.commandList[line];
+                    string cmd = item.Command.ToString();
+                    string param = item.Parameter.ToString();
+                    runningProgramStatusString = "  Line " + line + ": " + cmd + " " + param;
+                } else {
+                    runningProgramStatusString = "";
+                }
+                updateProgramString();
+            }
+            
         }
 
         private string formatProgramString(ProgramInfo program) {

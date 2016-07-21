@@ -157,6 +157,26 @@ namespace Util {
         }
     }
 
+    public class ProgramStatusUpdateHandler : LCMSubscriber {
+        public void MessageReceived(LCM.LCM.LCM lcm, string channel, LCMDataInputStream data_stream) {
+            if (channel == Channels.program_status_mes_channel) {
+                program_status_message_t response = new program_status_message_t(data_stream);
+                var _ea = Notification.Instance;
+                _ea.GetEvent<ProgramStatusMessageReceivedEvent>().Publish(response);
+            }
+        }
+    }
+
+    public class EndProgramMessageReceivedHandler : LCMSubscriber {
+        public void MessageReceived(LCM.LCM.LCM lcm, string channel, LCMDataInputStream data_stream) {
+            if (channel == Channels.end_program_mes_channel) {
+                end_program_message_t response = new end_program_message_t(data_stream);
+                var _ea = Notification.Instance;
+                _ea.GetEvent<ProgramEndMessageReceivedEvent>().Publish(response);
+            }
+        }
+    }
+
     /*
     public class HttpRequestState {
         const int BufferSize = 1024;

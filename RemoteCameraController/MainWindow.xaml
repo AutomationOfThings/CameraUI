@@ -215,7 +215,7 @@
         </Grid>
         <Grid Name="MainArea" Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" Margin="0,30,0,20">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="655" MinWidth="550" />
+                <ColumnDefinition Width="665" MinWidth="570" />
                 <ColumnDefinition Width="2" />
                 <ColumnDefinition Width="*"  MinWidth="650"/>
             </Grid.ColumnDefinitions>
@@ -350,7 +350,7 @@
                     </TabControl>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <program:ProgramRunBarView DataContext="{Binding ProgramRunBarVM}"/>
+                    <program:ProgramRunBarView DataContext="{Binding ProgramRunBarVM}" Margin="0,0,-23,0"/>
                 </Grid>
             </Grid>
         </Grid>

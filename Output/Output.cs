@@ -47,26 +47,24 @@ namespace Output {
             _ea = Notification.Instance;
             _ea.GetEvent<CameraOutPutEvent>().Subscribe(outPutCameraFromCamlist);
             _ea.GetEvent<UpdateOutputCameraReceivedEvent>().Subscribe(outPutCameraFromRuntime);
+            _ea.GetEvent<ProgramEndMessageReceivedEvent>().Subscribe(endOutput);
             modeColors = ModeColors.Singleton(_ea);
         }
 
         private void outPutCameraFromRuntime(output_request_t res) {
             Idle = Visibility.Hidden;
             Active = Visibility.Visible;
-            isRunningProgram = false;
-            OutputCamera = null;
-            if (res.ip_address == "") {
-                var response = new stop_program_response_t() { status_code = status_codes_t.OK, response_message = "StopIndicatorFromUI" };
-                _ea.GetEvent<ProgramStopResponseEvent>().Publish(response);
-                return;
-            }
-            if (res.ip_address == "null") { return; }
 
             if (IP2CameraInfo.ContainsKey(res.ip_address)) {
                 isRunningProgram = true;
                 OutputCamera = IP2CameraInfo[res.ip_address];
             }
 
+        }
+
+        private void endOutput(end_program_message_t res) {
+            isRunningProgram = false;
+            OutputCamera = null;
         }
 
         private void outPutCameraFromCamlist(CameraInfo cam) {

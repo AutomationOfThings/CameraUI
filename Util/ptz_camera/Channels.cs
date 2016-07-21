@@ -25,5 +25,8 @@ namespace Util {
         public const string preset_move_res_channel = "PRESETMOVERES";
         public const string start_program_res_channel = "STARTPROGRAMRES";
         public const string stop_program_res_channel = "STOPPROGRAMRES";
+
+        public const string program_status_mes_channel = "PROGRAMSTATMES";
+        public const string end_program_mes_channel = "ENDPROGRAMMES";
     }
 }
