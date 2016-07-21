@@ -65,6 +65,8 @@ namespace Output {
         private void endOutput(end_program_message_t res) {
             isRunningProgram = false;
             OutputCamera = null;
+            Idle = Visibility.Visible;
+            Active = Visibility.Hidden;
         }
 
         private void outPutCameraFromCamlist(CameraInfo cam) {
