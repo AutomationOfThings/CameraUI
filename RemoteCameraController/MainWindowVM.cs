@@ -95,13 +95,15 @@ namespace RemoteCameraController {
             ProgramRunBarVM = new ProgramRunBarVM(programList, PresetName2Preset, CameraName2IP);
 
             // set up menu bar
-            MenuBarVM = new MenuVM(camInfoList, runtime, cameraNameList);
+            MenuBarVM = new MenuVM(camInfoList, cameraNameList);
 
             // set up status bar
             StatusBarVM = new StatusBarVM();
 
             // change to dark mode when program starts up
             changeModeShortCut(modeColors);
+
+            notificationCenter.GetEvent<RelaunchRuntimeEvent>().Subscribe(relaunchRuntime);
 
         }
 
@@ -168,17 +170,43 @@ namespace RemoteCameraController {
         }
 
         private void discoverShortCut(string discovery) {
-            notificationCenter.GetEvent<CameraDiscoverShortCutEvent>().Publish("discover");
+            notificationCenter.GetEvent<CameraDiscoverEvent>().Publish("Discover");
         }
 
-        private void relaunchRuntimeShortCut(string relauch) {
-            notificationCenter.GetEvent<RelaunchRuntimeShortCutEvent>().Publish("relaunchRuntime");
+        private void relaunchRuntime(string relauch) {
+            try {
+                runtime.Kill();
+                runtime.Start();
+
+            } catch (Exception ex) {
+                Console.WriteLine("An error occurred in starting runtime!!!: " + ex.Message);
+                MessageBox.Show("Meet an error in launching the runtime.", "Attention", MessageBoxButtons.OK);
+                return;
+            }
+        }
+
+        private void showCameraInfoShortCut(string showCamera) {
+            notificationCenter.GetEvent<ShowCameraInfoShortCutEvent>().Publish("showCameraInfo");
+        }
+
+
+
+        private void sendEventToPreview(string command) {
+            notificationCenter.GetEvent<MenuBarToPreviewEvent>().Publish(command);
+        }
+
+        private void saveSetting(string obj) {
+            sendEventToPreview("SaveSetting");
+        }
+
+        private void saveSettingAsNew(string obj) {
+            sendEventToPreview("SaveSettingAsNew");
         }
 
         ICommand relaunchRuntimeCommand;
         public ICommand RelaunchRuntimeCommand {
             get {
-                if (relaunchRuntimeCommand == null) { relaunchRuntimeCommand = new DelegateCommand<string>(relaunchRuntimeShortCut); }
+                if (relaunchRuntimeCommand == null) { relaunchRuntimeCommand = new DelegateCommand<string>(relaunchRuntime); }
                 return relaunchRuntimeCommand;
             }
         }
@@ -196,6 +224,30 @@ namespace RemoteCameraController {
             get {
                 if (discoverCommand == null) { discoverCommand = new DelegateCommand<string>(discoverShortCut); }
                 return discoverCommand;
+            }
+        }
+
+        ICommand cameraInfoShowCommand;
+        public ICommand CameraInfoShowCommand {
+            get {
+                if (cameraInfoShowCommand == null) { cameraInfoShowCommand = new DelegateCommand<string>(showCameraInfoShortCut); }
+                return cameraInfoShowCommand;
+            }
+        }
+
+        ICommand savePresetCommand;
+        public ICommand SavePresetCommand {
+            get {
+                if (savePresetCommand == null) { savePresetCommand = new DelegateCommand<string>(saveSetting); }
+                return savePresetCommand;
+            }
+        }
+
+        ICommand savePresetAsNewCommand;
+        public ICommand SavePresetAsNewCommand {
+            get {
+                if (savePresetAsNewCommand == null) { savePresetAsNewCommand = new DelegateCommand<string>(saveSettingAsNew); }
+                return savePresetAsNewCommand;
             }
         }
 

@@ -77,7 +77,6 @@ namespace Preset {
                     return;
                 }
             }
-
             saveAsNewSetting(setting);
         }
 

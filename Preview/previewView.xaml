@@ -113,7 +113,7 @@
             <Image Source="Resources/redo.png" Margin="4,2,2,2"/>
         </Button>
         -->
-        <Label Content="PTZ control is blocked in preview while a program is running." Foreground="Red" Visibility="{Binding Forbidden}" Opacity="0.6" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Width="386" Height="30" Margin="129,38,135,532" />
+        <Label Content="PTZ control is blocked in preview while a program is running." Foreground="Red" Visibility="{Binding Forbidden}" Opacity="0.9" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" Width="442" Height="32" Margin="104,32,104,536" />
         <Label Content="PREVIEW" Foreground="{Binding modeColors.ModeColor_Black_White}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" Width="76" Height="30" Margin="284,8,290,562" />
         <Label Content="{Binding CurrentCamera.CameraName}" Foreground="{Binding modeColors.ModeColor_Black_LightGray}" Visibility="{Binding Active}" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Width="396" Height="36" Margin="124,64,130,500" />
         <Label x:Name="Notice" Visibility="{Binding Idle}" Content="Select Camera to Preview" HorizontalAlignment="Center" VerticalAlignment="Center" Width="358" FontFamily="Segoe UI Semibold" FontWeight="Bold" FontSize="30" Foreground="#FFCFCCCC" Background="{x:Null}" Margin="143,242,149,308" />

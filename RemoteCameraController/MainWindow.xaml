@@ -207,6 +207,9 @@
         <KeyBinding Key="M" Modifiers="Ctrl" Command="{Binding ModeCommand}"  CommandParameter="{Binding modeColors}"/>
         <KeyBinding Key="D" Modifiers="Ctrl" Command="{Binding DiscoverCommand}" />
         <KeyBinding Key="R" Modifiers="Ctrl" Command="{Binding RelaunchRuntimeCommand}" />
+        <KeyBinding Key="I" Modifiers="Ctrl" Command="{Binding CameraInfoShowCommand}" />
+        <KeyBinding Key="S" Modifiers="Ctrl" Command="{Binding SavePresetCommand}" />
+        <KeyBinding Key="N" Modifiers="Ctrl" Command="{Binding SavePresetAsNewCommand}" />
     </Window.InputBindings>
 
     <Grid Background="{Binding modeColors.ModeColor_White_Black}">
@@ -241,7 +244,7 @@
                             <TranslateTransform/>
                         </TransformGroup>
                     </Grid.LayoutTransform>
-                    <TabControl x:Name="tabControl" Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" BorderThickness="0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                    <TabControl x:Name="tabControl" Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
                         <TabControl.Resources>
                             <Style TargetType="TabItem">
                                 <Setter Property="Template">
@@ -265,9 +268,9 @@
                                 </Setter>
                             </Style>
                         </TabControl.Resources>
-                        <TabItem Width="90">
+                        <TabItem Width="90" Height="23" >
                             <TabItem.Header>
-                                <AccessText Text="Output (_O)"/>
+                                <AccessText Text="Output (_O)" FontSize="14"/>
                             </TabItem.Header>
                             <Grid Background="{Binding modeColors.ModeColor_AliceBlue_MedianDark}">
                                 <Grid.LayoutTransform>
@@ -287,7 +290,7 @@
                         </TabItem>
                         <TabItem Width="90" >
                             <TabItem.Header>
-                                <AccessText Text="Program (_P)"/>
+                                <AccessText Text="Program (_P)" FontSize="14"/>
                             </TabItem.Header>
                             <Grid Background="{Binding modeColors.ModeColor_AliceBlue_MedianDark}" >
                                 <Grid.LayoutTransform>
@@ -299,16 +302,13 @@
                                     </TransformGroup>
                                 </Grid.LayoutTransform>
                                 <Border BorderBrush="{Binding modeColors.ModeColor_LightGray_Gray}" BorderThickness="1">
-                                    <!--
-                                    <Grid Name="ProgramContainer" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></Grid>
-                                    -->
                                     <program:ProgramView DataContext="{Binding ProgramVM, Mode=TwoWay}"/>
                                 </Border>
                             </Grid>
                         </TabItem>
                         <TabItem Width="90">
                             <TabItem.Header>
-                                <AccessText Text="Preset (_S)"/>
+                                <AccessText Text="Preset (_S)" FontSize="14"/>
                             </TabItem.Header>
                             <Grid Background="{Binding modeColors.ModeColor_AliceBlue_MedianDark}">
                                 <Grid.LayoutTransform>
@@ -324,9 +324,9 @@
                                 </Border>
                             </Grid>
                         </TabItem>
-                        <TabItem Width="90">
+                        <TabItem Width="90" >
                             <TabItem.Header>
-                                <AccessText Text="Config (_C)"/>
+                                <AccessText Text="Config (_C)" FontSize="14"/>
                             </TabItem.Header>
                             <Grid Background="{Binding modeColors.ModeColor_WhiteSmoke_MedianDark}" >
                                 <Grid.LayoutTransform>

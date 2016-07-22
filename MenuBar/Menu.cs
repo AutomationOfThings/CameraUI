@@ -16,7 +16,7 @@ namespace MenuBar
     public class MenuVM: BindableBase
     {
         public string Discover { get; set; }
-        private Process runtime;
+
         string mode;
         public string Mode {
             get { return mode; }
@@ -29,16 +29,15 @@ namespace MenuBar
         List<CameraInfo> camList;
         public ObservableCollection<CameraNameWrapper> CameraNameList;
 
-        public MenuVM(List<CameraInfo> camList, Process runtime, ObservableCollection<CameraNameWrapper> cameraNameList) {
+        public MenuVM(List<CameraInfo> camList, ObservableCollection<CameraNameWrapper> cameraNameList) {
             _ea = Notification.Instance;
             this.camList = camList;
             CameraNameList = cameraNameList;
             modeColors = ModeColors.Singleton(_ea);
             Mode = "Dark Mode";
             Discover = "Discover";
-            this.runtime = runtime;
             _ea.GetEvent<ChangeModeShortCutEvent>().Subscribe(changeMode);
-            _ea.GetEvent<RelaunchRuntimeShortCutEvent>().Subscribe(relaunchRuntime);
+            _ea.GetEvent<ShowCameraInfoShortCutEvent>().Subscribe(showCameraList);
         }
 
 
@@ -61,15 +60,7 @@ namespace MenuBar
         }
 
         private void relaunchRuntime(string obj) {
-            try {
-                runtime.Kill();
-                runtime.Start();
-
-            } catch (Exception ex) {
-                Console.WriteLine("An error occurred in starting runtime!!!: " + ex.Message);
-                MessageBox.Show("Meet an error in launching the runtime.", "Attention", MessageBoxButtons.OK);
-                return;
-            }
+            _ea.GetEvent<RelaunchRuntimeEvent>().Publish("relaunchRuntime");
         }
 
         private void showCameraList(string obj) {

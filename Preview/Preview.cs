@@ -177,11 +177,12 @@ namespace Preview {
         private void saveSetting(CameraInfo camInfo) {
             if (CurrentCamera != null) {
                 if (CurrentSetting != null) {
+                    CurrentSetting.CameraName = camInfo.CameraName;
                     CurrentSetting.pan = camInfo.Pan;
                     CurrentSetting.tilt = camInfo.Tilt;
                     CurrentSetting.zoom = camInfo.Zoom;
                 } else {
-                    CurrentSetting = new PresetParams("", CurrentCamera.CameraName, currentCamera.Pan, CurrentCamera.Tilt, CurrentCamera.Zoom);
+                    CurrentSetting = new PresetParams("", CurrentCamera.CameraName, CurrentCamera.Pan, CurrentCamera.Tilt, CurrentCamera.Zoom);
                 }
                 _ea.GetEvent<SaveSettingEvent>().Publish(CurrentSetting);
             }
@@ -189,13 +190,7 @@ namespace Preview {
 
         private void saveAsNew(CameraInfo camInfo) {
             if (CurrentCamera != null) {
-                if (CurrentSetting != null) {
-                    CurrentSetting.pan = camInfo.Pan;
-                    CurrentSetting.tilt = camInfo.Tilt;
-                    CurrentSetting.zoom = camInfo.Zoom;
-                } else {
-                    CurrentSetting = new PresetParams("", CurrentCamera.CameraName, currentCamera.Pan, CurrentCamera.Tilt, CurrentCamera.Zoom);
-                }
+                CurrentSetting = new PresetParams("", CurrentCamera.CameraName, CurrentCamera.Pan, CurrentCamera.Tilt, CurrentCamera.Zoom);
                 _ea.GetEvent<SaveSettingAsNewEvent>().Publish(CurrentSetting);
             }
         }

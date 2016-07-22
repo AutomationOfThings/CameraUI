@@ -27,7 +27,6 @@ namespace Util {
             subscribeForResponses();
             _ea = Notification.Instance;
             _ea.GetEvent<CameraDiscoverEvent>().Subscribe(discover);
-            _ea.GetEvent<CameraDiscoverShortCutEvent>().Subscribe(discover);
             _ea.GetEvent<DiscoveryResponseReceivedEvent>().Subscribe(OnGetDiscoveryResponse);
             
         }

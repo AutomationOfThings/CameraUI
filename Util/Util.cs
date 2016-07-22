@@ -866,9 +866,9 @@ namespace Util {
 
     public class ChangeModeEvent : PubSubEvent<string> {}
     public class ChangeModeShortCutEvent : PubSubEvent<ModeColors> {}
-    public class CameraDiscoverShortCutEvent : PubSubEvent<string> {}
-    public class RelaunchRuntimeShortCutEvent: PubSubEvent<string> {}
+    public class RelaunchRuntimeEvent: PubSubEvent<string> {}
     public class StatusUpdateEvent: PubSubEvent<string> {}
+    public class ShowCameraInfoShortCutEvent: PubSubEvent<string> {}
 
     public class DiscoveryResponseReceivedEvent : PubSubEvent<discovery_response_t> {}
     public class StreamUriResponseReceivedEvent : PubSubEvent<stream_uri_response_t> {}
@@ -878,6 +878,6 @@ namespace Util {
     public class UpdateOutputCameraReceivedEvent: PubSubEvent<output_request_t> {}
     public class ProgramStartResponseEvent : PubSubEvent<start_program_response_t> {}
     public class ProgramStopResponseEvent : PubSubEvent<stop_program_response_t> {}
-    public class ProgramEndMessageReceivedEvent: PubSubEvent<end_program_message_t> { }
+    public class ProgramEndMessageReceivedEvent: PubSubEvent<end_program_message_t> {}
     public class ProgramStatusMessageReceivedEvent : PubSubEvent<program_status_message_t> {}
 }
