@@ -23,9 +23,11 @@ namespace Preset {
 
         protected readonly EventAggregator _ea;
 
+        private Constant constant = new Constant();
+
         public ModeColors modeColors { get; set; }
 
-        PresettingParser writer = new PresettingParser(Constant.PRESET_FILE);
+        PresettingParser writer;
 
         List<PresetParams> camListForDisk;
         Dictionary<string, PresetParams> presetName2Preset;
@@ -53,6 +55,7 @@ namespace Preset {
             presetName2Preset = PresetName2Preset;
             CameraNameList = cameraNameList;
             this.camList = new ObservableCollection<PresetParamsExtend>();
+            writer = new PresettingParser(constant.PRESET_FILE);
             //updateCamIdList(camList);
             foreach (PresetParams i in presetList) {
                 PresetParamsExtend newItem = new PresetParamsExtend(i.presettingId, i.CameraName, CameraNameList,i.pan, i.tilt, i.zoom);

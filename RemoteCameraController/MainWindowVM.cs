@@ -47,14 +47,15 @@ namespace RemoteCameraController {
         public StatusBarVM StatusBarVM { get; set; }
         public ProgramRunBarVM ProgramRunBarVM { get; set; }
         private CameraExplorer cameraExplorer;
+
+        private Constant constant = new Constant();
         
         public MainWindowVM () {
             //modeColors = new ModeColors(notificationCenter);
             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable()) {
                 modeColors = ModeColors.Singleton(notificationCenter);
-                loadXML(AppDomain.CurrentDomain.BaseDirectory + Constant.PRESET_FILE,
-                    AppDomain.CurrentDomain.BaseDirectory + Constant.PROGRAM_FILE,
-                    AppDomain.CurrentDomain.BaseDirectory + Constant.CAMERANAME_FILE);
+                Debug.WriteLine(constant.CAMERANAME_FILE);
+                loadXML(constant.PRESET_FILE, constant.PROGRAM_FILE, constant.CAMERANAME_FILE);
                 setupViewModels();
             }
         }
@@ -105,7 +106,7 @@ namespace RemoteCameraController {
         }
 
         public void saveCameras() {
-            (new CameraNameParser(Constant.CAMERANAME_FILE)).write(cameraNameList);
+            (new CameraNameParser(constant.CAMERANAME_FILE)).write(cameraNameList);
         }
 
         private void setupRuntime() {
@@ -115,10 +116,10 @@ namespace RemoteCameraController {
 
             try {
                 runtime = new Process();
-                runtime.StartInfo.FileName = Constant.RUNTIME_FILE;
+                runtime.StartInfo.FileName = constant.RUNTIME_FILE;
                 runtime.StartInfo.CreateNoWindow = true;
                 runtime.StartInfo.UseShellExecute = false;
-                runtime.StartInfo.WorkingDirectory = Path.GetDirectoryName(Constant.RUNTIME_FILE);
+                runtime.StartInfo.WorkingDirectory = Path.GetDirectoryName(constant.RUNTIME_FILE);
             } catch (Exception) {
                 MessageBox.Show("Runtime file is not found.", "Attention", MessageBoxButtons.OK);
             }

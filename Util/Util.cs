@@ -550,10 +550,10 @@ namespace Util {
 
         public CameraCommandEditWrapper(List<string> camList, List<string> presetList) {
             CommandList = new List<Cmd> { Cmd.OUTPUT, Cmd.PRESET, Cmd.WAIT };
-            this.WaitTime = 10;
-            this.command = Cmd.WAIT;
-            this.CamList = camList;
-            this.PresetList = presetList;
+            WaitTime = 10;
+            command = Cmd.WAIT;
+            CamList = camList;
+            PresetList = presetList;
         }
 
     }
@@ -829,11 +829,11 @@ namespace Util {
 
     // Constants:
 
-    public static class Constant {
-        public const string PRESET_FILE = "../../../Data/Presetting.xml";
-        public const string PROGRAM_FILE = "../../../Data/Programs.xml";
-        public const string CAMERANAME_FILE = "../../../Data/CameraName.xml";
-        public const string RUNTIME_FILE = "../../../Data/Runtime/camera_rt.exe";
+    public class Constant {
+        public string PRESET_FILE = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/RemoteCameraControllerData/Presetting.xml";
+        public string PROGRAM_FILE = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/RemoteCameraControllerData/Programs.xml";
+        public string CAMERANAME_FILE = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/RemoteCameraControllerData/CameraName.xml";
+        public string RUNTIME_FILE = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/RemoteCameraControllerData/Runtime/camera_rt.exe";
         public const char DEF_REQ_SCAN = '1';
         public const int CAMLIST_AREA_VISIBLE_HEIGHT = 155;
         public const int CAMLIST_AREA_HIDDEN_HEIGHT = 1;

@@ -152,7 +152,7 @@
         <Label x:Name="current_zoom" Content="Zoom" Foreground="{Binding modeColors.ModeColor_Black_LightGray}" Visibility="{Binding Active}" HorizontalAlignment="Left" Margin="6,387,0,0" VerticalAlignment="Top" FontSize="12" Height="25" RenderTransformOrigin="0.5,0.5"/>
         <Label x:Name="current_pan" Content="Pan" Foreground="{Binding modeColors.ModeColor_Black_LightGray}" Visibility="{Binding Active}" HorizontalAlignment="Left" Margin="311,446,0,0" VerticalAlignment="Top" FontSize="12" Height="25"/>
         <Label x:Name="current_tilt" Content="Tilt" Foreground="{Binding modeColors.ModeColor_Black_LightGray}" Visibility="{Binding Active}" HorizontalAlignment="Left" Margin="621,387,0,0" VerticalAlignment="Top" FontSize="13" Height="25" RenderTransformOrigin="0.5,0.5"/>
-        <Image Source="Resources/scale.png" Visibility="{Binding Active}" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="78,366,78,211" Height="23" Width="494" />
+        <Image Source="Resources/scale.png" Visibility="{Binding Active}" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="78,366,78,211" Height="23" Width="495" />
         <Image Source="Resources/scale.png" Visibility="{Binding Active}" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-54,233,426,349" Height="18" Width="278" RenderTransformOrigin="0.5,0.5" >
             <Image.RenderTransform>
                 <TransformGroup>

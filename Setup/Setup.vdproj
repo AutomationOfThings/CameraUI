@@ -135,6 +135,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_3297F6A3AE3E4D2795EBE9C847534BBC"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_362B9B49B8FA06869D9331A2627BF9E3"
+        "OwnerKey" = "8:_C18BCC387403EE3AC63376AFA8AFAA24"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_362B9B49B8FA06869D9331A2627BF9E3"
         "OwnerKey" = "8:_B6A18981369BB169A532B5570457F6E3"
         "MsmSig" = "8:_UNDEFINED"
@@ -154,6 +166,18 @@
         "Entry"
         {
         "MsmKey" = "8:_362B9B49B8FA06869D9331A2627BF9E3"
+        "OwnerKey" = "8:_E2FE9767E1264F98AC8F4E446D58E2C9"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_362B9B49B8FA06869D9331A2627BF9E3"
+        "OwnerKey" = "8:_86844BFEA0F049545F9CB7BDDBCA59C5"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_362B9B49B8FA06869D9331A2627BF9E3"
         "OwnerKey" = "8:_99C3862A1401BF5B18D1C1C8FF2933CF"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -167,24 +191,6 @@
         {
         "MsmKey" = "8:_362B9B49B8FA06869D9331A2627BF9E3"
         "OwnerKey" = "8:_C255905CFE2E21E124520A08035C0247"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_362B9B49B8FA06869D9331A2627BF9E3"
-        "OwnerKey" = "8:_C18BCC387403EE3AC63376AFA8AFAA24"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_362B9B49B8FA06869D9331A2627BF9E3"
-        "OwnerKey" = "8:_E2FE9767E1264F98AC8F4E446D58E2C9"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_362B9B49B8FA06869D9331A2627BF9E3"
-        "OwnerKey" = "8:_86844BFEA0F049545F9CB7BDDBCA59C5"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -407,6 +413,12 @@
         {
         "MsmKey" = "8:_6FC9E181BABFE673A2DFA5448C834F4F"
         "OwnerKey" = "8:_E2FE9767E1264F98AC8F4E446D58E2C9"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_717923C88AB34EDE8079C301351B3D0E"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -760,6 +772,12 @@
         "Entry"
         {
         "MsmKey" = "8:_CF706301B89C0220B2816CAAA49374BE"
+        "OwnerKey" = "8:_DD38DB81B3A9F1BA5BCB15551B7B4F5C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_CF706301B89C0220B2816CAAA49374BE"
         "OwnerKey" = "8:_B6A18981369BB169A532B5570457F6E3"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -773,6 +791,18 @@
         {
         "MsmKey" = "8:_CF706301B89C0220B2816CAAA49374BE"
         "OwnerKey" = "8:_629573ED70EA2CEBE5F2A0FCA97FC2C7"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_CF706301B89C0220B2816CAAA49374BE"
+        "OwnerKey" = "8:_E2FE9767E1264F98AC8F4E446D58E2C9"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_CF706301B89C0220B2816CAAA49374BE"
+        "OwnerKey" = "8:_83897957D1D18E402FF057D73FCF9930"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -797,24 +827,6 @@
         {
         "MsmKey" = "8:_CF706301B89C0220B2816CAAA49374BE"
         "OwnerKey" = "8:_C18BCC387403EE3AC63376AFA8AFAA24"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_CF706301B89C0220B2816CAAA49374BE"
-        "OwnerKey" = "8:_DD38DB81B3A9F1BA5BCB15551B7B4F5C"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_CF706301B89C0220B2816CAAA49374BE"
-        "OwnerKey" = "8:_E2FE9767E1264F98AC8F4E446D58E2C9"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_CF706301B89C0220B2816CAAA49374BE"
-        "OwnerKey" = "8:_83897957D1D18E402FF057D73FCF9930"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1011,8 +1023,14 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_FF4CF03482F142B097A7DED7E08AC70E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_DC22BBC899419F26F3FD33520F4F8749"
+        "OwnerKey" = "8:_E2FE9767E1264F98AC8F4E446D58E2C9"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1043,48 +1061,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_FC285F4ED919B90B2D064A7A10F8531D"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_99C3862A1401BF5B18D1C1C8FF2933CF"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_103BF7D1D664FDE8BD85E68F6C17039D"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C18BCC387403EE3AC63376AFA8AFAA24"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C255905CFE2E21E124520A08035C0247"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_3D5B2B058B5CE2D321C71F0539648273"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_DD38DB81B3A9F1BA5BCB15551B7B4F5C"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E2FE9767E1264F98AC8F4E446D58E2C9"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1150,6 +1126,36 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_99C3862A1401BF5B18D1C1C8FF2933CF"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_103BF7D1D664FDE8BD85E68F6C17039D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_C18BCC387403EE3AC63376AFA8AFAA24"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_C255905CFE2E21E124520A08035C0247"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_3D5B2B058B5CE2D321C71F0539648273"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_9E40BA494AEE7B13D9F924C4E49FD953"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1163,6 +1169,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_57C874274B3C159747994E8BA6B93BC7"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_DD38DB81B3A9F1BA5BCB15551B7B4F5C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1483,6 +1495,12 @@
         "OwnerKey" = "8:_A908654078850396DE3858F9CEAA8B21"
         "MsmSig" = "8:_UNDEFINED"
         }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_DC22BBC899419F26F3FD33520F4F8749"
+        "MsmSig" = "8:_UNDEFINED"
+        }
     }
     "Configurations"
     {
@@ -1501,6 +1519,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -1517,6 +1551,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -1839,7 +1889,7 @@
             "SourcePath" = "8:..\\Data\\Presetting.xml"
             "TargetName" = "8:Presetting.xml"
             "Tag" = "8:"
-            "Folder" = "8:_51F7728A13B3484FB8B474FE94C2E97A"
+            "Folder" = "8:_78E4DFF0B53E4C9B97EC4C23FFC32AA8"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1910,7 +1960,7 @@
             "SourcePath" = "8:..\\Data\\Programs _Backup.xml"
             "TargetName" = "8:Programs _Backup.xml"
             "Tag" = "8:"
-            "Folder" = "8:_51F7728A13B3484FB8B474FE94C2E97A"
+            "Folder" = "8:_78E4DFF0B53E4C9B97EC4C23FFC32AA8"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1985,6 +2035,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3297F6A3AE3E4D2795EBE9C847534BBC"
+            {
+            "SourcePath" = "8:..\\RemoteCameraController\\Resources\\CameraIcon_256.ico"
+            "TargetName" = "8:CameraIcon_256.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_1C5737203D9C425A87D201B960BCD4DC"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_362B9B49B8FA06869D9331A2627BF9E3"
@@ -2882,6 +2952,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_717923C88AB34EDE8079C301351B3D0E"
+            {
+            "SourcePath" = "8:..\\RemoteCameraController\\Resources\\CameraIcon_32.ico"
+            "TargetName" = "8:CameraIcon_32.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_1C5737203D9C425A87D201B960BCD4DC"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_71A2D7CFB58BD6EDE665DC32F40FC08D"
             {
             "AssemblyRegister" = "3:1"
@@ -3093,7 +3183,7 @@
             "SourcePath" = "8:..\\Data\\Presetting_Backup.xml"
             "TargetName" = "8:Presetting_Backup.xml"
             "Tag" = "8:"
-            "Folder" = "8:_51F7728A13B3484FB8B474FE94C2E97A"
+            "Folder" = "8:_78E4DFF0B53E4C9B97EC4C23FFC32AA8"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -3452,7 +3542,7 @@
             "SourcePath" = "8:..\\Data\\Programs.xml"
             "TargetName" = "8:Programs.xml"
             "Tag" = "8:"
-            "Folder" = "8:_51F7728A13B3484FB8B474FE94C2E97A"
+            "Folder" = "8:_78E4DFF0B53E4C9B97EC4C23FFC32AA8"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -4128,7 +4218,7 @@
             "SourcePath" = "8:..\\Data\\CameraName_Backup.xml"
             "TargetName" = "8:CameraName_Backup.xml"
             "Tag" = "8:"
-            "Folder" = "8:_51F7728A13B3484FB8B474FE94C2E97A"
+            "Folder" = "8:_78E4DFF0B53E4C9B97EC4C23FFC32AA8"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -4436,7 +4526,7 @@
             "SourcePath" = "8:..\\Data\\CameraName.xml"
             "TargetName" = "8:CameraName.xml"
             "Tag" = "8:"
-            "Folder" = "8:_51F7728A13B3484FB8B474FE94C2E97A"
+            "Folder" = "8:_78E4DFF0B53E4C9B97EC4C23FFC32AA8"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -4615,6 +4705,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FF4CF03482F142B097A7DED7E08AC70E"
+            {
+            "SourcePath" = "8:..\\RemoteCameraController\\Resources\\CameraIcon_48.ico"
+            "TargetName" = "8:CameraIcon_48.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_1C5737203D9C425A87D201B960BCD4DC"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
@@ -4641,6 +4751,39 @@
             "Property" = "8:DesktopFolder"
                 "Folders"
                 {
+                }
+            }
+            "{1525181F-901A-416C-8A58-119130FE478E}:_DCADC57D76014709A0EC9CC136FBFB3D"
+            {
+            "Name" = "8:#1918"
+            "AlwaysCreate" = "11:FALSE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Property" = "8:PersonalFolder"
+                "Folders"
+                {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_78E4DFF0B53E4C9B97EC4C23FFC32AA8"
+                    {
+                    "Name" = "8:RemoteCameraControllerData"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_80E740779CD344279D3607B156CF96EA"
+                        "Folders"
+                        {
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_89CB9E7C16204C58A9F560328539D5F7"
+                            {
+                            "Name" = "8:Runtime"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_E945F15362C946A5BDD6E57B245A2CF1"
+                                "Folders"
+                                {
+                                }
+                            }
+                        }
+                    }
                 }
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_E8D474E2E49F4E478FE3919A42C79A70"
@@ -4686,28 +4829,6 @@
                             }
                         }
                     }
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_51F7728A13B3484FB8B474FE94C2E97A"
-                    {
-                    "Name" = "8:Data"
-                    "AlwaysCreate" = "11:FALSE"
-                    "Condition" = "8:"
-                    "Transitive" = "11:FALSE"
-                    "Property" = "8:_80E740779CD344279D3607B156CF96EA"
-                        "Folders"
-                        {
-                            "{9EF0B969-E518-4E46-987F-47570745A589}:_89CB9E7C16204C58A9F560328539D5F7"
-                            {
-                            "Name" = "8:Runtime"
-                            "AlwaysCreate" = "11:FALSE"
-                            "Condition" = "8:"
-                            "Transitive" = "11:FALSE"
-                            "Property" = "8:_E945F15362C946A5BDD6E57B245A2CF1"
-                                "Folders"
-                                {
-                                }
-                            }
-                        }
-                    }
                 }
             }
         }
@@ -4725,20 +4846,20 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:Setup"
+        "ProductName" = "8:RemoteCameraController"
         "ProductCode" = "8:{3046EDA8-DD56-4406-A550-DD01433307EE}"
-        "PackageCode" = "8:{E2CCBB68-9FE8-41C1-B63D-935CBDE6067C}"
+        "PackageCode" = "8:{E19DF252-412A-46A9-8A2E-16A2E70B1C44}"
         "UpgradeCode" = "8:{B5C9442E-93B2-40C3-8E11-F9207E9FEEAE}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:1.0.0"
         "Manufacturer" = "8:Provue"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:Setup"
+        "Title" = "8:RemoteCameraController"
         "Subject" = "8:"
         "ARPCONTACT" = "8:Provue"
         "Keywords" = "8:"
@@ -4872,7 +4993,7 @@
             "Target" = "8:_E2FE9767E1264F98AC8F4E446D58E2C9"
             "Folder" = "8:_C25F6FBD440E4DA49E4A46360D70E222"
             "WorkingFolder" = "8:_A95B09CEB84B46F49542772B8342DE1E"
-            "Icon" = "8:"
+            "Icon" = "8:_3297F6A3AE3E4D2795EBE9C847534BBC"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_C9B910B9A50649ED8C8A057D7BCCA71F"
@@ -4886,7 +5007,7 @@
             "Target" = "8:_E2FE9767E1264F98AC8F4E446D58E2C9"
             "Folder" = "8:_40522151D116422FB4FE9A004996DB7F"
             "WorkingFolder" = "8:_A95B09CEB84B46F49542772B8342DE1E"
-            "Icon" = "8:"
+            "Icon" = "8:_FF4CF03482F142B097A7DED7E08AC70E"
             "Feature" = "8:"
             }
         }

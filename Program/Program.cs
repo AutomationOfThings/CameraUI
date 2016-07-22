@@ -15,7 +15,9 @@ namespace Program {
 
         public ModeColors modeColors { get; set; }
 
-        ProgramParser writer = new ProgramParser(Constant.PROGRAM_FILE);
+        private Constant constant = new Constant();
+
+        ProgramParser writer;
 
         protected readonly EventAggregator _ea;
         ObservableCollection<ProgramInfo> programList;
@@ -39,7 +41,7 @@ namespace Program {
             camList = camInfoList;
             presetList = presettingList;
             modeColors = ModeColors.Singleton(_ea);
-
+            writer = new ProgramParser(constant.PROGRAM_FILE);
             List<CameraCommand> list = new List<CameraCommand>();
             save(-1);
             _ea.GetEvent<ProgramSaveEvent>().Subscribe(save);
