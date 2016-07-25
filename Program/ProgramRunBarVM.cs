@@ -6,7 +6,7 @@ using NotificationCenter;
 using ptz_camera;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows.Forms;
+using System.Windows;
 using System.Windows.Input;
 using Util;
 
@@ -20,6 +20,12 @@ namespace Program {
         public ModeColors modeColors { get; set; }
 
         ProgramInfo runningProgram;
+
+        Visibility runningProgramRedVisible;
+        public Visibility RunningProgramRedVisible {
+            get { return runningProgramRedVisible; }
+            set { SetProperty(ref runningProgramRedVisible, value); }
+        }
 
         int selectedIndex;
         public int SelectedIndex {
@@ -45,6 +51,7 @@ namespace Program {
             runningProgramString = RunningProgramPlaceHolder;
             runningProgramStatusString = "";
             SelectedIndex = -1;
+            RunningProgramRedVisible = Visibility.Hidden;
             _ea.GetEvent<ProgramRunEvent>().Subscribe(run);
             _ea.GetEvent<ProgramStartResponseEvent>().Subscribe(startProgramResponse);
             _ea.GetEvent<ProgramStopResponseEvent>().Subscribe(stopProgramResponse);
@@ -81,6 +88,7 @@ namespace Program {
                     runningProgram = ProgramList[SelectedIndex];
                     runningProgramString = program.ProgramName;
                     updateProgramString();
+                    RunningProgramRedVisible = Visibility.Visible;
                     _ea.GetEvent<PreviewPauseEvent>().Publish(true);
                 }
             }
@@ -114,6 +122,7 @@ namespace Program {
             runningProgramString = RunningProgramPlaceHolder;
             runningProgramStatusString = "";
             updateProgramString();
+            RunningProgramRedVisible = Visibility.Hidden;
             _ea.GetEvent<PreviewResumeEvent>().Publish(true);
         }
 
