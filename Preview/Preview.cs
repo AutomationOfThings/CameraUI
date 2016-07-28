@@ -1,4 +1,5 @@
-﻿using Microsoft.Practices.Prism.PubSubEvents;
+﻿
+using Microsoft.Practices.Prism.PubSubEvents;
 using Util;
 using System.Windows;
 using Microsoft.Practices.Prism.Mvvm;
@@ -166,7 +167,7 @@ namespace Preview {
                 MessageBox.Show("Preset cannot be applied to this camera.");
             } else {
                 CurrentSetting = preset;
-                // CurrentCamera.changePTZ(PTZ_MODE.Absolute, preset.pan, preset.tilt, preset.zoom);
+                
                 SliderPan = Convert.ToInt32(preset.pan);
                 SliderTilt = Convert.ToInt32(preset.tilt);
                 UndoRedoManager.clear();

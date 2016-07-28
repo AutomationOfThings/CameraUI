@@ -58,6 +58,7 @@ namespace Output {
             if (IP2CameraInfo.ContainsKey(res.ip_address)) {
                 isRunningProgram = true;
                 OutputCamera = IP2CameraInfo[res.ip_address];
+                _ea.GetEvent<CameraOutPutEvent>().Publish(OutputCamera);
             }
 
         }
@@ -67,6 +68,7 @@ namespace Output {
             OutputCamera = null;
             Idle = Visibility.Visible;
             Active = Visibility.Hidden;
+            _ea.GetEvent<CameraOutPutEvent>().Publish(OutputCamera);
         }
 
         private void outPutCameraFromCamlist(CameraInfo cam) {

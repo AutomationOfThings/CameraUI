@@ -146,12 +146,14 @@ namespace Camera {
         }
 
         public void beOutput(CameraInfo cam) {
-            if (CamInfo.CameraName == cam.CameraName) { Output = Visibility.Visible; } 
+            if (cam == null) { Output = Visibility.Hidden; }
+            else if (CamInfo.CameraName == cam.CameraName) { Output = Visibility.Visible; } 
             else { Output = Visibility.Hidden; }
         }
 
         public void bePreview(CameraInfo cam) {
-            if (CamInfo.CameraName == cam.CameraName) { Preview = Visibility.Visible; }
+            if (cam == null) { Preview = Visibility.Hidden; }
+            else if (CamInfo.CameraName == cam.CameraName) { Preview = Visibility.Visible; }
             else { Preview = Visibility.Hidden; }
         }
 

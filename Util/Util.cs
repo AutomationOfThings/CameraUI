@@ -314,11 +314,16 @@ namespace Util {
         }
 
         public void changePTZ(PTZ_MODE mode, double p, double t, double z) {
-            if (DateTime.Now.Ticks / 10000 - lastPtzUpdateTime > 100) {
-                Debug.WriteLine((DateTime.Now.Ticks / 10000).ToString());
-                lastPtzUpdateTime = DateTime.Now.Ticks / 10000;
+            if (Zoom > 22) {
+                CameraConnnector.requestPtzControl(IP, mode, (int)Pan, (int)Tilt, (int)z);
+                CameraConnnector.requestPtzControl(IP, mode, (int)p, (int)t, (int)z);
+            } else if (Zoom < 12) {
+                CameraConnnector.requestPtzControl(IP, mode, (int)p, (int)t, (int)Zoom);
+                CameraConnnector.requestPtzControl(IP, mode, (int)p, (int)t, (int)z);
+            } else {
                 CameraConnnector.requestPtzControl(IP, mode, (int)p, (int)t, (int)z);
             }
+            
         }
 
         /* these set of functions use .NET HttpWebRequest to connect with SumSung Camera
