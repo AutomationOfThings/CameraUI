@@ -12,7 +12,7 @@ The setup project in the solution uses Microsoft Visual Studio 2015 Installer Pr
 1. Prism
 2. Extended.Wpf.Toolkit.2.8
 3. MJPEG-Decoder.1.2
-4. The CameraUI uses functionalities from LCM API. Therefore you need to add lcm.dll under directiry packages/LCM. You can update LCM API by simply replacing lcm.dll in packages/LCM
+4. The CameraUI uses functionalities from LCM API. Therefore you need to add lcm.dll under directiry packages/LCM. You can update LCM API by simply replacing lcm.dll in packages/LCM. Follow the instructions in CameraRT to get lcm.dll file.
 5. Note that 1,2 and 3 can be restored in Visual Studio 2015
 
 ## Other files required for running from Visual Studio:
